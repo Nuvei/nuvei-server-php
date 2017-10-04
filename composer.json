@@ -1,5 +1,5 @@
 {
-  "name": "SafeChargeInternational/safecharge-php",
+  "name": "safecharge-international/safecharge-php",
   "type": "library",
   "description": "A PHP client library for accessing SafeCharge API",
   "keywords": [

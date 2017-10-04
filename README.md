@@ -9,7 +9,7 @@ PHP 5.4 or later.
 # Installation
 ### Installation via Composer
 ```bash
-composer require SafeChargeInternational/safecharge-php
+composer require safecharge-international/safecharge-php
 ```
 ### Manual
 If you do not wish to use Composer, you can download the [latest release](https://github.com/SafeChargeInternational/safecharge-php/releases). Then include the `init.php` file.

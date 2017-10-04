@@ -25,7 +25,7 @@ The PHP SDK require the following extension in order to work properly:
 - [`json`](https://secure.php.net/manual/en/book.json.php)
 
 ## Configuration
-###Client
+### Client
 ```php
 $client = new \SafeCharge\Api\RestClient([
     'environment'       => \SafeCharge\Api\Environment::TEST,
@@ -49,14 +49,14 @@ $config->setMerchantSecretKey('<your merchantSecretKey>');
 
 Logger can be configured with a [`PSR-3` compatible logger][psr3] so that messages end up there instead of `error_log`:
 
-####Example with Monolog
+#### Example with Monolog
 ```php
 $logger = new Monolog\Logger('safecharge-php-sdk');
 $logger->pushHandler(new Monolog\Handler\StreamHandler('path/to/log', Monolog\Logger::DEBUG));
 $client->setLogger($logger);
 ```
 
-##Example
+## Example
 Safecharge's PHP SDK appends merchantId, merchantSiteId, timestamp and checksum in the request.
 ```php
 <?php

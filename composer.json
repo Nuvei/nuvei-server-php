@@ -1,0 +1,25 @@
+{
+  "name": "SafeChargeInternational/safecharge-php",
+  "type": "library",
+  "description": "A PHP client library for accessing SafeCharge API",
+  "keywords": [
+    "safecharge"
+  ],
+  "homepage": "https://github.com/SafeChargeInternational/safecharge-php",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.4",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "monolog/monolog": "^1.23"
+  },
+  "autoload": {
+    "psr-4": {
+      "SafeCharge\\Api\\": "src/SafeCharge/Api"
+    },
+    "classmap": [
+    ]
+  }
+}

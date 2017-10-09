@@ -47,7 +47,7 @@ $config->setMerchantSecretKey('<your merchantSecretKey>');
 ```
 ### Logger
 
-Logger can be configured with a [`PSR-3` compatible logger][psr3] so that messages end up there instead of `error_log`:
+Logger can be configured with a [PSR-3 compatible logger](http://www.php-fig.org/psr/psr-3/) .
 
 #### Example with Monolog
 ```php
@@ -98,4 +98,3 @@ $orderService = new \SafeCharge\Api\Service\OrdersManagement($client);
 $openOrderResponse = $orderService->openOrder($openOrderParams);
 
 ```
-

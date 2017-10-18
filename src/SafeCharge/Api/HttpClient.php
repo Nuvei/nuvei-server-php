@@ -184,7 +184,7 @@ class HttpClient implements HttpClientInterface
      * @param $logger
      * @throws ResponseException
      */
-    protected function handleResultError($result, LoggerInterface $logger)
+    protected function handleResultError($result, $logger)
     {
         $decodedResult = json_decode($result, true);
         if (isset($decodedResult['errCode']) && !empty($decodedResult['errCode'])) {

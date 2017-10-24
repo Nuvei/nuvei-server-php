@@ -51,7 +51,8 @@ class SimpleData
             "city"      => "some city",
             "zip"       => "123456",
             "country"   => "US",
-            "state"     => "AK"
+            "state"     => "AK",
+            "county"    => "Anchorage"
         ];
     }
 
@@ -67,7 +68,8 @@ class SimpleData
             "city"      => "some city",
             "zip"       => "123456",
             "country"   => "US",
-            "state"     => "AK"
+            "state"     => "AK",
+            "county"    => "Anchorage"
         ];
     }
 
@@ -83,6 +85,7 @@ class SimpleData
             "city"            => "some city",
             $countryParameter => "US",
             "state"           => "AK",
+            "county"          => "Anchorage",
             "email"           => "someemail@somedomain.com",
         ];
     }
@@ -99,7 +102,12 @@ class SimpleData
             "customInfoField7"  => "",
             "customInfoField8"  => "",
             "customInfoField9"  => "",
-            "customInfoField10" => ""
+            "customInfoField10" => "",
+            "customInfoField11" => "",
+            "customInfoField12" => "",
+            "customInfoField13" => "",
+            "customInfoField14" => "",
+            "customInfoField15" => "",
         ];
     }
 

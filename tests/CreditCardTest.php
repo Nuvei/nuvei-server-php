@@ -54,11 +54,22 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('orderId', $response);
     }
 
+    public function testPaymentCCWithOrderIdAndCard()
+    {
+        //TestCaseHelper::openOrderAndReturnOrderId() will create a new sessionToken
+        $orderId = TestCaseHelper::openOrderAndReturnOrderId();
+        $params             = $this->getExampleData();
+        $params['cardData'] = SimpleData::getCarData();
+        $params['orderId']  = $orderId;
+
+        $response = $this->_service->paymentCC($params);
+        $this->assertContains('orderId', $response);
+    }
+
     public function getExampleData()
     {
         $params = [
             'sessionToken'      => TestCaseHelper::getSessionToken(),
-            // "orderId"           => "",
             'userTokenId'       => TestCaseHelper::getUserTokenId(),
             'clientRequestId'   => '',
             'transactionType'   => 'Auth',

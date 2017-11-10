@@ -7,6 +7,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Service\AuthenticationManagement;
+use SafeCharge\Api\Service\OrdersManagement;
 use SafeCharge\Api\Service\Payments\CreditCard;
 use SafeCharge\Api\Service\UsersManagement;
 
@@ -129,6 +130,32 @@ class TestCaseHelper extends \PHPUnit_Framework_TestCase
 
         $response = $service->paymentCC($params);
         return $response;
+    }
+
+    public static function openOrderAndReturnOrderId()
+    {
+        $service = new OrdersManagement(self::getClient());
+        self::setSessionToken(null);
+        $params = [
+            'sessionToken'      => TestCaseHelper::getSessionToken(),
+            'userTokenId'       => TestCaseHelper::getUserTokenId(),
+            'clientUniqueId'    => '',
+            'clientRequestId'   => '',
+            'currency'          => 'USD',
+            'amount'            => "10",
+            'amountDetails'     => SimpleData::getAmountDetails(),
+            'items'             => SimpleData::getItems(),
+            'deviceDetails'     => SimpleData::getDeviceDetails(),
+            'userDetails'       => SimpleData::getUserDetails(),
+            'shippingAddress'   => SimpleData::getShippingAddress(),
+            'billingAddress'    => SimpleData::getBillingAddress(),
+            'dynamicDescriptor' => SimpleData::getDynamicDescriptor(),
+            'merchantDetails'   => SimpleData::getMerchantDetails(),
+            'addendums'         => SimpleData::getAddEndUms(),
+        ];
+
+        $response = $service->openOrder($params);
+        return $response['orderId'];
     }
 
 }

@@ -57,7 +57,7 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
     public function testPaymentCCWithOrderIdAndCard()
     {
         //TestCaseHelper::openOrderAndReturnOrderId() will create a new sessionToken
-        $orderId = TestCaseHelper::openOrderAndReturnOrderId();
+        $orderId            = TestCaseHelper::openOrderAndReturnOrderId();
         $params             = $this->getExampleData();
         $params['cardData'] = SimpleData::getCarData();
         $params['orderId']  = $orderId;
@@ -75,7 +75,7 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
             'transactionType'   => 'Auth',
             'isRebilling'       => '0',
             'isPartialApproval' => '0',
-            'currency'          => 'EUR',
+            'currency'          => SimpleData::getCurrency(),
             'amount'            => "10",
             'amountDetails'     => SimpleData::getAmountDetails(),
             'items'             => SimpleData::getItems(),

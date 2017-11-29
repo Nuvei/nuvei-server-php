@@ -8,6 +8,20 @@ use SafeCharge\Api\Utils;
 class UserPaymentOptions extends BaseService
 {
 
+    private $commonBillingAddressCheckSumOrder = [
+        'firstName',
+        'lastName',
+        'address',
+        'phone',
+        'zip',
+        'city',
+        'countryCode',
+        'state',
+        'email',
+        'county'
+
+    ];
+
     /**
      * UserPaymentOptions constructor.
      * @param RestClient $client

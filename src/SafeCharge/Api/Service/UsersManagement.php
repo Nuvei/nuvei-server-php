@@ -41,6 +41,7 @@ class UsersManagement extends BaseService
             'phone',
             'locale',
             'email',
+            'county',
             'timeStamp',
             'merchantSecretKey'
         ];
@@ -80,6 +81,7 @@ class UsersManagement extends BaseService
             'phone',
             'locale',
             'email',
+            'county',
             'timeStamp',
             'merchantSecretKey'
         ];

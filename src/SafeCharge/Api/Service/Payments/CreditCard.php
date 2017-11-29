@@ -39,7 +39,7 @@ class CreditCard extends BaseService
      */
     public function paymentCC(array $params)
     {
-        $mandatoryFields = ['sessionToken', 'merchantId', 'merchantSiteId', 'transactionType', 'isRebilling', 'currency', 'amount', 'items', 'timeStamp', 'checksum'];
+        $mandatoryFields = ['sessionToken', 'merchantId', 'merchantSiteId', 'transactionType', 'isRebilling', 'currency', 'amount','amountDetails', 'items', 'timeStamp', 'checksum'];
 
         $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'amount', 'currency', 'timeStamp', 'merchantSecretKey'];
 

@@ -9,6 +9,7 @@ use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Service\AuthenticationManagement;
 use SafeCharge\Api\Service\OrdersManagement;
 use SafeCharge\Api\Service\Payments\CreditCard;
+use SafeCharge\Api\Service\UserPaymentOptions;
 use SafeCharge\Api\Service\UsersManagement;
 
 class TestCaseHelper extends \PHPUnit_Framework_TestCase
@@ -105,7 +106,7 @@ class TestCaseHelper extends \PHPUnit_Framework_TestCase
             'transactionType'   => $isAuth ? 'Auth' : 'Sale',
             'isRebilling'       => '0',
             'isPartialApproval' => '0',
-            'currency'          => 'EUR',
+            'currency'          => SimpleData::getCurrency(),
             'amount'            => $amount,
             'amountDetails'     => SimpleData::getAmountDetails(),
             'items'             => SimpleData::getItems(),
@@ -141,7 +142,7 @@ class TestCaseHelper extends \PHPUnit_Framework_TestCase
             'userTokenId'       => TestCaseHelper::getUserTokenId(),
             'clientUniqueId'    => '',
             'clientRequestId'   => '',
-            'currency'          => 'USD',
+            'currency'          => SimpleData::getCurrency(),
             'amount'            => "10",
             'amountDetails'     => SimpleData::getAmountDetails(),
             'items'             => SimpleData::getItems(),
@@ -156,6 +157,23 @@ class TestCaseHelper extends \PHPUnit_Framework_TestCase
 
         $response = $service->openOrder($params);
         return $response['orderId'];
+    }
+
+    public static function getUPOCreditCardId()
+    {
+        $service = new UserPaymentOptions(self::getClient());
+
+        $cardData = SimpleData::getCarData();
+        $params   = [
+            'userTokenId'     => TestCaseHelper::getUserTokenId(),
+            'clientRequestId' => '235',
+            'ccCardNumber'    => $cardData['cardNumber'],
+            'ccExpMonth'      => $cardData['expirationMonth'],
+            'ccExpYear'       => $cardData['expirationYear'],
+            'ccNameOnCard'    => $cardData['cardHolderName'],
+        ];
+        $response = $service->addUPOCreditCard($params);
+        return $response['userPaymentOptionId'];
     }
 
 }

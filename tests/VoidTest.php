@@ -22,7 +22,7 @@ class VoidTest extends \PHPUnit_Framework_TestCase
             'clientRequestId'         => '100',
             'clientUniqueId'          => '12345',
             'amount'                  => "9.0",
-            'currency'                => 'EUR',
+            'currency'                => SimpleData::getCurrency(),
             'relatedTransactionId'    => $transactionData['transactionId'],
             'authCode'                => $transactionData['authCode'],
             'descriptorMerchantName'  => 'Name',

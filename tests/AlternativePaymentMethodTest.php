@@ -36,7 +36,7 @@ class AlternativePaymentMethodTest extends \PHPUnit_Framework_TestCase
             'userTokenId'        => TestCaseHelper::getUserTokenId(),
             'clientUniqueId'     => '12345',
             'clientRequestId'    => '1484759782197',
-            'currency'           => 'EUR',
+            'currency'           => SimpleData::getCurrency(),
             'amount'             => "10",
             'amountDetails'      => SimpleData::getAmountDetails(),
             'items'              => SimpleData::getItems(),

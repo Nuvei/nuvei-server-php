@@ -23,7 +23,7 @@ class RefundTest extends \PHPUnit_Framework_TestCase
             'clientRequestId'      => '100',
             'clientUniqueId'       => '12345',
             'amount'               => 10,
-            'currency'             => 'EUR',
+            'currency'             => SimpleData::getCurrency(),
             'relatedTransactionId' => $transactionData['transactionId'],
             'authCode'             => $transactionData['authCode'],
             'comment'              => 'some comment',

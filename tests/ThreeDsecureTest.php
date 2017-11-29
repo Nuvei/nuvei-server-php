@@ -52,7 +52,7 @@ class ThreeDsecureTest extends \PHPUnit_Framework_TestCase
             'clientUniqueId'    => '12345',
             'clientRequestId'   => '1484759782197',
             'isDynamic3D'       => '0',
-            'currency'          => 'EUR',
+            'currency'          => SimpleData::getCurrency(),
             'amount'            => "5000",
             'amountDetails'     => SimpleData::getAmountDetails(),
             'items'             => [

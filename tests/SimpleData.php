@@ -7,6 +7,11 @@ namespace SafeCharge\Tests;
 class SimpleData
 {
 
+    public static function getCurrency()
+    {
+        return 'EUR';
+    }
+
     public static function getAmountDetails()
     {
         return [
@@ -85,8 +90,8 @@ class SimpleData
             "city"            => "some city",
             $countryParameter => "US",
             "state"           => "AK",
-            "county"          => "Anchorage",
             "email"           => "someemail@somedomain.com",
+            "county"          => "Anchorage",
         ];
     }
 
@@ -115,7 +120,7 @@ class SimpleData
     {
         return [
             "merchantName"  => "merchantName",
-            "merchantPhone" => "merchantPhone"
+            "merchantPhone" => "+4412378"
         ];
     }
 

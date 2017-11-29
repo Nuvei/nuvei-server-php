@@ -41,4 +41,16 @@ class Utils
         return $string;
     }
 
+    /**
+     * @param $element
+     * @param $array
+     */
+    public static function removeElementFromArray($element, &$array)
+    {
+        $index = array_search($element, $array);
+        if ($index !== false) {
+            unset($array[$index]);
+        }
+    }
+
 }

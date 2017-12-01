@@ -13,16 +13,20 @@ class RefundTest extends \PHPUnit_Framework_TestCase
         $this->_service = new Refund(TestCaseHelper::getClient());
     }
 
+    /**
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testRefundTransaction()
     {
-
-
-        $transactionData = TestCaseHelper::createAndReturnTransaction(10, false);
+        $transactionData = TestCaseHelper::createAndReturnTransaction(false);
 
         $params = [
             'clientRequestId'      => '100',
             'clientUniqueId'       => '12345',
-            'amount'               => 10,
+            'amount'               => SimpleData::getAmount(),
             'currency'             => SimpleData::getCurrency(),
             'relatedTransactionId' => $transactionData['transactionId'],
             'authCode'             => $transactionData['authCode'],

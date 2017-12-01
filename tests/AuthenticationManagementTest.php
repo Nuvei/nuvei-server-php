@@ -13,6 +13,11 @@ class AuthenticationManagementTest extends \PHPUnit_Framework_TestCase
         $this->_service = new AuthenticationManagement(TestCaseHelper::getClient());
     }
 
+    /**
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testGetSessionToken()
     {
         $response = $this->_service->getSessionToken(['clientRequestId' => "15"]);

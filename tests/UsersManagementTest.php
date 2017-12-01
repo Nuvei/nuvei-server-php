@@ -13,6 +13,12 @@ class UsersManagementTest extends \PHPUnit_Framework_TestCase
         $this->_service = new UsersManagement(TestCaseHelper::getClient());
     }
 
+    /**
+     * @return string
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testCreateUser()
     {
         $userTokenId = sha1(time());
@@ -41,6 +47,10 @@ class UsersManagementTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testCreateUser
      * @param $userTokenId
+     * @return string
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testUpdateUser($userTokenId)
     {
@@ -68,6 +78,9 @@ class UsersManagementTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testUpdateUser
      * @param $userTokenId
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testGetUserDetails($userTokenId)
     {

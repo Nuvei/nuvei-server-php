@@ -14,6 +14,13 @@ class OrdersManagementTest extends \PHPUnit_Framework_TestCase
         $this->_service = new OrdersManagement(TestCaseHelper::getClient());
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testOpenOrder()
     {
         TestCaseHelper::setSessionToken(null);
@@ -23,7 +30,7 @@ class OrdersManagementTest extends \PHPUnit_Framework_TestCase
             'clientUniqueId'    => '',
             'clientRequestId'   => '',
             'currency'          => SimpleData::getCurrency(),
-            'amount'            => "10",
+            'amount'            => SimpleData::getAmount(),
             'amountDetails'     => SimpleData::getAmountDetails(),
             'items'             => SimpleData::getItems(),
             'deviceDetails'     => SimpleData::getDeviceDetails(),
@@ -43,6 +50,9 @@ class OrdersManagementTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testOpenOrder
      * @param $orderId
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testUpdateOrder($orderId)
     {
@@ -52,7 +62,7 @@ class OrdersManagementTest extends \PHPUnit_Framework_TestCase
             'clientUniqueId'    => '',
             'clientRequestId'   => '',
             'currency'          => SimpleData::getCurrency(),
-            'amount'            => "10",
+            'amount'            => SimpleData::getAmount(),
             'amountDetails'     => SimpleData::getAmountDetails(),
             'items'             => SimpleData::getItems(),
             'deviceDetails'     => SimpleData::getDeviceDetails(),
@@ -83,6 +93,9 @@ class OrdersManagementTest extends \PHPUnit_Framework_TestCase
      * @depends testOpenOrder
      * @depends testUpdateOrder
      * @param $orderId
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testGetOrderDetails($orderId)
     {

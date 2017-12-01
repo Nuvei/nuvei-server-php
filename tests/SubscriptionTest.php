@@ -13,6 +13,12 @@ class SubscriptionTest extends \PHPUnit_Framework_TestCase
         $this->_service = new Subscription(TestCaseHelper::getClient());
     }
 
+    /**
+     * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testGetSubscriptionPlans()
     {
         $params = [
@@ -28,7 +34,11 @@ class SubscriptionTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testGetSubscriptionPlans
      * @param $subscriptionPlans
-     * @return
+     * @return mixed
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testCreateSubscription($subscriptionPlans)
     {
@@ -54,6 +64,10 @@ class SubscriptionTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testCreateSubscription
      * @param $subscriptionId
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testCancelSubscription($subscriptionId)
     {
@@ -70,6 +84,10 @@ class SubscriptionTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testCreateSubscription
      * @param $subscriptionId
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testGetSubscriptionList($subscriptionId)
     {

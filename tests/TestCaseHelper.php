@@ -12,7 +12,7 @@ use SafeCharge\Api\Service\Payments\CreditCard;
 use SafeCharge\Api\Service\UserPaymentOptions;
 use SafeCharge\Api\Service\UsersManagement;
 
-class TestCaseHelper extends \PHPUnit_Framework_TestCase
+class TestCaseHelper
 {
     private static $_client = null;
 
@@ -45,6 +45,12 @@ class TestCaseHelper extends \PHPUnit_Framework_TestCase
         return self::$_client;
     }
 
+    /**
+     * @return string
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public static function getSessionToken()
     {
         if (self::$_sessionToken == null) {
@@ -65,6 +71,13 @@ class TestCaseHelper extends \PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * @return null|string
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public static function getUserTokenId()
     {
         if (self::$_userTokenId == null) {
@@ -94,7 +107,15 @@ class TestCaseHelper extends \PHPUnit_Framework_TestCase
         return self::$_userTokenId;
     }
 
-    public static function createAndReturnTransaction($amount = 10, $isAuth = false)
+    /**
+     * @param bool $isAuth
+     * @return mixed
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
+    public static function createAndReturnTransaction($isAuth = false)
     {
         $service = new CreditCard(self::getClient());
         self::setSessionToken(null);
@@ -107,7 +128,7 @@ class TestCaseHelper extends \PHPUnit_Framework_TestCase
             'isRebilling'       => '0',
             'isPartialApproval' => '0',
             'currency'          => SimpleData::getCurrency(),
-            'amount'            => $amount,
+            'amount'            => SimpleData::getAmount(),
             'amountDetails'     => SimpleData::getAmountDetails(),
             'items'             => SimpleData::getItems(),
             'deviceDetails'     => SimpleData::getDeviceDetails(),
@@ -116,15 +137,7 @@ class TestCaseHelper extends \PHPUnit_Framework_TestCase
             'billingAddress'    => SimpleData::getBillingAddress(),
             'dynamicDescriptor' => SimpleData::getDynamicDescriptor(),
             'merchantDetails'   => SimpleData::getMerchantDetails(),
-            'addendums'         => [
-                'localPayment' => [
-                    'nationalId'            => '012345678',
-                    'debitType'             => '2',
-                    'firstInstallment'      => '4',
-                    'periodicalInstallment' => '3',
-                    'numberOfInstallments'  => '3'
-                ]
-            ],
+            'addendums'         => SimpleData::getAddEndUms(),
             'cardData'          => SimpleData::getCarData(),
             'urlDetails'        => SimpleData::getUrlDetails()
         ];
@@ -133,6 +146,13 @@ class TestCaseHelper extends \PHPUnit_Framework_TestCase
         return $response;
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public static function openOrderAndReturnOrderId()
     {
         $service = new OrdersManagement(self::getClient());
@@ -143,7 +163,7 @@ class TestCaseHelper extends \PHPUnit_Framework_TestCase
             'clientUniqueId'    => '',
             'clientRequestId'   => '',
             'currency'          => SimpleData::getCurrency(),
-            'amount'            => "10",
+            'amount'            => SimpleData::getAmount(),
             'amountDetails'     => SimpleData::getAmountDetails(),
             'items'             => SimpleData::getItems(),
             'deviceDetails'     => SimpleData::getDeviceDetails(),
@@ -159,11 +179,18 @@ class TestCaseHelper extends \PHPUnit_Framework_TestCase
         return $response['orderId'];
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public static function getUPOCreditCardId()
     {
         $service = new UserPaymentOptions(self::getClient());
 
-        $cardData = SimpleData::getCarData();
+        $cardData = SimpleData::getCarData('4916448652944');
         $params   = [
             'userTokenId'     => TestCaseHelper::getUserTokenId(),
             'clientRequestId' => '235',

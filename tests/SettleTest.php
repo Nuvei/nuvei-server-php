@@ -13,10 +13,18 @@ class SettleTest extends \PHPUnit_Framework_TestCase
         $this->_service = new Settle(TestCaseHelper::getClient());
     }
 
+    /**
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testSettleTransaction()
     {
 
-        $transactionData = TestCaseHelper::createAndReturnTransaction(10, true);
+        $transactionData = TestCaseHelper::createAndReturnTransaction(true);
+
+        $dynamicDescriptor = SimpleData::getDynamicDescriptor();
 
         $params = [
             'clientRequestId'         => '100',
@@ -25,8 +33,8 @@ class SettleTest extends \PHPUnit_Framework_TestCase
             'currency'                => SimpleData::getCurrency(),
             'relatedTransactionId'    => $transactionData['transactionId'],
             'authCode'                => $transactionData['authCode'],
-            'descriptorMerchantName'  => 'Name',
-            'descriptorMerchantPhone' => '+4412378',
+            'descriptorMerchantName'  => $dynamicDescriptor['merchantName'],
+            'descriptorMerchantPhone' => $dynamicDescriptor['merchantPhone'],
             'comment'                 => 'some comment',
             'urlDetails'              => SimpleData::getUrlDetails(true),
         ];

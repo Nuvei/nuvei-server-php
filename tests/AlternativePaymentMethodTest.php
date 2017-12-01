@@ -13,6 +13,11 @@ class AlternativePaymentMethodTest extends \PHPUnit_Framework_TestCase
         $this->_service = new AlternativePaymentMethod(TestCaseHelper::getClient());
     }
 
+    /**
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testGetMerchantPaymentMethods()
     {
         $params = [
@@ -27,6 +32,12 @@ class AlternativePaymentMethodTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('SUCCESS', $response['status']);
     }
 
+    /**
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testPaymentAPM()
     {
         TestCaseHelper::setSessionToken(null);
@@ -37,7 +48,7 @@ class AlternativePaymentMethodTest extends \PHPUnit_Framework_TestCase
             'clientUniqueId'     => '12345',
             'clientRequestId'    => '1484759782197',
             'currency'           => SimpleData::getCurrency(),
-            'amount'             => "10",
+            'amount'             => SimpleData::getAmount(),
             'amountDetails'      => SimpleData::getAmountDetails(),
             'items'              => SimpleData::getItems(),
             'deviceDetails'      => SimpleData::getDeviceDetails(),

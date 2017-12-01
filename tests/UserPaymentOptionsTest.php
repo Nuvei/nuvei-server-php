@@ -15,6 +15,13 @@ class UserPaymentOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testAddUPOCreditCard()
     {
         $cardData = SimpleData::getCarData();
@@ -37,6 +44,10 @@ class UserPaymentOptionsTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testAddUPOCreditCard
      * @param $addUPOCreditCardResponse
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testAddUPOCreditCardByToken($addUPOCreditCardResponse)
     {
@@ -59,6 +70,12 @@ class UserPaymentOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('SUCCESS', $response['status']);
     }
 
+    /**
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testAddUPOCreditCardByTempToken()
     {
         //Generating ccTempToken
@@ -84,6 +101,13 @@ class UserPaymentOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('userPaymentOptionId', $response);
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testAddUPOAPM()
     {
         $params   = [
@@ -103,6 +127,10 @@ class UserPaymentOptionsTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testAddUPOAPM
      * @param $userPaymentOptionId
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testEditUPOAPM($userPaymentOptionId)
     {
@@ -122,6 +150,10 @@ class UserPaymentOptionsTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testAddUPOCreditCard
      * @param $addUPOCreditCardResponse
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testEditUPOCC($addUPOCreditCardResponse)
     {
@@ -144,6 +176,10 @@ class UserPaymentOptionsTest extends \PHPUnit_Framework_TestCase
      * @depends testAddUPOCreditCardByTempToken
      * @depends testAddUPOAPM
      * @depends testEditUPOAPM
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testGetUserUPOs()
     {
@@ -161,6 +197,11 @@ class UserPaymentOptionsTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testGetUserUPOs
      * @param $paymentMethods
+     * @return integer
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testSuspendUPO($paymentMethods)
     {
@@ -178,6 +219,11 @@ class UserPaymentOptionsTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testSuspendUPO
      * @param $userPaymentOptionId
+     * @return integer
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testEnableUPO($userPaymentOptionId)
     {
@@ -195,6 +241,10 @@ class UserPaymentOptionsTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testSuspendUPO
      * @param $userPaymentOptionId
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testDeleteUPO($userPaymentOptionId)
     {

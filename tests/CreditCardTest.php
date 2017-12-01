@@ -14,6 +14,13 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
         $this->_service = new CreditCard(TestCaseHelper::getClient());
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testCardTokenization()
     {
         TestCaseHelper::setSessionToken(null);
@@ -31,6 +38,10 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testCardTokenization
      * @param $ccTempToken
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testPaymentCCWithCcTempToken($ccTempToken)
     {
@@ -38,12 +49,18 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
          * The tempToken should be send with the sessionKey which It was generated.
          */
         $params             = $this->getExampleData();
-        $params['cardData'] = SimpleData::getCarData($ccTempToken);
+        $params['cardData'] = SimpleData::getCarData(false, $ccTempToken);
 
         $response = $this->_service->paymentCC($params);
         $this->assertContains('orderId', $response);
     }
 
+    /**
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testPaymentCCWithCard()
     {
         TestCaseHelper::setSessionToken(null);
@@ -54,6 +71,12 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('orderId', $response);
     }
 
+    /**
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testPaymentCCWithOrderIdAndCard()
     {
         //TestCaseHelper::openOrderAndReturnOrderId() will create a new sessionToken
@@ -66,6 +89,13 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('orderId', $response);
     }
 
+    /**
+     * @return array
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function getExampleData()
     {
         $params = [
@@ -76,7 +106,7 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
             'isRebilling'       => '0',
             'isPartialApproval' => '0',
             'currency'          => SimpleData::getCurrency(),
-            'amount'            => "10",
+            'amount'            => SimpleData::getAmount(),
             'amountDetails'     => SimpleData::getAmountDetails(),
             'items'             => SimpleData::getItems(),
             'deviceDetails'     => SimpleData::getDeviceDetails(),
@@ -85,15 +115,7 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
             'billingAddress'    => SimpleData::getBillingAddress(),
             'dynamicDescriptor' => SimpleData::getDynamicDescriptor(),
             'merchantDetails'   => SimpleData::getMerchantDetails(),
-            'addendums'         => [
-                'localPayment' => [
-                    'nationalId'            => '012345678',
-                    'debitType'             => '2',
-                    'firstInstallment'      => '4',
-                    'periodicalInstallment' => '3',
-                    'numberOfInstallments'  => '3'
-                ]
-            ],
+            'addendums'         => SimpleData::getAddEndUms(),
             'cardData'          => [],
 //            'userPaymentOption' => SimpleData::getUserPaymentOption(),
             'urlDetails'        => SimpleData::getUrlDetails()

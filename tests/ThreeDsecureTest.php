@@ -17,7 +17,7 @@ class ThreeDsecureTest extends \PHPUnit_Framework_TestCase
     {
         TestCaseHelper::setSessionToken(null);
         $params             = $this->getExampleData();
-        $params['cardData'] = SimpleData::getCarData();
+        $params['cardData'] = SimpleData::getCarData('5150906102780140');
 
         $response = $this->_service->dynamic3D($params);
         $this->assertContains('orderId', $response);
@@ -28,6 +28,10 @@ class ThreeDsecureTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testDynamic3d
      * @param $orderId
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function testPayment3d($orderId)
     {
@@ -43,6 +47,13 @@ class ThreeDsecureTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('SUCCESS', $response['status']);
     }
 
+    /**
+     * @return array
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function getExampleData()
     {
         $params = [
@@ -69,15 +80,7 @@ class ThreeDsecureTest extends \PHPUnit_Framework_TestCase
             'billingAddress'    => SimpleData::getBillingAddress(),
             'dynamicDescriptor' => SimpleData::getDynamicDescriptor(),
             'merchantDetails'   => SimpleData::getMerchantDetails(),
-            'addendums'         => [
-                'localPayment' => [
-                    'nationalId'            => '012345678',
-                    'debitType'             => '2',
-                    'firstInstallment'      => '4',
-                    'periodicalInstallment' => '3',
-                    'numberOfInstallments'  => '3'
-                ]
-            ],
+            'addendums'         => SimpleData::getAddEndUms(),
             'cardData'          => [],
 //        'userPaymentOption' => SimpleData::getUserPaymentOption(),
             'urlDetails'        => SimpleData::getUrlDetails(true)

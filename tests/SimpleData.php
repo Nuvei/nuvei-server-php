@@ -12,6 +12,11 @@ class SimpleData
         return 'EUR';
     }
 
+    public static function getAmount()
+    {
+        return "10";
+    }
+
     public static function getAmountDetails()
     {
         return [
@@ -28,7 +33,7 @@ class SimpleData
             [
                 "id"       => "1",
                 "name"     => "name",
-                "price"    => "10",
+                "price"    => self::getAmount(),
                 "quantity" => "1"
             ]
         ];
@@ -88,8 +93,8 @@ class SimpleData
             "phone"           => "972502457558",
             "zip"             => "123456",
             "city"            => "some city",
-            $countryParameter => "US",
-            "state"           => "AK",
+            $countryParameter => "DE",
+            "state"           => "",
             "email"           => "someemail@somedomain.com",
             "county"          => "Anchorage",
         ];
@@ -124,11 +129,14 @@ class SimpleData
         ];
     }
 
-    public static function getCarData($ccTempToken = false)
+    public static function getCarData($cardNumber = false, $ccTempToken = false)
     {
+        if ($cardNumber === false) {
+            $cardNumber = '4012001037141112';
+        }
         if ($ccTempToken == false) {
             return [
-                'cardNumber'      => '4012001037141112',
+                'cardNumber'      => $cardNumber,
                 'cardHolderName'  => 'some name',
                 'expirationMonth' => '01',
                 'expirationYear'  => '2020',

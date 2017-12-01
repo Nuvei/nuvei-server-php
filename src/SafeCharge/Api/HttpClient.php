@@ -9,7 +9,10 @@ use SafeCharge\Api\Exception\SafeChargeException;
 use SafeCharge\Api\Interfaces\HttpClientInterface;
 use SafeCharge\Api\Interfaces\ServiceInterface;
 
-
+/**
+ * Class HttpClient
+ * @package SafeCharge\Api
+ */
 class HttpClient implements HttpClientInterface
 {
     /**
@@ -19,6 +22,8 @@ class HttpClient implements HttpClientInterface
      * @param $requestUrl
      * @param $params
      * @return mixed
+     * @throws ConnectionException
+     * @throws ResponseException
      */
     public function requestJson(ServiceInterface $service, $requestUrl, $params)
     {
@@ -81,6 +86,8 @@ class HttpClient implements HttpClientInterface
      * @param $requestUrl
      * @param $params
      * @return mixed
+     * @throws ConnectionException
+     * @throws ResponseException
      * @throws SafeChargeException
      */
     public function requestPost(ServiceInterface $service, $requestUrl, $params)

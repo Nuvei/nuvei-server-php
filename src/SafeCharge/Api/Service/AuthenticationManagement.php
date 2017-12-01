@@ -5,12 +5,17 @@ namespace SafeCharge\Api\Service;
 use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Utils;
 
+/**
+ * Class AuthenticationManagement
+ * @package SafeCharge\Api\Service
+ */
 class AuthenticationManagement extends BaseService
 {
 
     /**
      * AuthenticationManagement constructor.
      * @param RestClient $client
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
     {
@@ -20,6 +25,9 @@ class AuthenticationManagement extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#getSessionToken
      */
     public function getSessionToken(array $params = [])

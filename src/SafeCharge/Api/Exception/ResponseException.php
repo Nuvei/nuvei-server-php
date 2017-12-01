@@ -4,6 +4,10 @@ namespace SafeCharge\Api\Exception;
 
 use Exception;
 
+/**
+ * Class ResponseException
+ * @package SafeCharge\Api\Exception
+ */
 class ResponseException extends Exception
 {
     protected $_status;

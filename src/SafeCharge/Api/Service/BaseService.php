@@ -5,18 +5,31 @@ namespace SafeCharge\Api\Service;
 use SafeCharge\Api\Exception\ValidationException;
 use SafeCharge\Api\Interfaces\ServiceInterface;
 use SafeCharge\Api\RestClient;
-use SafeCharge\Api\Environment;
-use SafeCharge\Api\Exception\SafeChargeException;
 
+/**
+ * Class BaseService
+ * @package SafeCharge\Api\Service
+ */
 class BaseService implements ServiceInterface
 {
+    /**
+     * @var RestClient
+     */
     protected $_client;
+    /**
+     * @var string
+     */
     protected $_apiUrl;
+    /**
+     * @var
+     */
     protected $_errors;
+
 
     /**
      * BaseService constructor.
      * @param RestClient $client
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
     {
@@ -81,6 +94,8 @@ class BaseService implements ServiceInterface
      * @param $params
      * @param $endpoint
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
      */
     public function requestJson($params, $endpoint)
     {
@@ -93,6 +108,9 @@ class BaseService implements ServiceInterface
      * @param $params
      * @param $endpoint
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\SafeChargeException
      */
     public function requestPost($params, $endpoint)
     {

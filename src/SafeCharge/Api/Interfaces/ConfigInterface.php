@@ -4,6 +4,10 @@
 namespace SafeCharge\Api\Interfaces;
 
 
+/**
+ * Interface ConfigInterface
+ * @package SafeCharge\Api\Interfaces
+ */
 interface ConfigInterface
 {
     /**

@@ -5,12 +5,17 @@ namespace SafeCharge\Api\Service;
 use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Utils;
 
+/**
+ * Class OrdersManagement
+ * @package SafeCharge\Api\Service
+ */
 class OrdersManagement extends BaseService
 {
 
     /**
      * Authentication constructor.
      * @param RestClient $client
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
     {
@@ -20,6 +25,9 @@ class OrdersManagement extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#openOrder
      */
     public function openOrder(array $params)
@@ -42,6 +50,9 @@ class OrdersManagement extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#updateOrder
      */
     public function updateOrder(array $params)
@@ -64,6 +75,9 @@ class OrdersManagement extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#getOrderDetails
      */
     public function getOrderDetails(array $params)

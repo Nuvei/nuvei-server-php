@@ -1,18 +1,21 @@
 <?php
 
-
 namespace SafeCharge\Api\Service\Payments;
-
 
 use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Service\BaseService;
 use SafeCharge\Api\Utils;
 
+/**
+ * Class AlternativePaymentMethod
+ * @package SafeCharge\Api\Service\Payments
+ */
 class AlternativePaymentMethod extends BaseService
 {
     /**
      * AlternativePaymentMethod constructor.
      * @param RestClient $client
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
     {
@@ -22,6 +25,9 @@ class AlternativePaymentMethod extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#getMerchantPaymentMethods
      */
     public function getMerchantPaymentMethods(array $params)
@@ -42,6 +48,9 @@ class AlternativePaymentMethod extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#paymentAPM
      */
     public function paymentAPM(array $params)

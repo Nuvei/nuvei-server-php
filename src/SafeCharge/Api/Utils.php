@@ -2,7 +2,10 @@
 
 namespace SafeCharge\Api;
 
-
+/**
+ * Class Utils
+ * @package SafeCharge\Api
+ */
 class Utils
 {
     /**

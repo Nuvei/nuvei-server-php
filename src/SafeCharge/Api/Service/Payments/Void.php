@@ -6,13 +6,17 @@ use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Service\BaseService;
 use SafeCharge\Api\Utils;
 
-
+/**
+ * Class Void
+ * @package SafeCharge\Api\Service\Payments
+ */
 class Void extends BaseService
 {
 
     /**
      * Void constructor.
      * @param RestClient $client
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
     {
@@ -22,6 +26,9 @@ class Void extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#voidTransaction
      */
     public function voidTransaction(array $params)

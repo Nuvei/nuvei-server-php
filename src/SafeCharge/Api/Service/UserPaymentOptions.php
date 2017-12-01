@@ -5,26 +5,17 @@ namespace SafeCharge\Api\Service;
 use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Utils;
 
+/**
+ * Class UserPaymentOptions
+ * @package SafeCharge\Api\Service
+ */
 class UserPaymentOptions extends BaseService
 {
-
-    private $commonBillingAddressCheckSumOrder = [
-        'firstName',
-        'lastName',
-        'address',
-        'phone',
-        'zip',
-        'city',
-        'countryCode',
-        'state',
-        'email',
-        'county'
-
-    ];
 
     /**
      * UserPaymentOptions constructor.
      * @param RestClient $client
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
     {
@@ -34,6 +25,9 @@ class UserPaymentOptions extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#addUPOCreditCard
      */
     public function addUPOCreditCard(array $params)
@@ -68,6 +62,9 @@ class UserPaymentOptions extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#addUPOCreditCardByToken
      */
     public function addUPOCreditCardByToken(array $params)
@@ -122,6 +119,9 @@ class UserPaymentOptions extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#addUPOCreditCardByTempToken
      */
     public function addUPOCreditCardByTempToken(array $params)
@@ -144,6 +144,9 @@ class UserPaymentOptions extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#addUPOAPM
      */
     public function addUPOAPM(array $params)
@@ -176,6 +179,9 @@ class UserPaymentOptions extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#addUPOAPM
      */
     public function editUPOCC(array $params)
@@ -210,6 +216,9 @@ class UserPaymentOptions extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#editUPOAPM
      */
     public function editUPOAPM(array $params)
@@ -242,6 +251,9 @@ class UserPaymentOptions extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#deleteUPO
      */
     public function deleteUPO(array $params)
@@ -272,6 +284,9 @@ class UserPaymentOptions extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#getUserUPOs
      */
     public function getUserUPOs(array $params)
@@ -301,6 +316,9 @@ class UserPaymentOptions extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#suspendUPO
      */
     public function suspendUPO(array $params)
@@ -331,6 +349,9 @@ class UserPaymentOptions extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#enableUPO
      */
     public function enableUPO(array $params)

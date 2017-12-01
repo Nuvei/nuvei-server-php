@@ -4,6 +4,10 @@
 namespace SafeCharge\Api\Interfaces;
 
 
+/**
+ * Interface LoggerInterface
+ * @package SafeCharge\Api\Interfaces
+ */
 interface LoggerInterface
 {
     /**

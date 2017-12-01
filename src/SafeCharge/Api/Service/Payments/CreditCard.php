@@ -6,12 +6,17 @@ use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Service\BaseService;
 use SafeCharge\Api\Utils;
 
+/**
+ * Class CreditCard
+ * @package SafeCharge\Api\Service\Payments
+ */
 class CreditCard extends BaseService
 {
 
     /**
      * CreditCard constructor.
      * @param RestClient $client
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
     {
@@ -21,6 +26,9 @@ class CreditCard extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#cardTokenization
      */
     public function cardTokenization(array $params)
@@ -35,6 +43,9 @@ class CreditCard extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#paymentCC
      */
     public function paymentCC(array $params)

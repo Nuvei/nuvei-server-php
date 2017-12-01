@@ -2,6 +2,10 @@
 
 namespace SafeCharge\Api\Interfaces;
 
+/**
+ * Interface HttpClientInterface
+ * @package SafeCharge\Api\Interfaces
+ */
 interface HttpClientInterface
 {
     /**

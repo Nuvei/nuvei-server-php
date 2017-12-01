@@ -5,12 +5,17 @@ namespace SafeCharge\Api\Service;
 use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Utils;
 
+/**
+ * Class UsersManagement
+ * @package SafeCharge\Api\Service
+ */
 class UsersManagement extends BaseService
 {
 
     /**
      * UsersManagement constructor.
      * @param RestClient $client
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
     {
@@ -20,6 +25,9 @@ class UsersManagement extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#createUser
      */
     public function createUser(array $params)
@@ -60,6 +68,9 @@ class UsersManagement extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#updateUser
      */
     public function updateUser(array $params)
@@ -100,6 +111,9 @@ class UsersManagement extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#getUserDetails
      */
     public function getUserDetails(array $params)

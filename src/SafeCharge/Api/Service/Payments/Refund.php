@@ -6,13 +6,17 @@ use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Service\BaseService;
 use SafeCharge\Api\Utils;
 
-
+/**
+ * Class Refund
+ * @package SafeCharge\Api\Service\Payments
+ */
 class Refund extends BaseService
 {
 
     /**
      * Refund constructor.
      * @param RestClient $client
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
     {
@@ -22,6 +26,9 @@ class Refund extends BaseService
     /**
      * @param array $params
      * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#refundTransaction
      */
     public function refundTransaction(array $params)

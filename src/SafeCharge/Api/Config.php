@@ -6,6 +6,10 @@ namespace SafeCharge\Api;
 use SafeCharge\Api\Exception\ConfigurationException;
 use SafeCharge\Api\Interfaces\ConfigInterface;
 
+/**
+ * Class Config
+ * @package SafeCharge\Api
+ */
 class Config implements ConfigInterface
 {
     const ENDPOINT_LIVE = "https://secure.safecharge.com/ppp/api";

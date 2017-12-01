@@ -5,6 +5,10 @@ namespace SafeCharge\Api;
 use SafeCharge\Api\Interfaces\ConfigInterface;
 use SafeCharge\Api\Interfaces\LoggerInterface;
 
+/**
+ * Class RestClient
+ * @package SafeCharge\Api
+ */
 class RestClient
 {
 
@@ -46,6 +50,7 @@ class RestClient
 
     /**
      * @return string
+     * @throws Exception\ConfigurationException
      */
     public function getApiUrl()
     {

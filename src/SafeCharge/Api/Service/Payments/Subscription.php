@@ -1,24 +1,35 @@
 <?php
 
-
 namespace SafeCharge\Api\Service\Payments;
-
 
 use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Service\BaseService;
 use SafeCharge\Api\Utils;
 
+/**
+ * Class Subscription
+ * @package SafeCharge\Api\Service\Payments
+ */
 class Subscription extends BaseService
 {
+
     /**
      * Subscription constructor.
      * @param RestClient $client
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
     {
         parent::__construct($client);
     }
 
+    /**
+     * @param array $params
+     * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function createSubscription(array $params)
     {
         $mandatoryFields = ['merchantId', 'merchantSiteId', 'userTokenId', 'subscriptionPlanId', 'timeStamp', 'checksum'];
@@ -35,6 +46,13 @@ class Subscription extends BaseService
         return $this->requestJson($params, 'createSubscription.do');
     }
 
+    /**
+     * @param array $params
+     * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function cancelSubscription(array $params)
     {
         $mandatoryFields = ['merchantId', 'merchantSiteId', 'userTokenId', 'subscriptionId', 'timeStamp', 'checksum'];
@@ -51,6 +69,13 @@ class Subscription extends BaseService
         return $this->requestJson($params, 'cancelSubscription.do');
     }
 
+    /**
+     * @param array $params
+     * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function getSubscriptionList(array $params)
     {
         $mandatoryFields = ['merchantId', 'merchantSiteId', 'userTokenId', 'subscriptionId', 'timeStamp', 'checksum'];
@@ -67,6 +92,13 @@ class Subscription extends BaseService
         return $this->requestJson($params, 'getSubscriptionList.do');
     }
 
+    /**
+     * @param array $params
+     * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function getSubscriptionPlans(array $params)
     {
         $mandatoryFields = ['merchantId', 'merchantSiteId', 'timeStamp', 'checksum'];

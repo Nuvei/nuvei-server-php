@@ -57,7 +57,7 @@ class Subscription extends BaseService
     {
         $mandatoryFields = ['merchantId', 'merchantSiteId', 'userTokenId', 'subscriptionId', 'timeStamp', 'checksum'];
 
-        $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'timeStamp', 'merchantSecretKey'];
+        $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'subscriptionId', 'userTokenId', 'timeStamp', 'merchantSecretKey'];
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
         if (empty($params['checksum'])) {

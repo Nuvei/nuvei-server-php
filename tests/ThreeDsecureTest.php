@@ -13,6 +13,13 @@ class ThreeDsecureTest extends \PHPUnit_Framework_TestCase
         $this->_service = new ThreeDsecure(TestCaseHelper::getClient());
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function testDynamic3d()
     {
         TestCaseHelper::setSessionToken(null);

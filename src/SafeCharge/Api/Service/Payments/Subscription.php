@@ -76,11 +76,11 @@ class Subscription extends BaseService
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
      */
-    public function getSubscriptionList(array $params)
+    public function getSubscriptionsList(array $params)
     {
-        $mandatoryFields = ['merchantId', 'merchantSiteId', 'userTokenId', 'subscriptionId', 'timeStamp', 'checksum'];
+        $mandatoryFields = ['merchantId', 'merchantSiteId', 'userTokenId', 'timeStamp', 'checksum'];
 
-        $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'timeStamp', 'merchantSecretKey'];
+        $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'userTokenId', 'timeStamp', 'merchantSecretKey'];
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
         if (empty($params['checksum'])) {
@@ -89,7 +89,7 @@ class Subscription extends BaseService
 
         $this->validate($params, $mandatoryFields);
 
-        return $this->requestJson($params, 'getSubscriptionList.do');
+        return $this->requestJson($params, 'getSubscriptionsList.do');
     }
 
     /**

@@ -33,19 +33,19 @@ class SubscriptionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testGetSubscriptionPlans
-     * @param $subscriptionPlans
+     * @param $subscriptionPlanId
      * @return mixed
      * @throws \Exception
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
      */
-    public function testCreateSubscription($subscriptionPlans)
+    public function testCreateSubscription($subscriptionPlanId)
     {
         $params = [
             'userTokenId'        => TestCaseHelper::getUserTokenId(),
             'clientRequestId'    => '12345',
-            'subscriptionPlanId' => $subscriptionPlans,
+            'subscriptionPlanId' => $subscriptionPlanId,
             'dynamicDescriptor'  => SimpleData::getDynamicDescriptor(),
             'userDetails'        => SimpleData::getUserDetails(),
             'deviceDetails'      => SimpleData::getDeviceDetails(),
@@ -82,25 +82,22 @@ class SubscriptionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testCreateSubscription
-     * @param $subscriptionId
      * @throws \Exception
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
      */
-    public function testGetSubscriptionList($subscriptionId)
+    public function testGetSubscriptionsList()
     {
         $params = [
             'userTokenId'        => TestCaseHelper::getUserTokenId(),
-            'clientRequestId'    => '12345',
+            'clientRequestId'    => '123456aaa',
             'subscriptionStatus' => 'ACTIVE',
-            'subscriptionId'     => $subscriptionId,
-            'firstResult'        => '',
-            'maxResults'         => '100',
+            'firstResult'        => '0',
+            'maxResults'         => '5',
         ];
 
-        $response = $this->_service->getSubscriptionList($params);
+        $response = $this->_service->getSubscriptionsList($params);
         $this->assertEquals('SUCCESS', $response['status']);
         $this->assertContains('subscriptions', $response);
         $this->assertContains('totalCount', $response);

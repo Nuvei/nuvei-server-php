@@ -34,6 +34,7 @@ $client = new \SafeCharge\Api\RestClient([
     'merchantSecretKey' => '<your merchantSecretKey>',
 ]);
 ```
+If your hash algorithm is md5 you should add parameter 'hashAlgorithm' with value 'md5' in the above array.
 
 Or
 
@@ -45,6 +46,13 @@ $config->setMerchantId('<your merchantId>');
 $config->setMerchantSiteId('<your merchantSiteId>');
 $config->setMerchantSecretKey('<your merchantSecretKey>');
 ```
+
+If your hash algorithm is md5 add after the above code:
+
+```php
+$config->setHashAlgorithm('<your merchantSecretKey>');
+```
+
 ### Logger
 
 Logger can be configured with a [PSR-3 compatible logger](http://www.php-fig.org/psr/psr-3/) .

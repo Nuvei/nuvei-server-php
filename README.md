@@ -51,7 +51,7 @@ If your hash algorithm is md5 add the following code right after the one above:
 
 
 ```php
-$config->setHashAlgorithm('<your merchantSecretKey>');
+$config->setHashAlgorithm('<your hashAlgorithm>');
 ```
 
 ### Logger

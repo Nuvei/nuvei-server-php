@@ -47,7 +47,8 @@ $config->setMerchantSiteId('<your merchantSiteId>');
 $config->setMerchantSecretKey('<your merchantSecretKey>');
 ```
 
-If your hash algorithm is md5 add after the above code:
+If your hash algorithm is md5 add the following code right after the one above:
+
 
 ```php
 $config->setHashAlgorithm('<your merchantSecretKey>');

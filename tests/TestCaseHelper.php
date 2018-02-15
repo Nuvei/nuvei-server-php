@@ -20,6 +20,8 @@ class TestCaseHelper
 
     private static $_userTokenId = null;
 
+    private static $_upoCreditCardId = null;
+
 
     /**
      * @return mixed
@@ -181,17 +183,22 @@ class TestCaseHelper
 
     /**
      * @return mixed
-     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws \Exception
      */
     public static function getUPOCreditCardId()
     {
+        if (!is_null(self::$_upoCreditCardId)) {
+            return self::$_upoCreditCardId;
+        }
         $service = new UserPaymentOptions(self::getClient());
 
         $cardData = SimpleData::getCarData('4916448652944');
-        $params   = [
+
+        $params = [
             'userTokenId'     => TestCaseHelper::getUserTokenId(),
             'clientRequestId' => '235',
             'ccCardNumber'    => $cardData['cardNumber'],
@@ -199,8 +206,12 @@ class TestCaseHelper
             'ccExpYear'       => $cardData['expirationYear'],
             'ccNameOnCard'    => $cardData['cardHolderName'],
         ];
+
         $response = $service->addUPOCreditCard($params);
-        return $response['userPaymentOptionId'];
+
+        self::$_upoCreditCardId = $response['userPaymentOptionId'];
+
+        return self::$_upoCreditCardId;
     }
 
 }

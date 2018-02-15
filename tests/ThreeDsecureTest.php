@@ -8,6 +8,10 @@ class ThreeDsecureTest extends \PHPUnit_Framework_TestCase
 {
     private $_service;
 
+    /**
+     * ThreeDsecureTest constructor.
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
+     */
     public function __construct()
     {
         $this->_service = new ThreeDsecure(TestCaseHelper::getClient());
@@ -55,6 +59,45 @@ class ThreeDsecureTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @return mixed
+     * @throws \Exception
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
+    public function testDynamic3dWithRebillingAndMpi()
+    {
+        TestCaseHelper::setSessionToken(null);
+
+        $params = $this->getExampleData();
+
+        unset($params['cardData']);
+
+        $params['userTokenId']   = '230811147';
+        $params['dynamic3DMode'] = 'OFF';
+        $params['isDynamic3D']   = 1;
+        $params['isRebilling']   = 1;
+        $params['externalMpi']   = [
+            "isExternalMpi" => "1",
+            "eci"           => "2",
+            "cavv"          => "hlk1ABWfdzGVCAAAAABpBBMAAAA=",
+            "xid"           => "MDAwMDAwMDAwMDEwMDIxMjg0OTE="
+        ];
+
+        $params['userPaymentOption'] = [
+            'userPaymentOptionId' => '7065406',
+            'CVV'                 => '234'
+        ];
+
+
+        $response = $this->_service->dynamic3D($params);
+        $this->assertContains('orderId', $response);
+        $this->assertContains('paRequest', $response);
+        return $response['orderId'];
+    }
+
+
+    /**
      * @return array
      * @throws \Exception
      * @throws \SafeCharge\Api\Exception\ConnectionException
@@ -71,13 +114,13 @@ class ThreeDsecureTest extends \PHPUnit_Framework_TestCase
             'clientRequestId'   => '1484759782197',
             'isDynamic3D'       => '0',
             'currency'          => SimpleData::getCurrency(),
-            'amount'            => "5000",
+            'amount'            => "50",
             'amountDetails'     => SimpleData::getAmountDetails(),
             'items'             => [
                 [
                     "id"       => "1",
                     "name"     => "name",
-                    "price"    => "5000",
+                    "price"    => "50",
                     "quantity" => "1"
                 ]
             ],
@@ -89,7 +132,10 @@ class ThreeDsecureTest extends \PHPUnit_Framework_TestCase
             'merchantDetails'   => SimpleData::getMerchantDetails(),
             'addendums'         => SimpleData::getAddEndUms(),
             'cardData'          => [],
-//        'userPaymentOption' => SimpleData::getUserPaymentOption(),
+//            'userPaymentOption' => [
+//                'userPaymentOptionId' => TestCaseHelper::getUPOCreditCardId(),
+//                'CVV'                 => '234'
+//            ],
             'urlDetails'        => SimpleData::getUrlDetails(true)
         ];
 

@@ -158,7 +158,7 @@ class HttpClient implements HttpClientInterface
      * @param $logger
      * @throws ConnectionException
      */
-    protected function handleCurlError($url, $errno, $message, LoggerInterface $logger)
+    protected function handleCurlError($url, $errno, $message, $logger)
     {
         switch ($errno) {
             case CURLE_OK:

@@ -76,7 +76,7 @@ class BaseService implements ServiceInterface
      */
     public function validate($params, $mandatoryFields)
     {
-        $missingFields = false;
+        $missingFields = [];
         $arrayKeys     = array_keys($params);
         foreach ($mandatoryFields as $field) {
             if (!in_array($field, $arrayKeys)) {

@@ -19,6 +19,8 @@ class RestClient
 
     private $_config;
     private $_httpClient;
+
+    /** @var $_logger LoggerInterface */
     private $_logger;
 
 

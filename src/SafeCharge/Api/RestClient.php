@@ -13,7 +13,7 @@ class RestClient
 {
 
     const CLIENT_NAME    = 'safecharge-php-client';
-    const CLIENT_VERSION = '1.0.4';
+    const CLIENT_VERSION = '1.0.5';
 
     const API_VERSION = "v1";
 

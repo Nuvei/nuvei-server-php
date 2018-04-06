@@ -196,10 +196,10 @@ class HttpClient implements HttpClientInterface
         $decodedResult = json_decode($result, true);
         if (isset($decodedResult['errCode']) && !empty($decodedResult['errCode'])) {
             $logger->error("[SafeCharge PHP SDK] " . $decodedResult['errCode'] . ': ' . $decodedResult['reason']);
-            throw new ResponseException($decodedResult['reason'], $decodedResult['errCode'], null, $decodedResult);
+            throw new ResponseException($decodedResult['reason'], $decodedResult['errCode'], null, null, $decodedResult);
         } else if (isset($decodedResult['gwErrorCode']) && !empty($decodedResult['gwErrorCode'])) {
             $logger->error("[SafeCharge PHP SDK] " . $decodedResult['gwErrorCode'] . ': ' . $decodedResult['gwErrorReason']);
-            throw new ResponseException($decodedResult['gwErrorReason'], $decodedResult['gwErrorCode'], null, $decodedResult);
+            throw new ResponseException($decodedResult['gwErrorReason'], $decodedResult['gwErrorCode'], null, null, $decodedResult);
         }
     }
 }

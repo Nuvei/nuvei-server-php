@@ -28,7 +28,7 @@ class ThreeDsecureTest extends \PHPUnit_Framework_TestCase
     {
         TestCaseHelper::setSessionToken(null);
         $params             = $this->getExampleData();
-        $params['cardData'] = SimpleData::getCarData('5150906102780140');
+        $params['cardData'] = SimpleData::getCarData('375510288656924');
 
         $response = $this->_service->dynamic3D($params);
         $this->assertContains('orderId', $response);
@@ -73,7 +73,7 @@ class ThreeDsecureTest extends \PHPUnit_Framework_TestCase
 
         unset($params['cardData']);
 
-        $params['userTokenId']   = '230811147';
+        $params['userTokenId']   = TestCaseHelper::getUserTokenId();
         $params['dynamic3DMode'] = 'OFF';
         $params['isDynamic3D']   = 1;
         $params['isRebilling']   = 1;
@@ -85,7 +85,7 @@ class ThreeDsecureTest extends \PHPUnit_Framework_TestCase
         ];
 
         $params['userPaymentOption'] = [
-            'userPaymentOptionId' => '7065406',
+            'userPaymentOptionId' => TestCaseHelper::getUPOCreditCardId(),
             'CVV'                 => '234'
         ];
 

@@ -25,6 +25,7 @@ class TestCaseHelper
 
     /**
      * @return mixed
+     * @throws \Exception
      */
     public static function getClient()
     {
@@ -49,6 +50,7 @@ class TestCaseHelper
 
     /**
      * @return string
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
@@ -196,7 +198,7 @@ class TestCaseHelper
         }
         $service = new UserPaymentOptions(self::getClient());
 
-        $cardData = SimpleData::getCarData('4916448652944');
+        $cardData = SimpleData::getCarData('375510288656924');
 
         $params = [
             'userTokenId'     => TestCaseHelper::getUserTokenId(),

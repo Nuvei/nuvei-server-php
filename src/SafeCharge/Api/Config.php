@@ -220,7 +220,7 @@ class Config implements ConfigInterface
     }
 
     /**
-     * @return string merchantSecretKey
+     * @return string hashAlgorithm
      * @throws ConfigurationException
      */
     public function getHashAlgorithm()

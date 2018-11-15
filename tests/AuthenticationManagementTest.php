@@ -4,12 +4,14 @@ namespace SafeCharge\Tests;
 
 use SafeCharge\Api\Service\AuthenticationManagement;
 
-class AuthenticationManagementTest extends \PHPUnit_Framework_TestCase
+class AuthenticationManagementTest extends \PHPUnit\Framework\TestCase
 {
     private $_service;
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->_service = new AuthenticationManagement(TestCaseHelper::getClient());
     }
 

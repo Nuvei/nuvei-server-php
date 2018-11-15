@@ -4,12 +4,14 @@ namespace SafeCharge\Tests;
 
 use SafeCharge\Api\Service\Payments\Subscription;
 
-class SubscriptionTest extends \PHPUnit_Framework_TestCase
+class SubscriptionTest extends \PHPUnit\Framework\TestCase
 {
     private $_service;
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->_service = new Subscription(TestCaseHelper::getClient());
     }
 

@@ -5,12 +5,14 @@ namespace SafeCharge\Tests;
 use SafeCharge\Api\Service\Payments\CreditCard;
 
 
-class CreditCardTest extends \PHPUnit_Framework_TestCase
+class CreditCardTest extends \PHPUnit\Framework\TestCase
 {
     private $_service;
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->_service = new CreditCard(TestCaseHelper::getClient());
     }
 

@@ -4,12 +4,14 @@ namespace SafeCharge\Tests;
 
 use SafeCharge\Api\Service\UsersManagement;
 
-class UsersManagementTest extends \PHPUnit_Framework_TestCase
+class UsersManagementTest extends \PHPUnit\Framework\TestCase
 {
     private $_service;
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->_service = new UsersManagement(TestCaseHelper::getClient());
     }
 

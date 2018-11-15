@@ -4,13 +4,15 @@ namespace SafeCharge\Tests;
 
 use SafeCharge\Api\Service\OrdersManagement;
 
-class OrdersManagementTest extends \PHPUnit_Framework_TestCase
+class OrdersManagementTest extends \PHPUnit\Framework\TestCase
 {
 
     private $_service;
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->_service = new OrdersManagement(TestCaseHelper::getClient());
     }
 

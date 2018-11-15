@@ -4,7 +4,7 @@ namespace SafeCharge\Tests;
 
 use SafeCharge\Api\Service\Payments\Settle;
 
-class SettleTest extends \PHPUnit_Framework_TestCase
+class SettleTest extends \PHPUnit\Framework\TestCase
 {
     private $_service;
 
@@ -14,6 +14,8 @@ class SettleTest extends \PHPUnit_Framework_TestCase
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->_service = new Settle(TestCaseHelper::getClient());
     }
 

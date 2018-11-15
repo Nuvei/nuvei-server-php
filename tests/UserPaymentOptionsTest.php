@@ -5,7 +5,7 @@ namespace SafeCharge\Tests;
 use SafeCharge\Api\Service\Payments\CreditCard;
 use SafeCharge\Api\Service\UserPaymentOptions;
 
-class UserPaymentOptionsTest extends \PHPUnit_Framework_TestCase
+class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
 {
     private $_service;
 
@@ -15,6 +15,8 @@ class UserPaymentOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->_service = new UserPaymentOptions(TestCaseHelper::getClient());
     }
 

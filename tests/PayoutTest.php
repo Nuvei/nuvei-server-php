@@ -27,7 +27,7 @@ namespace SafeCharge\Tests;
 
 use SafeCharge\Api\Service\Payments\Payout;
 
-class PayoutTest extends \PHPUnit_Framework_TestCase
+class PayoutTest extends \PHPUnit\Framework\TestCase
 {
     private $_service;
 
@@ -37,6 +37,8 @@ class PayoutTest extends \PHPUnit_Framework_TestCase
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->_service = new Payout(TestCaseHelper::getClient());
     }
 

@@ -4,13 +4,17 @@ namespace SafeCharge\Tests;
 
 use SafeCharge\Api\Service\Payments\AlternativePaymentMethod;
 
-class AlternativePaymentMethodTest extends \PHPUnit_Framework_TestCase
+class AlternativePaymentMethodTest extends \PHPUnit\Framework\TestCase
 {
     private $_service;
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->_service = new AlternativePaymentMethod(TestCaseHelper::getClient());
+
+
     }
 
     /**

@@ -8,6 +8,10 @@ class VoidTest extends \PHPUnit_Framework_TestCase
 {
     private $_service;
 
+    /**
+     * VoidTest constructor.
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
+     */
     public function __construct()
     {
         $this->_service = new Void(TestCaseHelper::getClient());

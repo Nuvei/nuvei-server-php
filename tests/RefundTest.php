@@ -8,6 +8,10 @@ class RefundTest extends \PHPUnit_Framework_TestCase
 {
     private $_service;
 
+    /**
+     * RefundTest constructor.
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
+     */
     public function __construct()
     {
         $this->_service = new Refund(TestCaseHelper::getClient());

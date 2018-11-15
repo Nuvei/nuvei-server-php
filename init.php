@@ -29,6 +29,7 @@ require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/UserPaymentOptions.php'
 require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/UsersManagement.php');
 require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/Payments/AlternativePaymentMethod.php');
 require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/Payments/CreditCard.php');
+require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/Payments/TransactionActions.php');
 require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/Payments/Refund.php');
 require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/Payments/Settle.php');
 require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/Payments/Void.php');

@@ -31,6 +31,10 @@ class PayoutTest extends \PHPUnit_Framework_TestCase
 {
     private $_service;
 
+    /**
+     * PayoutTest constructor.
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
+     */
     public function __construct()
     {
         $this->_service = new Payout(TestCaseHelper::getClient());

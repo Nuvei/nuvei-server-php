@@ -8,6 +8,10 @@ class SettleTest extends \PHPUnit_Framework_TestCase
 {
     private $_service;
 
+    /**
+     * SettleTest constructor.
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
+     */
     public function __construct()
     {
         $this->_service = new Settle(TestCaseHelper::getClient());

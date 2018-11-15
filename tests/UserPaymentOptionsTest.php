@@ -9,6 +9,10 @@ class UserPaymentOptionsTest extends \PHPUnit_Framework_TestCase
 {
     private $_service;
 
+    /**
+     * UserPaymentOptionsTest constructor.
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
+     */
     public function __construct()
     {
         $this->_service = new UserPaymentOptions(TestCaseHelper::getClient());

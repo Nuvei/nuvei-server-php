@@ -13,7 +13,7 @@ class RestClient
 {
 
     const CLIENT_NAME    = 'safecharge-php-client';
-    const CLIENT_VERSION = '1.0.6';
+    const CLIENT_VERSION = '1.0.7';
 
     const API_VERSION = "v1";
 
@@ -23,6 +23,10 @@ class RestClient
     /** @var $_logger LoggerInterface */
     private $_logger;
 
+    public static function getClientName()
+    {
+        return self::CLIENT_NAME . '-' . self::CLIENT_VERSION;
+    }
 
     /**
      * RestClient constructor.

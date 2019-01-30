@@ -52,6 +52,8 @@ class TransactionActions extends BaseService
             'merchantSecretKey'
         ];
 
+        $params['webMasterId'] = RestClient::getClientName();
+
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
         if (empty($params['checksum'])) {
@@ -90,6 +92,8 @@ class TransactionActions extends BaseService
             'merchantSecretKey'
         ];
 
+        $params['webMasterId'] = RestClient::getClientName();
+
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
         if (empty($params['checksum'])) {
@@ -127,6 +131,8 @@ class TransactionActions extends BaseService
             'timeStamp',
             'merchantSecretKey'
         ];
+
+        $params['webMasterId'] = RestClient::getClientName();
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 

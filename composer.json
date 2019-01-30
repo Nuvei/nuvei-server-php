@@ -10,7 +10,8 @@
   "require": {
     "php": ">=5.4",
     "ext-curl": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "phpunit/phpunit": "^7.5"
   },
   "require-dev": {
     "monolog/monolog": "^1.23"

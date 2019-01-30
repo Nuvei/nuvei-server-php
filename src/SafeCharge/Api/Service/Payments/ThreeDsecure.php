@@ -37,6 +37,8 @@ class ThreeDsecure extends BaseService
 
         $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'amount', 'currency', 'timeStamp', 'merchantSecretKey'];
 
+        $params['webMasterId'] = RestClient::getClientName();
+
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
         if (empty($params['checksum'])) {
@@ -61,6 +63,8 @@ class ThreeDsecure extends BaseService
         $mandatoryFields = ['sessionToken', 'merchantId', 'merchantSiteId', 'transactionType', 'currency', 'amount', 'items', 'timeStamp', 'checksum'];
 
         $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'amount', 'currency', 'timeStamp', 'merchantSecretKey'];
+
+        $params['webMasterId'] = RestClient::getClientName();
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 

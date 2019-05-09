@@ -91,7 +91,7 @@ class TransactionActionsTest extends \PHPUnit\Framework\TestCase
         $params = [
             'clientRequestId'         => '100',
             'clientUniqueId'          => '12345',
-            'amount'                  => "9.0",
+            'amount'                  => $transactionData['partialApprovalDetails']['amountInfo']['processedAmount'],
             'currency'                => SimpleData::getCurrency(),
             'relatedTransactionId'    => $transactionData['transactionId'],
             'authCode'                => $transactionData['authCode'],

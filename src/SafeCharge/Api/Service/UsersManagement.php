@@ -14,7 +14,9 @@ class UsersManagement extends BaseService
 
     /**
      * UsersManagement constructor.
+     *
      * @param RestClient $client
+     *
      * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
@@ -24,6 +26,7 @@ class UsersManagement extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -67,6 +70,7 @@ class UsersManagement extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -110,6 +114,7 @@ class UsersManagement extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException

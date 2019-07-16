@@ -15,7 +15,9 @@ class CreditCard extends BaseService
 
     /**
      * CreditCard constructor.
+     *
      * @param RestClient $client
+     *
      * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
@@ -25,6 +27,7 @@ class CreditCard extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -42,6 +45,7 @@ class CreditCard extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException

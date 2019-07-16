@@ -28,7 +28,9 @@ class BaseService implements ServiceInterface
 
     /**
      * BaseService constructor.
+     *
      * @param RestClient $client
+     *
      * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
@@ -48,7 +50,9 @@ class BaseService implements ServiceInterface
     /**
      * Check if merchantId, merchantSiteId and timeStamp parameters are given.
      * If they are not, we get them from the configuration and append them
+     *
      * @param $params
+     *
      * @return mixed
      */
     public function appendMerchantIdMerchantSiteIdTimeStamp($params)
@@ -71,6 +75,7 @@ class BaseService implements ServiceInterface
      *
      * @param $params
      * @param $mandatoryFields
+     *
      * @return bool
      * @throws ValidationException
      */
@@ -93,6 +98,7 @@ class BaseService implements ServiceInterface
     /**
      * @param $params
      * @param $endpoint
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -107,6 +113,7 @@ class BaseService implements ServiceInterface
     /**
      * @param $params
      * @param $endpoint
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException

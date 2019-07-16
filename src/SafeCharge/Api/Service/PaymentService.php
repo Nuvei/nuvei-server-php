@@ -1,23 +1,22 @@
 <?php
 
+
 namespace SafeCharge\Api\Service;
 
+
 use SafeCharge\Api\RestClient;
+use SafeCharge\Api\Exception\ConfigurationException;
 use SafeCharge\Api\Utils;
 
-/**
- * Class AuthenticationManagement
- * @package SafeCharge\Api\Service
- */
-class AuthenticationManagement extends BaseService
+class PaymentService extends BaseService
 {
 
     /**
-     * AuthenticationManagement constructor.
+     * PaymentService constructor.
      *
      * @param RestClient $client
      *
-     * @throws \SafeCharge\Api\Exception\ConfigurationException
+     * @throws ConfigurationException
      */
     public function __construct(RestClient $client)
     {
@@ -31,21 +30,30 @@ class AuthenticationManagement extends BaseService
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
-     * @link https://www.safecharge.com/docs/API/#getSessionToken
      */
-    public function getSessionToken(array $params = [])
+    public function createPayment(array $params)
     {
-        $mandatoryFields = ['merchantId', 'timeStamp', 'checksum'];
+        $mandatoryFields = ['merchantId', 'merchantSiteId', 'timeStamp', 'checksum', 'currency', 'amount', 'paymentOption', 'billingAddress'];
 
-        $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'timeStamp', 'merchantSecretKey'];
+        $checksumParametersOrder = [
+            'merchantId',
+            'merchantSiteId',
+            'clientRequestId',
+            'amount',
+            'currency',
+            'timeStamp',
+            'merchantSecretKey'
+        ];
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
         if (empty($params['checksum'])) {
             $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->_client->getConfig()->getMerchantSecretKey(), $this->_client->getConfig()->getHashAlgorithm());
         }
+
         $this->validate($params, $mandatoryFields);
 
-        return $this->requestJson($params, 'getSessionToken.do');
+        return $this->requestJson($params, 'payment.do');
+
     }
 }

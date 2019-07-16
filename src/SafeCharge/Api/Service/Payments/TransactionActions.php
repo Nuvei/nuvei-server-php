@@ -15,7 +15,9 @@ class TransactionActions extends BaseService
 
     /**
      * TransactionActions constructor.
+     *
      * @param RestClient $client
+     *
      * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
@@ -25,6 +27,7 @@ class TransactionActions extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -67,6 +70,7 @@ class TransactionActions extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -107,6 +111,7 @@ class TransactionActions extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException

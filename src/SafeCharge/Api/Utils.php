@@ -13,6 +13,7 @@ class Utils
      * @param $checksumParamsOrder array - array with parameter order for checksum calculation
      * @param $merchantSecretId - Merchant Site ID
      * @param string $algo - algorithm (sha256, md5)
+     *
      * @return string - checksum
      */
     public static function calculateChecksum(array $params, array $checksumParamsOrder, $merchantSecretId, $algo = 'sha256')
@@ -29,6 +30,7 @@ class Utils
 
     /**
      * @param $array
+     *
      * @return string
      */
     public static function arrayToString($array)

@@ -30,6 +30,7 @@ class RestClient
 
     /**
      * RestClient constructor.
+     *
      * @param array $config
      */
     public function __construct(array $config = [])
@@ -77,6 +78,7 @@ class RestClient
 
     /**
      * Set the Logger object
+     *
      * @param $logger
      */
     public function setLogger($logger)

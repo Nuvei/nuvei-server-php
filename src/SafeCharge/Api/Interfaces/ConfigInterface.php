@@ -12,7 +12,9 @@ interface ConfigInterface
 {
     /**
      * ConfigInterface constructor.
+     *
      * @param bool $params
+     *
      * @return $this
      */
     public function __construct($params = false);
@@ -23,6 +25,7 @@ interface ConfigInterface
 
     /**
      * @param $value
+     *
      * @return $this
      */
     public function setOutputType($value);
@@ -31,6 +34,7 @@ interface ConfigInterface
 
     /**
      * @param $environment
+     *
      * @return $this
      */
     public function setEnvironment($environment);
@@ -41,6 +45,7 @@ interface ConfigInterface
 
     /**
      * @param $merchantSiteId
+     *
      * @return $this
      */
     public function setMerchantSiteId($merchantSiteId);
@@ -49,6 +54,7 @@ interface ConfigInterface
 
     /**
      * @param $merchantId
+     *
      * @return $this
      */
     public function setMerchantId($merchantId);
@@ -57,6 +63,7 @@ interface ConfigInterface
 
     /**
      * @param $merchantSecretKey
+     *
      * @return $this
      */
     public function setMerchantSecretKey($merchantSecretKey);
@@ -65,6 +72,7 @@ interface ConfigInterface
 
     /**
      * @param $hashAlgorithm
+     *
      * @return $this
      */
     public function setHashAlgorithm($hashAlgorithm);

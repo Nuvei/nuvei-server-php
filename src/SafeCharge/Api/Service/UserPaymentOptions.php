@@ -14,7 +14,9 @@ class UserPaymentOptions extends BaseService
 
     /**
      * UserPaymentOptions constructor.
+     *
      * @param RestClient $client
+     *
      * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
@@ -24,6 +26,7 @@ class UserPaymentOptions extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -61,6 +64,7 @@ class UserPaymentOptions extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -118,6 +122,7 @@ class UserPaymentOptions extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -143,6 +148,7 @@ class UserPaymentOptions extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -178,6 +184,7 @@ class UserPaymentOptions extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -215,6 +222,7 @@ class UserPaymentOptions extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -250,6 +258,7 @@ class UserPaymentOptions extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -283,6 +292,7 @@ class UserPaymentOptions extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -315,6 +325,7 @@ class UserPaymentOptions extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -348,6 +359,7 @@ class UserPaymentOptions extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException

@@ -26,6 +26,7 @@ class Config implements ConfigInterface
 
     /**
      * Config constructor.
+     *
      * @param bool|array $params
      */
     public function __construct($params = false)
@@ -70,7 +71,9 @@ class Config implements ConfigInterface
 
     /**
      * Type can be json or array
+     *
      * @param $value
+     *
      * @return $this
      */
     public function setOutputType($value)
@@ -90,6 +93,7 @@ class Config implements ConfigInterface
 
     /**
      * @param $environment
+     *
      * @return $this
      * @throws ConfigurationException
      */
@@ -139,6 +143,7 @@ class Config implements ConfigInterface
 
     /**
      * @param $merchantSiteId
+     *
      * @return $this
      */
     public function setMerchantSiteId($merchantSiteId)
@@ -161,6 +166,7 @@ class Config implements ConfigInterface
 
     /**
      * @param $merchantId
+     *
      * @return $this
      */
     public function setMerchantId($merchantId)
@@ -184,6 +190,7 @@ class Config implements ConfigInterface
 
     /**
      * @param $merchantSecretKey
+     *
      * @return $this
      */
     public function setMerchantSecretKey($merchantSecretKey)
@@ -207,6 +214,7 @@ class Config implements ConfigInterface
 
     /**
      * @param $hashAlgorithm
+     *
      * @return $this
      * @throws ConfigurationException
      */

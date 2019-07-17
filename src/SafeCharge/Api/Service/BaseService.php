@@ -125,6 +125,4 @@ class BaseService implements ServiceInterface
 
         return $curlClient->requestPost($this, $this->_apiUrl . $endpoint, $params);
     }
-
-
 }

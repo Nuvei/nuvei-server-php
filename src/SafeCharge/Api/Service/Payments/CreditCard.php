@@ -70,6 +70,4 @@ class CreditCard extends BaseService
 
         return $this->requestJson($params, 'paymentCC.do');
     }
-
-
 }

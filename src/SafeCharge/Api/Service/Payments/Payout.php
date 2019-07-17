@@ -58,6 +58,4 @@ class Payout extends BaseService
 
         return $this->requestJson($params, 'payout.do');
     }
-
-
 }

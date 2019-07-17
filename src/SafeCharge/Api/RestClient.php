@@ -11,7 +11,6 @@ use SafeCharge\Api\Interfaces\LoggerInterface;
  */
 class RestClient
 {
-
     const CLIENT_NAME    = 'safecharge-php-client';
     const CLIENT_VERSION = '1.0.7';
 
@@ -96,5 +95,4 @@ class RestClient
         }
         return $this->_logger;
     }
-
 }

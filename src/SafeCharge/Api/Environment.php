@@ -10,5 +10,4 @@ class Environment
 {
     const LIVE = 'live';
     const TEST = 'test';
-
 }

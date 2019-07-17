@@ -2,7 +2,6 @@
 
 namespace SafeCharge\Api;
 
-
 use SafeCharge\Api\Exception\ConfigurationException;
 use SafeCharge\Api\Interfaces\ConfigInterface;
 
@@ -31,7 +30,6 @@ class Config implements ConfigInterface
      */
     public function __construct($params = false)
     {
-
         if ($params && is_array($params)) {
             foreach ($params as $key => $param) {
                 $methodName = 'set' . ucfirst($key);
@@ -40,7 +38,6 @@ class Config implements ConfigInterface
                 } else {
                     $this->configData[$key] = $param;
                 }
-
             }
         }
         return $this;
@@ -238,5 +235,4 @@ class Config implements ConfigInterface
         }
         return $this->configData['hashAlgorithm'];
     }
-
 }

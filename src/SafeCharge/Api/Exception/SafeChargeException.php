@@ -35,5 +35,4 @@ class SafeChargeException extends Exception
     {
         return $this->_status;
     }
-
 }

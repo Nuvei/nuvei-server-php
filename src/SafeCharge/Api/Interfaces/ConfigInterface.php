@@ -3,7 +3,6 @@
 
 namespace SafeCharge\Api\Interfaces;
 
-
 /**
  * Interface ConfigInterface
  * @package SafeCharge\Api\Interfaces
@@ -78,5 +77,4 @@ interface ConfigInterface
     public function setHashAlgorithm($hashAlgorithm);
 
     public function getHashAlgorithm();
-
 }

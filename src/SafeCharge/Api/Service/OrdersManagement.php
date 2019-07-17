@@ -32,6 +32,7 @@ class OrdersManagement extends BaseService
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#openOrder
+     * @deprecated
      */
     public function openOrder(array $params)
     {
@@ -84,6 +85,7 @@ class OrdersManagement extends BaseService
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#getOrderDetails
+     * @deprecated
      */
     public function getOrderDetails(array $params)
     {

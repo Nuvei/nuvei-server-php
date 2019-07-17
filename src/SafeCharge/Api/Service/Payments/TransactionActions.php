@@ -149,5 +149,4 @@ class TransactionActions extends BaseService
 
         return $this->requestJson($params, 'voidTransaction.do');
     }
-
 }

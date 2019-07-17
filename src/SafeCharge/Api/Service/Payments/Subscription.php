@@ -120,5 +120,4 @@ class Subscription extends BaseService
 
         return $this->requestJson($params, 'getSubscriptionPlans.do');
     }
-
 }

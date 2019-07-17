@@ -57,5 +57,4 @@ class Utils
             unset($array[$index]);
         }
     }
-
 }

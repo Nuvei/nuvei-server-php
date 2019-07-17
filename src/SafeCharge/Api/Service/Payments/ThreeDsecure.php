@@ -79,6 +79,4 @@ class ThreeDsecure extends BaseService
         $this->validate($params, $mandatoryFields);
         return $this->requestJson($params, 'payment3D.do');
     }
-
-
 }

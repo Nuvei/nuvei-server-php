@@ -3,7 +3,6 @@
 
 namespace SafeCharge\Api\Service;
 
-
 use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Exception\ConfigurationException;
 

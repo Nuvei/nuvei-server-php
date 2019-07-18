@@ -13,7 +13,7 @@ class OrdersManagement extends BaseService
 {
 
     /**
-     * Authentication constructor.
+     * OrdersManagement constructor.
      *
      * @param RestClient $client
      *
@@ -32,7 +32,6 @@ class OrdersManagement extends BaseService
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#openOrder
-     * @deprecated
      */
     public function openOrder(array $params)
     {

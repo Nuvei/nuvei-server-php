@@ -7,6 +7,7 @@ use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use SafeCharge\Api\SafeCharge;
 use SafeCharge\Api\Service\PaymentService;
+use SafeCharge\Api\Service\UserService;
 
 class SafeChargeTest extends TestCase
 {
@@ -31,6 +32,7 @@ class SafeChargeTest extends TestCase
      *
      * @param SafeCharge $safecharge
      *
+     * @return mixed
      * @throws \SafeCharge\Api\Exception\ConfigurationException
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -40,6 +42,7 @@ class SafeChargeTest extends TestCase
     {
         $sessionToken = $safecharge->getSessionToken();
         $this->assertNotEmpty($sessionToken);
+        return $sessionToken;
     }
 
     /**
@@ -54,4 +57,19 @@ class SafeChargeTest extends TestCase
         $paymentService = $safecharge->getPaymentService();
         $this->assertInstanceOf(PaymentService::class, $paymentService);
     }
+
+    /**
+     * @depends testInitialize
+     *
+     * @param SafeCharge $safecharge
+     *
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
+     */
+    public function testGetUserService($safecharge)
+    {
+        $paymentService = $safecharge->getUserService();
+        $this->assertInstanceOf(UserService::class, $paymentService);
+    }
+
+
 }

@@ -28,7 +28,7 @@ class SafeCharge
     /**
      * @var AuthenticationManagement
      */
-    private $authenticationService;
+    private $baseService;
 
     /**
      * SafeCharge constructor.
@@ -70,8 +70,7 @@ class SafeCharge
      */
     public function getSessionToken()
     {
-        $sessionTokenResponse = $this->getBaseService()->getSessionToken();
-        return $sessionTokenResponse['sessionToken'];
+        return $this->getBaseService()->getSessionToken();
     }
 
     /**
@@ -104,9 +103,9 @@ class SafeCharge
      */
     private function getBaseService()
     {
-        if (is_null($this->authenticationService)) {
-            $this->authenticationService = new BaseService($this->client);
+        if (is_null($this->baseService)) {
+            $this->baseService = new BaseService($this->client);
         }
-        return $this->authenticationService;
+        return $this->baseService;
     }
 }

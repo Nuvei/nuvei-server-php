@@ -44,7 +44,9 @@ class CreditCardTest extends TestCase
 
     /**
      * @depends testCardTokenization
+     *
      * @param $ccTempToken
+     *
      * @throws Exception
      * @throws ConnectionException
      * @throws ResponseException
@@ -86,7 +88,6 @@ class CreditCardTest extends TestCase
      */
     public function testPaymentCCWithOrderIdAndCard()
     {
-        //TestCaseHelper::openOrderAndReturnOrderId() will create a new sessionToken
         $orderId            = TestCaseHelper::openOrderAndReturnOrderId();
         $params             = $this->getExampleData();
         $params['cardData'] = SimpleData::getCarData();

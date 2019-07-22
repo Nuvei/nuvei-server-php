@@ -12,8 +12,10 @@ use SafeCharge\Api\Exception\ResponseException;
 use SafeCharge\Api\Exception\ValidationException;
 use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Service\AuthenticationManagement;
+use SafeCharge\Api\Service\BaseService;
 use SafeCharge\Api\Service\OrdersManagement;
 use SafeCharge\Api\Service\Payments\CreditCard;
+use SafeCharge\Api\Service\PaymentService;
 use SafeCharge\Api\Service\UserPaymentOptions;
 use SafeCharge\Api\Service\UserService;
 
@@ -63,9 +65,8 @@ class TestCaseHelper
     public static function getSessionToken()
     {
         if (self::$sessionToken == null) {
-            $service            = new AuthenticationManagement(self::getClient());
-            $response           = $service->getSessionToken(['clientRequestId' => "15"]);
-            self::$sessionToken = $response['sessionToken'];
+            $service            = new BaseService(self::getClient());
+            self::$sessionToken = $service->getSessionToken();
         }
 
         return self::$sessionToken;
@@ -118,6 +119,7 @@ class TestCaseHelper
 
     /**
      * @param bool $isAuth
+     *
      * @return mixed
      * @throws Exception
      * @throws ConnectionException
@@ -164,7 +166,7 @@ class TestCaseHelper
      */
     public static function openOrderAndReturnOrderId()
     {
-        $service = new OrdersManagement(self::getClient());
+        $service = new PaymentService(self::getClient());
         self::setSessionToken(null);
         $params = [
             'sessionToken'      => TestCaseHelper::getSessionToken(),

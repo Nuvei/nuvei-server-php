@@ -6,9 +6,9 @@ use PHPUnit\Framework\TestCase;
 use SafeCharge\Api\Exception\ConnectionException;
 use SafeCharge\Api\Exception\ResponseException;
 use SafeCharge\Api\Exception\ValidationException;
-use SafeCharge\Api\Service\AuthenticationManagement;
+use SafeCharge\Api\Service\BaseService;
 
-class AuthenticationManagementTest extends TestCase
+class BaseServiceTest extends TestCase
 {
     private $service;
 
@@ -16,7 +16,7 @@ class AuthenticationManagementTest extends TestCase
     {
         parent::__construct();
 
-        $this->service = new AuthenticationManagement(TestCaseHelper::getClient());
+        $this->service = new BaseService(TestCaseHelper::getClient());
     }
 
     /**
@@ -26,9 +26,8 @@ class AuthenticationManagementTest extends TestCase
      */
     public function testGetSessionToken()
     {
-        $response = $this->service->getSessionToken(['clientRequestId' => "15"]);
-        $this->assertContains('sessionToken', $response);
-        $this->assertEquals('SUCCESS', $response['status']);
+        $sessionToken = $this->service->getSessionToken();
+        $this->assertNotEmpty($sessionToken);
     }
 
 }

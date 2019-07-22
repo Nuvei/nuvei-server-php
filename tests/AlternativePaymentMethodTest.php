@@ -11,13 +11,13 @@ use SafeCharge\Api\Service\Payments\AlternativePaymentMethod;
 
 class AlternativePaymentMethodTest extends TestCase
 {
-    private $_service;
+    private $service;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->_service = new AlternativePaymentMethod(TestCaseHelper::getClient());
+        $this->service = new AlternativePaymentMethod(TestCaseHelper::getClient());
 
 
     }
@@ -37,7 +37,7 @@ class AlternativePaymentMethodTest extends TestCase
             'languageCode'    => 'en',
         ];
 
-        $response = $this->_service->getMerchantPaymentMethods($params);
+        $response = $this->service->getMerchantPaymentMethods($params);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 
@@ -72,7 +72,7 @@ class AlternativePaymentMethodTest extends TestCase
             //'userPaymentOption'  => SimpleData::getUserPaymentOption(),
             'urlDetails'         => SimpleData::getUrlDetails(false)
         ];
-        $response = $this->_service->paymentAPM($params);
+        $response = $this->service->paymentAPM($params);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 }

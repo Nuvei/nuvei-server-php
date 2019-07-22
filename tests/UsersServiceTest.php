@@ -2,24 +2,28 @@
 
 namespace SafeCharge\Tests;
 
-use SafeCharge\Api\Service\UsersManagement;
+use PHPUnit\Framework\TestCase;
+use SafeCharge\Api\Exception\ConnectionException;
+use SafeCharge\Api\Exception\ResponseException;
+use SafeCharge\Api\Exception\ValidationException;
+use SafeCharge\Api\Service\UserService;
 
-class UsersManagementTest extends \PHPUnit\Framework\TestCase
+class UsersServiceTest extends TestCase
 {
-    private $_service;
+    private $service;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->_service = new UsersManagement(TestCaseHelper::getClient());
+        $this->service = new UserService(TestCaseHelper::getClient());
     }
 
     /**
      * @return string
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testCreateUser()
     {
@@ -40,7 +44,7 @@ class UsersManagementTest extends \PHPUnit\Framework\TestCase
             'email'           => 'john.smith@test.com',
         ];
 
-        $response = $this->_service->createUser($params);
+        $response = $this->service->createUser($params);
         $this->assertEquals('SUCCESS', $response['status']);
         $this->assertContains('userId', $response);
         return $userTokenId;
@@ -48,11 +52,13 @@ class UsersManagementTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @depends testCreateUser
+     *
      * @param $userTokenId
+     *
      * @return string
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testUpdateUser($userTokenId)
     {
@@ -71,7 +77,7 @@ class UsersManagementTest extends \PHPUnit\Framework\TestCase
             'locale'          => 'en_UK',
             'email'           => 'john.smith@test.com',
         ];
-        $response = $this->_service->updateUser($params);
+        $response = $this->service->updateUser($params);
         $this->assertEquals('SUCCESS', $response['status']);
         $this->assertContains('userId', $response);
         return $userTokenId;
@@ -79,10 +85,12 @@ class UsersManagementTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @depends testUpdateUser
+     *
      * @param $userTokenId
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     *
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testGetUserDetails($userTokenId)
     {
@@ -90,7 +98,7 @@ class UsersManagementTest extends \PHPUnit\Framework\TestCase
             'userTokenId'     => $userTokenId,
             'clientRequestId' => '102',
         ];
-        $response = $this->_service->getUserDetails($params);
+        $response = $this->service->getUserDetails($params);
         $this->assertEquals('SUCCESS', $response['status']);
         $this->assertContains('userId', $response);
         $this->assertEquals('Smith-updated', $response['userDetails']['lastName']);

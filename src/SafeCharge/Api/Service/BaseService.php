@@ -5,6 +5,7 @@ namespace SafeCharge\Api\Service;
 use SafeCharge\Api\Exception\ValidationException;
 use SafeCharge\Api\Interfaces\ServiceInterface;
 use SafeCharge\Api\RestClient;
+use SafeCharge\Api\Utils;
 
 /**
  * Class BaseService
@@ -15,16 +16,13 @@ class BaseService implements ServiceInterface
     /**
      * @var RestClient
      */
-    protected $_client;
+    protected $client;
     /**
      * @var string
      */
-    protected $_apiUrl;
-    /**
-     * @var
-     */
-    protected $_errors;
+    protected $apiUrl;
 
+    private $sessionToken;
 
     /**
      * BaseService constructor.
@@ -35,8 +33,8 @@ class BaseService implements ServiceInterface
      */
     public function __construct(RestClient $client)
     {
-        $this->_client = $client;
-        $this->_apiUrl = $this->_client->getApiUrl();
+        $this->client = $client;
+        $this->apiUrl = $this->client->getApiUrl();
     }
 
     /**
@@ -44,7 +42,32 @@ class BaseService implements ServiceInterface
      */
     public function getClient()
     {
-        return $this->_client;
+        return $this->client;
+    }
+
+    /**
+     * @return mixed
+     * @throws ValidationException
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     */
+    public function getSessionToken()
+    {
+        $mandatoryFields = ['merchantId', 'timeStamp', 'checksum'];
+
+        $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'timeStamp', 'merchantSecretKey'];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp();
+
+        $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
+
+        $this->validate($params, $mandatoryFields);
+
+        $sessionTokenResponse = $this->requestJson($params, 'getSessionToken.do');
+
+        $this->sessionToken = $sessionTokenResponse['sessionToken'];
+
+        return $this->sessionToken;
     }
 
     /**
@@ -55,13 +78,13 @@ class BaseService implements ServiceInterface
      *
      * @return mixed
      */
-    public function appendMerchantIdMerchantSiteIdTimeStamp($params)
+    public function appendMerchantIdMerchantSiteIdTimeStamp($params = [])
     {
         if (empty($params['merchantId'])) {
-            $params['merchantId'] = $this->_client->getConfig()->getMerchantId();
+            $params['merchantId'] = $this->client->getConfig()->getMerchantId();
         }
         if (empty($params['merchantSiteId'])) {
-            $params['merchantSiteId'] = $this->_client->getConfig()->getMerchantSiteId();
+            $params['merchantSiteId'] = $this->client->getConfig()->getMerchantSiteId();
         }
         if (empty($params['timeStamp'])) {
             $params['timeStamp'] = date('YmdHms');
@@ -105,9 +128,9 @@ class BaseService implements ServiceInterface
      */
     public function requestJson($params, $endpoint)
     {
-        $curlClient = $this->_client->getHttpClient();
+        $curlClient = $this->client->getHttpClient();
 
-        return $curlClient->requestJson($this, $this->_apiUrl . $endpoint, $params);
+        return $curlClient->requestJson($this, $this->apiUrl . $endpoint, $params);
     }
 
     /**
@@ -121,8 +144,8 @@ class BaseService implements ServiceInterface
      */
     public function requestPost($params, $endpoint)
     {
-        $curlClient = $this->_client->getHttpClient();
+        $curlClient = $this->client->getHttpClient();
 
-        return $curlClient->requestPost($this, $this->_apiUrl . $endpoint, $params);
+        return $curlClient->requestPost($this, $this->apiUrl . $endpoint, $params);
     }
 }

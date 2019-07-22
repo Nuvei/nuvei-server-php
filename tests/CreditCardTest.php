@@ -2,26 +2,31 @@
 
 namespace SafeCharge\Tests;
 
+use Exception;
+use PHPUnit\Framework\TestCase;
+use SafeCharge\Api\Exception\ConnectionException;
+use SafeCharge\Api\Exception\ResponseException;
+use SafeCharge\Api\Exception\ValidationException;
 use SafeCharge\Api\Service\Payments\CreditCard;
 
 
-class CreditCardTest extends \PHPUnit\Framework\TestCase
+class CreditCardTest extends TestCase
 {
-    private $_service;
+    private $service;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->_service = new CreditCard(TestCaseHelper::getClient());
+        $this->service = new CreditCard(TestCaseHelper::getClient());
     }
 
     /**
      * @return mixed
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testCardTokenization()
     {
@@ -32,7 +37,7 @@ class CreditCardTest extends \PHPUnit\Framework\TestCase
             'cardData'       => SimpleData::getCarData(),
             'billingAddress' => SimpleData::getBillingAddress()
         ];
-        $response = $this->_service->cardTokenization($params);
+        $response = $this->service->cardTokenization($params);
         $this->assertContains('ccTempToken', $response);
         return $response['ccTempToken'];
     }
@@ -40,10 +45,10 @@ class CreditCardTest extends \PHPUnit\Framework\TestCase
     /**
      * @depends testCardTokenization
      * @param $ccTempToken
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testPaymentCCWithCcTempToken($ccTempToken)
     {
@@ -53,15 +58,15 @@ class CreditCardTest extends \PHPUnit\Framework\TestCase
         $params             = $this->getExampleData();
         $params['cardData'] = SimpleData::getCarData(false, $ccTempToken);
 
-        $response = $this->_service->paymentCC($params);
+        $response = $this->service->paymentCC($params);
         $this->assertContains('orderId', $response);
     }
 
     /**
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testPaymentCCWithCard()
     {
@@ -69,15 +74,15 @@ class CreditCardTest extends \PHPUnit\Framework\TestCase
         $params             = $this->getExampleData();
         $params['cardData'] = SimpleData::getCarData();
 
-        $response = $this->_service->paymentCC($params);
+        $response = $this->service->paymentCC($params);
         $this->assertContains('orderId', $response);
     }
 
     /**
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testPaymentCCWithOrderIdAndCard()
     {
@@ -87,16 +92,16 @@ class CreditCardTest extends \PHPUnit\Framework\TestCase
         $params['cardData'] = SimpleData::getCarData();
         $params['orderId']  = $orderId;
 
-        $response = $this->_service->paymentCC($params);
+        $response = $this->service->paymentCC($params);
         $this->assertContains('orderId', $response);
     }
 
     /**
      * @return array
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function getExampleData()
     {

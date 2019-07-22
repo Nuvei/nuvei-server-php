@@ -2,9 +2,14 @@
 
 namespace SafeCharge\Tests;
 
+use Exception;
+use PHPUnit\Framework\TestCase;
+use SafeCharge\Api\Exception\ConnectionException;
+use SafeCharge\Api\Exception\ResponseException;
+use SafeCharge\Api\Exception\ValidationException;
 use SafeCharge\Api\Service\Payments\AlternativePaymentMethod;
 
-class AlternativePaymentMethodTest extends \PHPUnit\Framework\TestCase
+class AlternativePaymentMethodTest extends TestCase
 {
     private $_service;
 
@@ -18,9 +23,9 @@ class AlternativePaymentMethodTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testGetMerchantPaymentMethods()
     {
@@ -37,10 +42,10 @@ class AlternativePaymentMethodTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testPaymentAPM()
     {

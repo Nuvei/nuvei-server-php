@@ -25,28 +25,34 @@
 
 namespace SafeCharge\Tests;
 
+use Exception;
+use PHPUnit\Framework\TestCase;
+use SafeCharge\Api\Exception\ConfigurationException;
+use SafeCharge\Api\Exception\ConnectionException;
+use SafeCharge\Api\Exception\ResponseException;
+use SafeCharge\Api\Exception\ValidationException;
 use SafeCharge\Api\Service\Payments\Payout;
 
-class PayoutTest extends \PHPUnit\Framework\TestCase
+class PayoutTest extends TestCase
 {
-    private $_service;
+    private $service;
 
     /**
      * PayoutTest constructor.
-     * @throws \SafeCharge\Api\Exception\ConfigurationException
+     * @throws ConfigurationException
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->_service = new Payout(TestCaseHelper::getClient());
+        $this->service = new Payout(TestCaseHelper::getClient());
     }
 
     /**
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testPayout()
     {
@@ -66,7 +72,7 @@ class PayoutTest extends \PHPUnit\Framework\TestCase
             'urlDetails'        => SimpleData::getUrlDetails(true),
         ];
 
-        $response = $this->_service->payout($params);
+        $response = $this->service->payout($params);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 

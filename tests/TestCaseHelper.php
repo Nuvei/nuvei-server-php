@@ -3,37 +3,42 @@
 namespace SafeCharge\Tests;
 
 
+use Exception;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use SafeCharge\Api\Exception\ConfigurationException;
+use SafeCharge\Api\Exception\ConnectionException;
+use SafeCharge\Api\Exception\ResponseException;
+use SafeCharge\Api\Exception\ValidationException;
 use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Service\AuthenticationManagement;
 use SafeCharge\Api\Service\OrdersManagement;
 use SafeCharge\Api\Service\Payments\CreditCard;
 use SafeCharge\Api\Service\UserPaymentOptions;
-use SafeCharge\Api\Service\UsersManagement;
+use SafeCharge\Api\Service\UserService;
 
 class TestCaseHelper
 {
-    private static $_client = null;
+    private static $client = null;
 
-    private static $_sessionToken = null;
+    private static $sessionToken = null;
 
-    private static $_userTokenId = null;
+    private static $userTokenId = null;
 
-    private static $_upoCreditCardId = null;
+    private static $upoCreditCardId = null;
 
 
     /**
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public static function getClient()
     {
-        if (self::$_client == null) {
+        if (self::$client == null) {
 
             $config = parse_ini_file(__DIR__ . DIRECTORY_SEPARATOR . 'config.ini', true);
 
-            self::$_client = new RestClient([
+            self::$client = new RestClient([
                 'environment'       => $config['environment'],
                 'merchantId'        => $config['merchantId'],
                 'merchantSiteId'    => $config['merchantSiteId'],
@@ -43,49 +48,49 @@ class TestCaseHelper
 
             $logger = new Logger('safecharge-php-sdk');
             $logger->pushHandler(new StreamHandler(__DIR__ . DIRECTORY_SEPARATOR . 'safecharge-log.log', Logger::DEBUG));
-            self::$_client->setLogger($logger);
+            self::$client->setLogger($logger);
         }
-        return self::$_client;
+        return self::$client;
     }
 
     /**
      * @return string
-     * @throws \SafeCharge\Api\Exception\ConfigurationException
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws ConfigurationException
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public static function getSessionToken()
     {
-        if (self::$_sessionToken == null) {
-            $service             = new AuthenticationManagement(self::getClient());
-            $response            = $service->getSessionToken(['clientRequestId' => "15"]);
-            self::$_sessionToken = $response['sessionToken'];
+        if (self::$sessionToken == null) {
+            $service            = new AuthenticationManagement(self::getClient());
+            $response           = $service->getSessionToken(['clientRequestId' => "15"]);
+            self::$sessionToken = $response['sessionToken'];
         }
 
-        return self::$_sessionToken;
+        return self::$sessionToken;
     }
 
     /**
-     * @param null $_sessionToken
+     * @param null $sessionToken
      */
-    public static function setSessionToken($_sessionToken)
+    public static function setSessionToken($sessionToken)
     {
-        self::$_sessionToken = $_sessionToken;
+        self::$sessionToken = $sessionToken;
     }
 
 
     /**
      * @return null|string
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public static function getUserTokenId()
     {
-        if (self::$_userTokenId == null) {
-            $userManagementService = new UsersManagement(TestCaseHelper::getClient());
+        if (self::$userTokenId == null) {
+            $userManagementService = new UserService(TestCaseHelper::getClient());
             $userTokenId           = md5(time());
             $params                = [
                 'userTokenId'     => $userTokenId,
@@ -104,20 +109,20 @@ class TestCaseHelper
 
             $response = $userManagementService->createUser($params);
             if (!isset($response['status']) || $response['status'] != 'SUCCESS') {
-                throw new \Exception('Cannot create a user');
+                throw new Exception('Cannot create a user');
             }
-            self::$_userTokenId = $userTokenId;
+            self::$userTokenId = $userTokenId;
         }
-        return self::$_userTokenId;
+        return self::$userTokenId;
     }
 
     /**
      * @param bool $isAuth
      * @return mixed
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public static function createAndReturnTransaction($isAuth = false)
     {
@@ -152,10 +157,10 @@ class TestCaseHelper
 
     /**
      * @return mixed
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public static function openOrderAndReturnOrderId()
     {
@@ -185,16 +190,16 @@ class TestCaseHelper
 
     /**
      * @return mixed
-     * @throws \SafeCharge\Api\Exception\ConfigurationException
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
-     * @throws \Exception
+     * @throws ConfigurationException
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
+     * @throws Exception
      */
     public static function getUPOCreditCardId()
     {
-        if (!is_null(self::$_upoCreditCardId)) {
-            return self::$_upoCreditCardId;
+        if (!is_null(self::$upoCreditCardId)) {
+            return self::$upoCreditCardId;
         }
         $service = new UserPaymentOptions(self::getClient());
 
@@ -211,9 +216,9 @@ class TestCaseHelper
 
         $response = $service->addUPOCreditCard($params);
 
-        self::$_upoCreditCardId = $response['userPaymentOptionId'];
+        self::$upoCreditCardId = $response['userPaymentOptionId'];
 
-        return self::$_upoCreditCardId;
+        return self::$upoCreditCardId;
     }
 
 }

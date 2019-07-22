@@ -40,7 +40,7 @@ class AlternativePaymentMethod extends BaseService
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
         if (empty($params['checksum'])) {
-            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->_client->getConfig()->getMerchantSecretKey(), $this->_client->getConfig()->getHashAlgorithm());
+            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
         }
 
         $this->validate($params, $mandatoryFields);
@@ -65,7 +65,7 @@ class AlternativePaymentMethod extends BaseService
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
         if (empty($params['checksum'])) {
-            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->_client->getConfig()->getMerchantSecretKey(), $this->_client->getConfig()->getHashAlgorithm());
+            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
         }
 
         $this->validate($params, $mandatoryFields);

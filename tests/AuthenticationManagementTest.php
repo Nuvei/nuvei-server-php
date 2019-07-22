@@ -2,27 +2,31 @@
 
 namespace SafeCharge\Tests;
 
+use PHPUnit\Framework\TestCase;
+use SafeCharge\Api\Exception\ConnectionException;
+use SafeCharge\Api\Exception\ResponseException;
+use SafeCharge\Api\Exception\ValidationException;
 use SafeCharge\Api\Service\AuthenticationManagement;
 
-class AuthenticationManagementTest extends \PHPUnit\Framework\TestCase
+class AuthenticationManagementTest extends TestCase
 {
-    private $_service;
+    private $service;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->_service = new AuthenticationManagement(TestCaseHelper::getClient());
+        $this->service = new AuthenticationManagement(TestCaseHelper::getClient());
     }
 
     /**
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testGetSessionToken()
     {
-        $response = $this->_service->getSessionToken(['clientRequestId' => "15"]);
+        $response = $this->service->getSessionToken(['clientRequestId' => "15"]);
         $this->assertContains('sessionToken', $response);
         $this->assertEquals('SUCCESS', $response['status']);
     }

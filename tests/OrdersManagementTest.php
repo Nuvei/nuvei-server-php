@@ -2,26 +2,31 @@
 
 namespace SafeCharge\Tests;
 
+use Exception;
+use PHPUnit\Framework\TestCase;
+use SafeCharge\Api\Exception\ConnectionException;
+use SafeCharge\Api\Exception\ResponseException;
+use SafeCharge\Api\Exception\ValidationException;
 use SafeCharge\Api\Service\OrdersManagement;
 
-class OrdersManagementTest extends \PHPUnit\Framework\TestCase
+class OrdersManagementTest extends TestCase
 {
 
-    private $_service;
+    private $service;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->_service = new OrdersManagement(TestCaseHelper::getClient());
+        $this->service = new OrdersManagement(TestCaseHelper::getClient());
     }
 
     /**
      * @return mixed
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testOpenOrder()
     {
@@ -44,7 +49,7 @@ class OrdersManagementTest extends \PHPUnit\Framework\TestCase
             'addendums'         => SimpleData::getAddEndUms(),
         ];
 
-        $response = $this->_service->openOrder($params);
+        $response = $this->service->openOrder($params);
         $this->assertContains('orderId', $response);
         return $response['orderId'];
     }
@@ -52,9 +57,9 @@ class OrdersManagementTest extends \PHPUnit\Framework\TestCase
     /**
      * @depends testOpenOrder
      * @param $orderId
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testUpdateOrder($orderId)
     {
@@ -86,7 +91,7 @@ class OrdersManagementTest extends \PHPUnit\Framework\TestCase
             'merchantDetails'   => SimpleData::getMerchantDetails(),
             'addendums'         => SimpleData::getAddEndUms(),
         ];
-        $response = $this->_service->updateOrder($params);
+        $response = $this->service->updateOrder($params);
         $this->assertContains('orderId', $response);
         $this->assertEquals('SUCCESS', $response['status']);
     }
@@ -95,9 +100,9 @@ class OrdersManagementTest extends \PHPUnit\Framework\TestCase
      * @depends testOpenOrder
      * @depends testUpdateOrder
      * @param $orderId
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testGetOrderDetails($orderId)
     {
@@ -106,7 +111,7 @@ class OrdersManagementTest extends \PHPUnit\Framework\TestCase
             "orderId"         => $orderId,
             "clientRequestId" => "1484759782197",
         ];
-        $response = $this->_service->getOrderDetails($params);
+        $response = $this->service->getOrderDetails($params);
         $this->assertContains('orderId', $response);
         $this->assertContains('currency', $response);
         $this->assertContains('amount', $response);

@@ -1,10 +1,9 @@
 <?php
 
-
 namespace SafeCharge\Api\Service;
 
 use SafeCharge\Api\RestClient;
-use SafeCharge\Api\Exception\ConfigurationException;
+use SafeCharge\Api\Utils;
 
 /**
  * Class UserService
@@ -14,22 +13,15 @@ class UserService extends BaseService
 {
 
     /**
-     * @var UsersManagement
-     */
-    private $userManagementService;
-
-    /**
-     * UserService constructor.
+     * UsersManagement constructor.
      *
      * @param RestClient $client
      *
-     * @throws ConfigurationException
+     * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
     {
         parent::__construct($client);
-
-        $this->userManagementService = new UsersManagement($client);
     }
 
     /**
@@ -39,10 +31,40 @@ class UserService extends BaseService
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
+     * @link https://www.safecharge.com/docs/API/#createUser
      */
     public function createUser(array $params)
     {
-        return $this->userManagementService->createUser($params);
+        $mandatoryFields = ['merchantId', 'merchantSiteId', 'userTokenId', 'countryCode', 'timeStamp', 'checksum'];
+
+        $checksumParametersOrder = [
+            'merchantId',
+            'merchantSiteId',
+            'userTokenId',
+            'clientRequestId',
+            'firstName',
+            'lastName',
+            'address',
+            'state',
+            'city',
+            'zip',
+            'countryCode',
+            'phone',
+            'locale',
+            'email',
+            'county',
+            'timeStamp',
+            'merchantSecretKey'
+        ];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+
+        $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
+
+
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'createUser.do');
     }
 
     /**
@@ -52,10 +74,40 @@ class UserService extends BaseService
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
+     * @link https://www.safecharge.com/docs/API/#updateUser
      */
     public function updateUser(array $params)
     {
-        return $this->userManagementService->updateUser($params);
+        $mandatoryFields = ['merchantId', 'merchantSiteId', 'timeStamp', 'checksum'];
+
+        $checksumParametersOrder = [
+            'merchantId',
+            'merchantSiteId',
+            'userTokenId',
+            'clientRequestId',
+            'firstName',
+            'lastName',
+            'address',
+            'state',
+            'city',
+            'zip',
+            'countryCode',
+            'phone',
+            'locale',
+            'email',
+            'county',
+            'timeStamp',
+            'merchantSecretKey'
+        ];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+
+        $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
+
+
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'updateUser.do');
     }
 
     /**
@@ -65,9 +117,20 @@ class UserService extends BaseService
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
+     * @link https://www.safecharge.com/docs/API/#getUserDetails
      */
     public function getUserDetails(array $params)
     {
-        return $this->userManagementService->getUserDetails($params);
+        $mandatoryFields = ['merchantId', 'merchantSiteId', 'timeStamp', 'checksum'];
+
+        $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'userTokenId', 'clientRequestId', 'timeStamp', 'merchantSecretKey'];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+
+        $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
+
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'getUserDetails.do');
     }
 }

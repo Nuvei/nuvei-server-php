@@ -42,7 +42,7 @@ class OrdersManagement extends BaseService
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
         if (empty($params['checksum'])) {
-            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->_client->getConfig()->getMerchantSecretKey(), $this->_client->getConfig()->getHashAlgorithm());
+            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
         }
 
         $this->validate($params, $mandatoryFields);
@@ -68,7 +68,7 @@ class OrdersManagement extends BaseService
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
         if (empty($params['checksum'])) {
-            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->_client->getConfig()->getMerchantSecretKey(), $this->_client->getConfig()->getHashAlgorithm());
+            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
         }
 
         $this->validate($params, $mandatoryFields);
@@ -84,8 +84,7 @@ class OrdersManagement extends BaseService
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
      * @link https://www.safecharge.com/docs/API/#getOrderDetails
-     * @deprecated
-     */
+¬     */
     public function getOrderDetails(array $params)
     {
         $mandatoryFields = ['sessionToken', 'orderId', 'merchantId', 'merchantSiteId', 'timeStamp', 'checksum'];
@@ -95,7 +94,7 @@ class OrdersManagement extends BaseService
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
         if (empty($params['checksum'])) {
-            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->_client->getConfig()->getMerchantSecretKey(), $this->_client->getConfig()->getHashAlgorithm());
+            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
         }
 
         $this->validate($params, $mandatoryFields);

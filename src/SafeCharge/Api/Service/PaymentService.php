@@ -56,7 +56,7 @@ class PaymentService extends BaseService
 
         $this->validate($params, $mandatoryFields);
 
-        return $this->requestJson($params, 'createPayment.do');
+        return $this->requestJson($params, 'payment.do');
     }
 
 

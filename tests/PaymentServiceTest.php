@@ -46,7 +46,8 @@ class PaymentServiceTest extends TestCase
             'paymentOption'  => [
                 'card' => SimpleData::getCarData()
             ],
-            'billingAddress' => SimpleData::getBillingAddress()
+            'billingAddress' => SimpleData::getBillingAddress(),
+            'deviceDetails'  => SimpleData::getDeviceDetails()
         ]);
         $this->assertEquals('SUCCESS', $response['status']);
     }

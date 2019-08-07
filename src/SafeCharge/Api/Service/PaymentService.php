@@ -37,7 +37,7 @@ class PaymentService extends BaseService
      */
     public function createPayment(array $params)
     {
-        $mandatoryFields = ['merchantId', 'merchantSiteId', 'sessionToken', 'timeStamp', 'checksum', 'currency', 'amount', 'paymentOption', 'billingAddress'];
+        $mandatoryFields = ['merchantId', 'merchantSiteId', 'sessionToken', 'timeStamp', 'checksum', 'currency', 'amount', 'paymentOption', 'billingAddress', 'deviceDetails'];
 
         $checksumParametersOrder = [
             'merchantId',
@@ -83,7 +83,6 @@ class PaymentService extends BaseService
         $this->validate($params, $mandatoryFields);
 
         return $this->requestJson($params, 'initPayment.do');
-
     }
 
     /**

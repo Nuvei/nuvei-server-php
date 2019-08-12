@@ -10,11 +10,11 @@
   "require": {
     "php": ">=5.4",
     "ext-curl": "*",
-    "ext-json": "*",
-    "phpunit/phpunit": "^7.5"
+    "ext-json": "*"
   },
   "require-dev": {
-    "monolog/monolog": "^1.23"
+    "monolog/monolog": "^1.23",
+    "phpunit/phpunit": "^7.5"
   },
   "autoload": {
     "psr-4": {

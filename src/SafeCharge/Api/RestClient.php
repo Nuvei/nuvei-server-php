@@ -12,7 +12,7 @@ use SafeCharge\Api\Interfaces\LoggerInterface;
 class RestClient
 {
     const CLIENT_NAME    = 'safecharge-php-client';
-    const CLIENT_VERSION = '1.0.7';
+    const CLIENT_VERSION = '2.0.0';
 
     const API_VERSION = "v1";
 

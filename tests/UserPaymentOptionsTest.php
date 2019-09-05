@@ -2,31 +2,37 @@
 
 namespace SafeCharge\Tests;
 
+use Exception;
+use PHPUnit\Framework\TestCase;
+use SafeCharge\Api\Exception\ConfigurationException;
+use SafeCharge\Api\Exception\ConnectionException;
+use SafeCharge\Api\Exception\ResponseException;
+use SafeCharge\Api\Exception\ValidationException;
 use SafeCharge\Api\Service\Payments\CreditCard;
 use SafeCharge\Api\Service\UserPaymentOptions;
 
-class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
+class UserPaymentOptionsTest extends TestCase
 {
-    private $_service;
+    private $service;
 
     /**
      * UserPaymentOptionsTest constructor.
-     * @throws \SafeCharge\Api\Exception\ConfigurationException
+     * @throws ConfigurationException
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->_service = new UserPaymentOptions(TestCaseHelper::getClient());
+        $this->service = new UserPaymentOptions(TestCaseHelper::getClient());
     }
 
 
     /**
      * @return mixed
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testAddUPOCreditCard()
     {
@@ -40,7 +46,7 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
             'ccNameOnCard'    => $cardData['cardHolderName'],
             'billingAddress'  => SimpleData::getBillingAddress(true),
         ];
-        $response = $this->_service->addUPOCreditCard($params);
+        $response = $this->service->addUPOCreditCard($params);
         $this->assertEquals('SUCCESS', $response['status']);
         $this->assertContains('ccToken', $response);
         return $response;
@@ -50,10 +56,10 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
     /**
      * @depends testAddUPOCreditCard
      * @param $addUPOCreditCardResponse
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testAddUPOCreditCardByToken($addUPOCreditCardResponse)
     {
@@ -72,15 +78,15 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
             'last4Digits'     => $addUPOCreditCardResponse['last4Digits'],
             'billingAddress'  => SimpleData::getBillingAddress(true),
         ];
-        $response = $this->_service->addUPOCreditCardByToken($params);
+        $response = $this->service->addUPOCreditCardByToken($params);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 
     /**
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testAddUPOCreditCardByTempToken()
     {
@@ -103,16 +109,16 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
             'ccTempToken'     => $creditCardServiceResponse['ccTempToken'],
             'billingAddress'  => SimpleData::getBillingAddress(),
         ];
-        $response = $this->_service->addUPOCreditCardByTempToken($params);
+        $response = $this->service->addUPOCreditCardByTempToken($params);
         $this->assertContains('userPaymentOptionId', $response);
     }
 
     /**
      * @return mixed
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testAddUPOAPM()
     {
@@ -125,7 +131,7 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
             ],
             'billingAddress'    => SimpleData::getBillingAddress(true),
         ];
-        $response = $this->_service->addUPOAPM($params);
+        $response = $this->service->addUPOAPM($params);
         $this->assertContains('userPaymentOptionId', $response);
         return $response['userPaymentOptionId'];
     }
@@ -133,10 +139,10 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
     /**
      * @depends testAddUPOAPM
      * @param $userPaymentOptionId
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testEditUPOAPM($userPaymentOptionId)
     {
@@ -149,17 +155,17 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
             ],
             'billingAddress'      => SimpleData::getBillingAddress(true),
         ];
-        $response = $this->_service->editUPOAPM($params);
+        $response = $this->service->editUPOAPM($params);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 
     /**
      * @depends testAddUPOCreditCard
      * @param $addUPOCreditCardResponse
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testEditUPOCC($addUPOCreditCardResponse)
     {
@@ -174,7 +180,7 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
             'ccNameOnCard'        => 'Some new updated',
             'billingAddress'      => SimpleData::getBillingAddress(true),
         ];
-        $response = $this->_service->editUPOCC($params);
+        $response = $this->service->editUPOCC($params);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 
@@ -182,10 +188,10 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
      * @depends testAddUPOCreditCardByTempToken
      * @depends testAddUPOAPM
      * @depends testEditUPOAPM
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testGetUserUPOs()
     {
@@ -193,7 +199,7 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
             'userTokenId'     => TestCaseHelper::getUserTokenId(),
             'clientRequestId' => '166',
         ];
-        $response = $this->_service->getUserUPOs($params);
+        $response = $this->service->getUserUPOs($params);
         $this->assertEquals('SUCCESS', $response['status']);
         $this->assertContains('paymentMethods', $response);
         return $response['paymentMethods'];
@@ -204,10 +210,10 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
      * @depends testGetUserUPOs
      * @param $paymentMethods
      * @return integer
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testSuspendUPO($paymentMethods)
     {
@@ -217,7 +223,7 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
             'clientRequestId'     => '188',
             'userPaymentOptionId' => $userPaymentOptionId,
         ];
-        $response            = $this->_service->suspendUPO($params);
+        $response            = $this->service->suspendUPO($params);
         $this->assertEquals('SUCCESS', $response['status']);
         return $userPaymentOptionId;
     }
@@ -226,10 +232,10 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
      * @depends testSuspendUPO
      * @param $userPaymentOptionId
      * @return integer
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testEnableUPO($userPaymentOptionId)
     {
@@ -238,7 +244,7 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
             'clientRequestId'     => '188',
             'userPaymentOptionId' => $userPaymentOptionId,
         ];
-        $response = $this->_service->enableUPO($params);
+        $response = $this->service->enableUPO($params);
         $this->assertEquals('SUCCESS', $response['status']);
         return $userPaymentOptionId;
     }
@@ -247,10 +253,10 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
     /**
      * @depends testSuspendUPO
      * @param $userPaymentOptionId
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testDeleteUPO($userPaymentOptionId)
     {
@@ -259,7 +265,7 @@ class UserPaymentOptionsTest extends \PHPUnit\Framework\TestCase
             'clientRequestId'     => '188',
             'userPaymentOptionId' => $userPaymentOptionId,
         ];
-        $response = $this->_service->deleteUPO($params);
+        $response = $this->service->deleteUPO($params);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 

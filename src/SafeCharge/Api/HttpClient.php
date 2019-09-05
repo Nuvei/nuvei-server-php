@@ -21,6 +21,7 @@ class HttpClient implements HttpClientInterface
      * @param ServiceInterface $service
      * @param $requestUrl
      * @param $params
+     *
      * @return mixed
      * @throws ConnectionException
      * @throws ResponseException
@@ -61,7 +62,7 @@ class HttpClient implements HttpClientInterface
         $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         // result not 200 throw error
         if ($result) {
-            $logger->info('Response:' . $result . PHP_EOL);
+            $logger->info('[SafeCharge PHP SDK] Response:' . $result . PHP_EOL);
             $this->handleResultError($result, $logger);
         } elseif (!$result) {
             $errno   = curl_errno($ch);
@@ -85,6 +86,7 @@ class HttpClient implements HttpClientInterface
      * @param ServiceInterface $service
      * @param $requestUrl
      * @param $params
+     *
      * @return mixed
      * @throws ConnectionException
      * @throws ResponseException
@@ -99,7 +101,7 @@ class HttpClient implements HttpClientInterface
 
         // log the requestUr, params and json request
         $logger->info("Request url: " . $requestUrl);
-        $logger->info('Params:' . print_r($params, 1));
+        $logger->info('Params:' . print_r($params, true));
 
 
         //Initiate cURL.
@@ -125,7 +127,7 @@ class HttpClient implements HttpClientInterface
         $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         if ($result) {
-            $logger->info('[SafeCharge PHP SDK] Params:' . $result);
+            $logger->info('[SafeCharge PHP SDK] Response:' . $result);
             $this->handleResultError($result, $logger);
         } elseif (!$result) {
             $errno      = curl_errno($ch);
@@ -156,6 +158,7 @@ class HttpClient implements HttpClientInterface
      * @param $errno
      * @param $message
      * @param $logger
+     *
      * @throws ConnectionException
      */
     protected function handleCurlError($url, $errno, $message, $logger)
@@ -189,6 +192,7 @@ class HttpClient implements HttpClientInterface
      *
      * @param $result
      * @param $logger
+     *
      * @throws ResponseException
      */
     protected function handleResultError($result, $logger)
@@ -197,7 +201,7 @@ class HttpClient implements HttpClientInterface
         if (isset($decodedResult['errCode']) && !empty($decodedResult['errCode'])) {
             $logger->error("[SafeCharge PHP SDK] " . $decodedResult['errCode'] . ': ' . $decodedResult['reason']);
             throw new ResponseException($decodedResult['reason'], $decodedResult['errCode'], null, null, $decodedResult);
-        } else if (isset($decodedResult['gwErrorCode']) && !empty($decodedResult['gwErrorCode'])) {
+        } elseif (isset($decodedResult['gwErrorCode']) && !empty($decodedResult['gwErrorCode'])) {
             $logger->error("[SafeCharge PHP SDK] " . $decodedResult['gwErrorCode'] . ': ' . $decodedResult['gwErrorReason']);
             throw new ResponseException($decodedResult['gwErrorReason'], $decodedResult['gwErrorCode'], null, null, $decodedResult);
         }

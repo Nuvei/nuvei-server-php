@@ -2,29 +2,35 @@
 
 namespace SafeCharge\Tests;
 
+use Exception;
+use PHPUnit\Framework\TestCase;
+use SafeCharge\Api\Exception\ConfigurationException;
+use SafeCharge\Api\Exception\ConnectionException;
+use SafeCharge\Api\Exception\ResponseException;
+use SafeCharge\Api\Exception\ValidationException;
 use SafeCharge\Api\Service\Payments\ThreeDsecure;
 
-class ThreeDsecureTest extends \PHPUnit\Framework\TestCase
+class ThreeDsecureTest extends TestCase
 {
-    private $_service;
+    private $service;
 
     /**
      * ThreeDsecureTest constructor.
-     * @throws \SafeCharge\Api\Exception\ConfigurationException
+     * @throws ConfigurationException
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->_service = new ThreeDsecure(TestCaseHelper::getClient());
+        $this->service = new ThreeDsecure(TestCaseHelper::getClient());
     }
 
     /**
      * @return mixed
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testDynamic3d()
     {
@@ -32,7 +38,7 @@ class ThreeDsecureTest extends \PHPUnit\Framework\TestCase
         $params             = $this->getExampleData();
         $params['cardData'] = SimpleData::getCarData('375510288656924');
 
-        $response = $this->_service->dynamic3D($params);
+        $response = $this->service->dynamic3D($params);
         $this->assertContains('orderId', $response);
         $this->assertContains('paRequest', $response);
         return $response['orderId'];
@@ -41,10 +47,10 @@ class ThreeDsecureTest extends \PHPUnit\Framework\TestCase
     /**
      * @depends testDynamic3d
      * @param $orderId
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testPayment3d($orderId)
     {
@@ -55,17 +61,17 @@ class ThreeDsecureTest extends \PHPUnit\Framework\TestCase
         $params['paResponse']        = "";
         $params['transactionType']   = "Sale";
         $params['cardData']          = SimpleData::getCarData();
-        $response                    = $this->_service->payment3D($params);
+        $response                    = $this->service->payment3D($params);
         $this->assertContains('orderId', $response);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 
     /**
      * @return mixed
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testDynamic3dWithRebillingAndMpi()
     {
@@ -92,7 +98,7 @@ class ThreeDsecureTest extends \PHPUnit\Framework\TestCase
         ];
 
 
-        $response = $this->_service->dynamic3D($params);
+        $response = $this->service->dynamic3D($params);
         $this->assertContains('orderId', $response);
         $this->assertContains('paRequest', $response);
         return $response['orderId'];
@@ -101,10 +107,10 @@ class ThreeDsecureTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @return array
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function getExampleData()
     {

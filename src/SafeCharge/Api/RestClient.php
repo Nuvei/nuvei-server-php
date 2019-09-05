@@ -11,17 +11,16 @@ use SafeCharge\Api\Interfaces\LoggerInterface;
  */
 class RestClient
 {
-
     const CLIENT_NAME    = 'safecharge-php-client';
-    const CLIENT_VERSION = '1.0.7';
+    const CLIENT_VERSION = '2.0.0';
 
     const API_VERSION = "v1";
 
-    private $_config;
-    private $_httpClient;
+    private $config;
+    private $httpClient;
 
-    /** @var $_logger LoggerInterface */
-    private $_logger;
+    /** @var $logger LoggerInterface */
+    private $logger;
 
     public static function getClientName()
     {
@@ -30,11 +29,12 @@ class RestClient
 
     /**
      * RestClient constructor.
+     *
      * @param array $config
      */
     public function __construct(array $config = [])
     {
-        $this->_config = new Config($config);
+        $this->config = new Config($config);
     }
 
     /**
@@ -42,7 +42,7 @@ class RestClient
      */
     public function getConfig()
     {
-        return $this->_config;
+        return $this->config;
     }
 
     /**
@@ -50,7 +50,7 @@ class RestClient
      */
     public function setConfig(ConfigInterface $config)
     {
-        $this->_config = $config;
+        $this->config = $config;
     }
 
 
@@ -60,7 +60,7 @@ class RestClient
      */
     public function getApiUrl()
     {
-        return $this->_config->getEndpoint() . '/' . self::API_VERSION . '/';
+        return $this->config->getEndpoint() . '/' . self::API_VERSION . '/';
     }
 
 
@@ -69,19 +69,20 @@ class RestClient
      */
     public function getHttpClient()
     {
-        if (is_null($this->_httpClient)) {
-            $this->_httpClient = new HttpClient();
+        if (is_null($this->httpClient)) {
+            $this->httpClient = new HttpClient();
         }
-        return $this->_httpClient;
+        return $this->httpClient;
     }
 
     /**
      * Set the Logger object
+     *
      * @param $logger
      */
     public function setLogger($logger)
     {
-        $this->_logger = $logger;
+        $this->logger = $logger;
     }
 
     /**
@@ -89,10 +90,9 @@ class RestClient
      */
     public function getLogger()
     {
-        if ($this->_logger == null) {
+        if ($this->logger == null) {
             $this->setLogger(new Logger());
         }
-        return $this->_logger;
+        return $this->logger;
     }
-
 }

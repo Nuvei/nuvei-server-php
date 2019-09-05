@@ -69,41 +69,72 @@ $client->setLogger($logger);
 Safecharge's PHP SDK appends merchantId, merchantSiteId, timestamp and checksum in the request.
 ```php
 <?php
-$client = new \SafeCharge\Api\RestClient([
+
+use SafeCharge\Api\RestClient;
+use SafeCharge\Tests\SimpleData;
+use SafeCharge\Tests\TestCaseHelper;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+require __DIR__ . '/../init.php';
+require __DIR__ . '/../tests/TestCaseHelper.php';
+require __DIR__ . '/../tests/SimpleData.php';
+
+$config = [
     'environment'       => \SafeCharge\Api\Environment::TEST,
     'merchantId'        => '<your merchantId>',
     'merchantSiteId'    => '<your merchantSiteId>',
     'merchantSecretKey' => '<your merchantSecretKey>',
-]);
-
-$authenticationService = new \SafeCharge\Api\Service\AuthenticationManagement($client);
-
-$authenticationResponse = $authenticationService->getSessionToken([
-    'clientRequestId' => '1'
-]);
-
-$openOrderParams = [
-    'sessionToken'      => $authenticationResponse['sessionToken'],
-    'currency'          => 'USD',
-    'amount'            => "10",
-    'amountDetails'     => [
-        "totalShipping" => "0",
-        "totalHandling" => "0",
-        "totalDiscount" => "0",
-        "totalTax"      => "0"
-    ],
-    'items'             => [
-        [
-            "id"       => "1",
-            "name"     => "name",
-            "price"    => "10",
-            "quantity" => "1"
-        ]
-    ],
+    'hashAlgorithm'     => '<sha256 or md5>'
 ];
 
-$orderService = new \SafeCharge\Api\Service\OrdersManagement($client);
+$safecharge = new \SafeCharge\Api\SafeCharge();
+$safecharge->initialize($config);
+$paymentResponse = $safecharge->getPaymentService()->initPayment([
+    'currency'       => 'EUR',
+    'amount'         => '10',
+    'userTokenId'    => '<user token id>',
+    'paymentOption'  => [
+        'card' => [
+            'cardNumber'      => '<card number>',
+            'cardHolderName'  => 'card name',
+            'expirationMonth' => '<expiration month>',
+            'expirationYear'  => '<expiration year>',
+            'CVV'             => '<cvv>',
+        ]
+    ],
+    'billingAddress' => [
+        "firstName" => "<first name>",
+        "lastName"  => "<last name>",
+        "address"   => "<address>",
+        "phone"     => "<phone number>",
+        "zip"       => "<zip code>",
+        "city"      => "<city>",
+        'country'   => "<country ISO 3166-1 alpha-2>",
+        "state"     => "<state>",
+        "email"     => "<email address>",
+        "county"    => "<county>",
+    ]
+]);
 
-$openOrderResponse = $orderService->openOrder($openOrderParams);
+print_r($paymentResponse);
 
+$openOrderRequest = $safecharge->getPaymentService()->openOrder([
+    'userTokenId'       => '<user token id>',
+    'clientUniqueId'    => '',
+    'clientRequestId'   => '',
+    'currency'          => SimpleData::getCurrency(),
+    'amount'            => SimpleData::getAmount(),
+    'amountDetails'     => SimpleData::getAmountDetails(),
+    'items'             => SimpleData::getItems(),
+    'deviceDetails'     => SimpleData::getDeviceDetails(),
+    'userDetails'       => SimpleData::getUserDetails(),
+    'shippingAddress'   => SimpleData::getShippingAddress(),
+    'billingAddress'    => SimpleData::getBillingAddress(),
+    'dynamicDescriptor' => SimpleData::getDynamicDescriptor(),
+    'merchantDetails'   => SimpleData::getMerchantDetails(),
+    'addendums'         => SimpleData::getAddEndUms(),
+]);
+
+print_r($openOrderRequest);
 ```

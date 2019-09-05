@@ -14,6 +14,7 @@ class SafeChargeException extends Exception
 
     /**
      * SafeChargeException constructor.
+     *
      * @param string $message
      * @param int $code
      * @param Exception|null $previous
@@ -34,5 +35,4 @@ class SafeChargeException extends Exception
     {
         return $this->_status;
     }
-
 }

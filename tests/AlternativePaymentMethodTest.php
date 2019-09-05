@@ -2,25 +2,30 @@
 
 namespace SafeCharge\Tests;
 
+use Exception;
+use PHPUnit\Framework\TestCase;
+use SafeCharge\Api\Exception\ConnectionException;
+use SafeCharge\Api\Exception\ResponseException;
+use SafeCharge\Api\Exception\ValidationException;
 use SafeCharge\Api\Service\Payments\AlternativePaymentMethod;
 
-class AlternativePaymentMethodTest extends \PHPUnit\Framework\TestCase
+class AlternativePaymentMethodTest extends TestCase
 {
-    private $_service;
+    private $service;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->_service = new AlternativePaymentMethod(TestCaseHelper::getClient());
+        $this->service = new AlternativePaymentMethod(TestCaseHelper::getClient());
 
 
     }
 
     /**
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testGetMerchantPaymentMethods()
     {
@@ -32,15 +37,15 @@ class AlternativePaymentMethodTest extends \PHPUnit\Framework\TestCase
             'languageCode'    => 'en',
         ];
 
-        $response = $this->_service->getMerchantPaymentMethods($params);
+        $response = $this->service->getMerchantPaymentMethods($params);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 
     /**
-     * @throws \Exception
-     * @throws \SafeCharge\Api\Exception\ConnectionException
-     * @throws \SafeCharge\Api\Exception\ResponseException
-     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      */
     public function testPaymentAPM()
     {
@@ -67,7 +72,7 @@ class AlternativePaymentMethodTest extends \PHPUnit\Framework\TestCase
             //'userPaymentOption'  => SimpleData::getUserPaymentOption(),
             'urlDetails'         => SimpleData::getUrlDetails(false)
         ];
-        $response = $this->_service->paymentAPM($params);
+        $response = $this->service->paymentAPM($params);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 }

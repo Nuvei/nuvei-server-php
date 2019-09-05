@@ -6,15 +6,17 @@ use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Utils;
 
 /**
- * Class UsersManagement
+ * Class UserService
  * @package SafeCharge\Api\Service
  */
-class UsersManagement extends BaseService
+class UserService extends BaseService
 {
 
     /**
      * UsersManagement constructor.
+     *
      * @param RestClient $client
+     *
      * @throws \SafeCharge\Api\Exception\ConfigurationException
      */
     public function __construct(RestClient $client)
@@ -24,6 +26,7 @@ class UsersManagement extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -56,9 +59,8 @@ class UsersManagement extends BaseService
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
-        if (empty($params['checksum'])) {
-            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->_client->getConfig()->getMerchantSecretKey(), $this->_client->getConfig()->getHashAlgorithm());
-        }
+        $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
+
 
         $this->validate($params, $mandatoryFields);
 
@@ -67,6 +69,7 @@ class UsersManagement extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -99,9 +102,8 @@ class UsersManagement extends BaseService
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
-        if (empty($params['checksum'])) {
-            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->_client->getConfig()->getMerchantSecretKey(), $this->_client->getConfig()->getHashAlgorithm());
-        }
+        $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
+
 
         $this->validate($params, $mandatoryFields);
 
@@ -110,6 +112,7 @@ class UsersManagement extends BaseService
 
     /**
      * @param array $params
+     *
      * @return mixed
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
@@ -124,9 +127,7 @@ class UsersManagement extends BaseService
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
-        if (empty($params['checksum'])) {
-            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->_client->getConfig()->getMerchantSecretKey(), $this->_client->getConfig()->getHashAlgorithm());
-        }
+        $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
 
         $this->validate($params, $mandatoryFields);
 

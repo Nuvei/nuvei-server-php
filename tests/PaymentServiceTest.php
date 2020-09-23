@@ -165,7 +165,6 @@ class PaymentServiceTest extends TestCase
      */
     public function testVoidTransaction()
     {
-
         $transactionData = TestCaseHelper::createAndReturnTransaction(false);
 
         $dynamicDescriptor = SimpleData::getDynamicDescriptor();
@@ -184,6 +183,34 @@ class PaymentServiceTest extends TestCase
         ];
 
         $response = $this->service->voidTransaction($params);
+        $this->assertEquals('SUCCESS', $response['status']);
+    }
+
+    /**
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testGetPaymentStatus ./tests/PaymentServiceTest.php
+     */
+    public function testGetPaymentStatus()
+    {
+        $createPayment = $this->service->createPayment([
+            'currency'       => SimpleData::getCurrency(),
+            'amount'         => SimpleData::getAmount(),
+            'userTokenId'    => TestCaseHelper::getUserTokenId(),
+            'paymentOption'  => [
+                'card' => SimpleData::getCarData()
+            ],
+            'billingAddress' => SimpleData::getBillingAddress(),
+            'deviceDetails'  => SimpleData::getDeviceDetails()
+        ]);
+
+        $params = [
+            'sessionToken' => $createPayment['sessionToken']
+        ];
+
+        $response = $this->service->getPaymentStatus($params);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 }

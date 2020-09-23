@@ -12,6 +12,7 @@ require __DIR__ . '/../tests/SimpleData.php';
 
 $config = [
     'environment'       => 'test',
+    'sslVerifyPeer'     => true,
     'merchantId'        => '5078248497400694938',
     'merchantSiteId'    => '142163',
     'merchantSecretKey' => 'F0EpuOTjZPIKw5SGcNGyISClL1zaVnArABS65EkfUIwVmzgNbEiiQeesGp4N79Rg',

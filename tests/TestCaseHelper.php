@@ -42,6 +42,7 @@ class TestCaseHelper
 
             self::$client = new RestClient([
                 'environment'       => $config['environment'],
+                'sslVerifyPeer'     => $config['sslVerifyPeer'],
                 'merchantId'        => $config['merchantId'],
                 'merchantSiteId'    => $config['merchantSiteId'],
                 'merchantSecretKey' => $config['merchantSecretKey'],

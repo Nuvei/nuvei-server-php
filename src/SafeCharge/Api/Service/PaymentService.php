@@ -230,4 +230,24 @@ class PaymentService extends BaseService
 
         return $this->requestJson($params, 'voidTransaction.do');
     }
+
+    /**
+     * @param array $params
+     *
+     * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     * @link https://www.safecharge.com/docs/API/main/indexMain_v1_0.html?json#getPaymentStatus
+     */
+    public function getPaymentStatus(array $params)
+    {
+        $mandatoryFields = ['sessionToken'];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'getPaymentStatus.do');
+    }
 }

@@ -235,4 +235,15 @@ class Config implements ConfigInterface
         }
         return $this->configData['hashAlgorithm'];
     }
+
+    /**
+     * @return boolean
+     */
+    public function sslVerifyPeer()
+    {
+        if (isset($this->configData['sslVerifyPeer']) && $this->configData['sslVerifyPeer'] == false ) {
+            return false;
+        }
+        return true;
+    }
 }

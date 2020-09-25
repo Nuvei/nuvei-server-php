@@ -93,6 +93,31 @@ class PaymentService extends BaseService
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
      */
+    public function authorize3d(array $params)
+    {
+        $mandatoryFields = ['merchantId', 'merchantSiteId', 'sessionToken', 'timeStamp', 'checksum', 'currency', 'amount', 'paymentOption', 'relatedTransactionId', 'deviceDetails', 'billingAddress'];
+
+        $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'amount', 'currency', 'timeStamp', 'merchantSecretKey'];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+
+        $params['checksum']     = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
+        $params['sessionToken'] = $this->getSessionToken();
+
+
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'authorize3d.do');
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function openOrder(array $params)
     {
         $mandatoryFields = ['sessionToken', 'merchantId', 'merchantSiteId', 'currency', 'amount', 'items', 'timeStamp', 'checksum'];

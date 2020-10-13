@@ -36,7 +36,7 @@ class ThreeDsecureTest extends TestCase
     {
         TestCaseHelper::setSessionToken(null);
         $params             = $this->getExampleData();
-        $params['cardData'] = SimpleData::getCarData('375510288656924');
+        $params['cardData'] = SimpleData::getCardData('375510288656924');
 
         $response = $this->service->dynamic3D($params);
         $this->assertContains('orderId', $response);
@@ -60,7 +60,7 @@ class ThreeDsecureTest extends TestCase
         $params['isPartialApproval'] = "0";
         $params['paResponse']        = "";
         $params['transactionType']   = "Sale";
-        $params['cardData']          = SimpleData::getCarData();
+        $params['cardData']          = SimpleData::getCardData();
         $response                    = $this->service->payment3D($params);
         $this->assertContains('orderId', $response);
         $this->assertEquals('SUCCESS', $response['status']);

@@ -34,7 +34,7 @@ class CreditCardTest extends TestCase
         $params   = [
             'sessionToken'   => TestCaseHelper::getSessionToken(),
             'userTokenId'    => TestCaseHelper::getUserTokenId(),
-            'cardData'       => SimpleData::getCarData(),
+            'cardData'       => SimpleData::getCardData(),
             'billingAddress' => SimpleData::getBillingAddress()
         ];
         $response = $this->service->cardTokenization($params);
@@ -58,7 +58,7 @@ class CreditCardTest extends TestCase
          * The tempToken should be send with the sessionKey which It was generated.
          */
         $params             = $this->getExampleData();
-        $params['cardData'] = SimpleData::getCarData(false, $ccTempToken);
+        $params['cardData'] = SimpleData::getCardData(false, $ccTempToken);
 
         $response = $this->service->paymentCC($params);
         $this->assertContains('orderId', $response);
@@ -74,7 +74,7 @@ class CreditCardTest extends TestCase
     {
         TestCaseHelper::setSessionToken(null);
         $params             = $this->getExampleData();
-        $params['cardData'] = SimpleData::getCarData();
+        $params['cardData'] = SimpleData::getCardData();
 
         $response = $this->service->paymentCC($params);
         $this->assertContains('orderId', $response);
@@ -90,7 +90,7 @@ class CreditCardTest extends TestCase
     {
         $orderId            = TestCaseHelper::openOrderAndReturnOrderId();
         $params             = $this->getExampleData();
-        $params['cardData'] = SimpleData::getCarData();
+        $params['cardData'] = SimpleData::getCardData();
         $params['orderId']  = $orderId;
 
         $response = $this->service->paymentCC($params);

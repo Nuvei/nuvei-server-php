@@ -44,7 +44,7 @@ class PaymentServiceTest extends TestCase
             'amount'         => SimpleData::getAmount(),
             'userTokenId'    => TestCaseHelper::getUserTokenId(),
             'paymentOption'  => [
-                'card' => SimpleData::getCarData()
+                'card' => SimpleData::getCardData()
             ],
             'billingAddress' => SimpleData::getBillingAddress(),
             'deviceDetails'  => SimpleData::getDeviceDetails()
@@ -64,7 +64,7 @@ class PaymentServiceTest extends TestCase
             'amount'         => SimpleData::getAmount(),
             'userTokenId'    => TestCaseHelper::getUserTokenId(),
             'paymentOption'  => [
-                'card' => SimpleData::getCarData()
+                'card' => SimpleData::getCardData()
             ],
             'billingAddress' => SimpleData::getBillingAddress(),
             'deviceDetails'  => SimpleData::getDeviceDetails()
@@ -84,7 +84,7 @@ class PaymentServiceTest extends TestCase
             'currency'       => SimpleData::getCurrency(),
             'amount'         => SimpleData::getAmount(),
             'paymentOption'  => [
-                'card' => SimpleData::getCarData()
+                'card' => SimpleData::getCardData()
             ],
             'billingAddress' => SimpleData::getBillingAddress(),
             'deviceDetails'  => SimpleData::getDeviceDetails(),
@@ -98,6 +98,40 @@ class PaymentServiceTest extends TestCase
         $authorize3dResponse = $this->service->authorize3d($paramsAuthorize3d);
 
         $this->assertEquals('SUCCESS', $authorize3dResponse['status']);
+    }
+
+    /**
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testVerify3d ./tests/PaymentServiceTest.php
+     */
+    public function testVerify3d()
+    {
+        $paramsVerify3d = $paramsAuthorize3d = $paramsInitPayment = [
+            'currency'       => SimpleData::getCurrency(),
+            'amount'         => SimpleData::getAmount(),
+            'paymentOption'  => [
+                'card' => SimpleData::getCardDataVerify3d()
+            ],
+            'billingAddress' => SimpleData::getBillingAddress(),
+        ];
+
+        $paramsInitPayment['userTokenId'] = TestCaseHelper::getUserTokenId();
+        $paramsInitPayment['deviceDetails'] = SimpleData::getDeviceDetails();
+        $initPaymentResponse = $this->service->initPayment($paramsInitPayment);
+
+        $paramsAuthorize3d['relatedTransactionId'] = $initPaymentResponse['transactionId'];
+        $paramsAuthorize3d['deviceDetails'] = SimpleData::getDeviceDetails();
+        $paramsAuthorize3d['sessionToken'] = $initPaymentResponse['sessionToken'];
+        $paramsAuthorize3d['paymentOption']['card']['threeD'] = SimpleData::getCardThreeD();
+        $authorize3dResponse = $this->service->authorize3d($paramsAuthorize3d);
+
+        $paramsVerify3d['relatedTransactionId'] = $authorize3dResponse['transactionId'];
+        $paramsVerify3d['sessionToken'] = $authorize3dResponse['sessionToken'];
+        $verify3dResponse = $this->service->verify3d($paramsVerify3d);
+
+        $this->assertEquals('SUCCESS', $verify3dResponse['status']);
     }
 
     /**
@@ -229,7 +263,7 @@ class PaymentServiceTest extends TestCase
             'amount'         => SimpleData::getAmount(),
             'userTokenId'    => TestCaseHelper::getUserTokenId(),
             'paymentOption'  => [
-                'card' => SimpleData::getCarData()
+                'card' => SimpleData::getCardData()
             ],
             'billingAddress' => SimpleData::getBillingAddress(),
             'deviceDetails'  => SimpleData::getDeviceDetails()

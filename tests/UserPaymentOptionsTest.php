@@ -36,7 +36,7 @@ class UserPaymentOptionsTest extends TestCase
      */
     public function testAddUPOCreditCard()
     {
-        $cardData = SimpleData::getCarData();
+        $cardData = SimpleData::getCardData();
         $params   = [
             'userTokenId'     => TestCaseHelper::getUserTokenId(),
             'clientRequestId' => '235',
@@ -63,7 +63,7 @@ class UserPaymentOptionsTest extends TestCase
      */
     public function testAddUPOCreditCardByToken($addUPOCreditCardResponse)
     {
-        $cardData = SimpleData::getCarData();
+        $cardData = SimpleData::getCardData();
         $params   = [
             'userTokenId'     => TestCaseHelper::getUserTokenId(),
             'clientRequestId' => '500',
@@ -97,7 +97,7 @@ class UserPaymentOptionsTest extends TestCase
         $creditCardServiceParams   = [
             'sessionToken'   => TestCaseHelper::getSessionToken(),
             'userTokenId'    => TestCaseHelper::getUserTokenId(),
-            'cardData'       => SimpleData::getCarData(),
+            'cardData'       => SimpleData::getCardData(),
             'billingAddress' => SimpleData::getBillingAddress()
         ];
         $creditCardServiceResponse = $creditCardService->cardTokenization($creditCardServiceParams);
@@ -169,7 +169,7 @@ class UserPaymentOptionsTest extends TestCase
      */
     public function testEditUPOCC($addUPOCreditCardResponse)
     {
-        $cardData = SimpleData::getCarData();
+        $cardData = SimpleData::getCardData();
 
         $params   = [
             'userTokenId'         => TestCaseHelper::getUserTokenId(),

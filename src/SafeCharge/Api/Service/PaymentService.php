@@ -118,6 +118,27 @@ class PaymentService extends BaseService
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
      */
+    public function verify3d(array $params)
+    {
+        $mandatoryFields = ['merchantId', 'merchantSiteId', 'sessionToken', 'currency', 'amount', 'paymentOption', 'relatedTransactionId', 'billingAddress'];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+
+        $params['sessionToken'] = $this->getSessionToken();
+
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'verify3d.do');
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
     public function openOrder(array $params)
     {
         $mandatoryFields = ['sessionToken', 'merchantId', 'merchantSiteId', 'currency', 'amount', 'items', 'timeStamp', 'checksum'];

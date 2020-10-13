@@ -150,7 +150,7 @@ class TestCaseHelper
             'dynamicDescriptor' => SimpleData::getDynamicDescriptor(),
             'merchantDetails'   => SimpleData::getMerchantDetails(),
             'addendums'         => SimpleData::getAddEndUms(),
-            'cardData'          => SimpleData::getCarData(),
+            'cardData'          => SimpleData::getCardData(),
             'urlDetails'        => SimpleData::getUrlDetails()
         ];
 
@@ -206,7 +206,7 @@ class TestCaseHelper
         }
         $service = new UserPaymentOptions(self::getClient());
 
-        $cardData = SimpleData::getCarData('375510288656924');
+        $cardData = SimpleData::getCardData('375510288656924');
 
         $params = [
             'userTokenId'     => TestCaseHelper::getUserTokenId(),

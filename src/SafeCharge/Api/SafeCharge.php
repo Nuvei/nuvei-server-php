@@ -101,7 +101,7 @@ class SafeCharge
      * @return AuthenticationManagement
      * @throws Exception\ConfigurationException
      */
-    private function getBaseService()
+    public function getBaseService()
     {
         if (is_null($this->baseService)) {
             $this->baseService = new BaseService($this->client);

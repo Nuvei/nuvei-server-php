@@ -16,7 +16,7 @@ use SafeCharge\Api\Service\BaseService;
 use SafeCharge\Api\Service\OrdersManagement;
 use SafeCharge\Api\Service\Payments\CreditCard;
 use SafeCharge\Api\Service\PaymentService;
-use SafeCharge\Api\Service\UserPaymentOptions;
+use SafeCharge\Api\Service\UserPaymentOptionsService;
 use SafeCharge\Api\Service\UserService;
 
 class TestCaseHelper
@@ -204,7 +204,7 @@ class TestCaseHelper
         if (!is_null(self::$upoCreditCardId)) {
             return self::$upoCreditCardId;
         }
-        $service = new UserPaymentOptions(self::getClient());
+        $service = new UserPaymentOptionsService(self::getClient());
 
         $cardData = SimpleData::getCardData('375510288656924');
 

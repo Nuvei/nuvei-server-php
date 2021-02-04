@@ -6,14 +6,14 @@ use SafeCharge\Api\RestClient;
 use SafeCharge\Api\Utils;
 
 /**
- * Class UserPaymentOptions
+ * Class UserPaymentOptionsService
  * @package SafeCharge\Api\Service
  */
-class UserPaymentOptions extends BaseService
+class UserPaymentOptionsService extends BaseService
 {
 
     /**
-     * UserPaymentOptions constructor.
+     * UserPaymentOptionsService constructor.
      *
      * @param RestClient $client
      *

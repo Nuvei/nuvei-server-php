@@ -26,7 +26,7 @@ require(dirname(__FILE__) . '/src/SafeCharge/Api/Exception/ValidationException.p
 require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/BaseService.php');
 require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/PaymentService.php');
 require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/UserService.php');
-require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/UserPaymentOptions.php');
+require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/UserPaymentOptionsService.php');
 require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/Payments/AlternativePaymentMethod.php');
 require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/Payments/CreditCard.php');
 require(dirname(__FILE__) . '/src/SafeCharge/Api/Service/Payments/Subscription.php');

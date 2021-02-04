@@ -6,6 +6,7 @@ namespace SafeCharge\Api;
 use SafeCharge\Api\Service\AuthenticationManagement;
 use SafeCharge\Api\Service\BaseService;
 use SafeCharge\Api\Service\PaymentService;
+use SafeCharge\Api\Service\UserPaymentOptionsService;
 use SafeCharge\Api\Service\UserService;
 
 class SafeCharge
@@ -24,6 +25,11 @@ class SafeCharge
      * @var UserService
      */
     private $userService;
+
+    /**
+     * @var UserPaymentOptionsService
+     */
+    private $userPaymentOptionsService;
 
     /**
      * @var AuthenticationManagement
@@ -95,6 +101,14 @@ class SafeCharge
             $this->userService = new UserService($this->client);
         }
         return $this->userService;
+    }
+
+    public function getUserPaymentOptionsService()
+    {
+        if (is_null($this->userPaymentOptionsService)) {
+            $this->userPaymentOptionsService = new UserPaymentOptionsService($this->client);
+        }
+        return $this->userPaymentOptionsService;
     }
 
     /**

@@ -9,21 +9,21 @@ use SafeCharge\Api\Exception\ConnectionException;
 use SafeCharge\Api\Exception\ResponseException;
 use SafeCharge\Api\Exception\ValidationException;
 use SafeCharge\Api\Service\Payments\CreditCard;
-use SafeCharge\Api\Service\UserPaymentOptions;
+use SafeCharge\Api\Service\UserPaymentOptionsService;
 
-class UserPaymentOptionsTest extends TestCase
+class UserPaymentOptionsServiceTest extends TestCase
 {
     private $service;
 
     /**
-     * UserPaymentOptionsTest constructor.
+     * UserPaymentOptionsServiceTest constructor.
      * @throws ConfigurationException
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->service = new UserPaymentOptions(TestCaseHelper::getClient());
+        $this->service = new UserPaymentOptionsService(TestCaseHelper::getClient());
     }
 
 

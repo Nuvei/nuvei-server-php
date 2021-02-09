@@ -7,14 +7,14 @@ use SafeCharge\Api\Service\BaseService;
 use SafeCharge\Api\Utils;
 
 /**
- * Class Payout
+ * Class PayoutService
  * @package SafeCharge\Api\Service\Payments
  */
-class Payout extends BaseService
+class PayoutService extends BaseService
 {
 
     /**
-     * Payout constructor.
+     * PayoutService constructor.
      *
      * @param RestClient $client
      *

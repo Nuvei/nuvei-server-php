@@ -31,21 +31,21 @@ use SafeCharge\Api\Exception\ConfigurationException;
 use SafeCharge\Api\Exception\ConnectionException;
 use SafeCharge\Api\Exception\ResponseException;
 use SafeCharge\Api\Exception\ValidationException;
-use SafeCharge\Api\Service\Payments\Payout;
+use SafeCharge\Api\Service\Payments\PayoutService;
 
-class PayoutTest extends TestCase
+class PayoutServiceTest extends TestCase
 {
     private $service;
 
     /**
-     * PayoutTest constructor.
+     * PayoutServiceTest constructor.
      * @throws ConfigurationException
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->service = new Payout(TestCaseHelper::getClient());
+        $this->service = new PayoutService(TestCaseHelper::getClient());
     }
 
     /**

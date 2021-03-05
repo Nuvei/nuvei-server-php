@@ -296,4 +296,64 @@ class PaymentService extends BaseService
 
         return $this->requestJson($params, 'getPaymentStatus.do');
     }
+
+    /**
+     * @param array $params
+     *
+     * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
+    public function getCardDetails(array $params)
+    {
+        $mandatoryFields = ['sessionToken', 'merchantId', 'merchantSiteId', 'cardNumber'];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+        $params['sessionToken'] = $this->getSessionToken();
+
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'getCardDetails.do');
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
+    public function getMcpRates(array $params)
+    {
+        $mandatoryFields = ['sessionToken', 'merchantId', 'merchantSiteId', 'fromCurrency'];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+        $params['sessionToken'] = $this->getSessionToken();
+
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'getMcpRates.do');
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
+     */
+    public function getDccDetails(array $params)
+    {
+        $mandatoryFields = ['sessionToken', 'merchantId', 'merchantSiteId', 'clientRequestId', 'clientUniqueId', 'originalAmount', 'originalCurrency'];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+        $params['sessionToken'] = $this->getSessionToken();
+
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'getDccDetails.do');
+    }
 }

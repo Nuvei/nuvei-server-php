@@ -17,6 +17,14 @@ class SimpleData
         return "10";
     }
 
+    public static function getCurrencyConversion()
+    {
+        return [
+            'originalAmount' => "10",
+            'originalCurrency' => "USD"
+        ];
+    }
+
     public static function getAmountDetails()
     {
         return [
@@ -127,6 +135,11 @@ class SimpleData
             "merchantName"  => "merchantName",
             "merchantPhone" => "+4412378"
         ];
+    }
+
+    public static function getCardNumber()
+    {
+        return '4012001037141112';
     }
 
     public static function getCardData($cardNumber = false, $ccTempToken = false)

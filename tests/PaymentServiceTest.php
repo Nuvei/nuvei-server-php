@@ -36,6 +36,7 @@ class PaymentServiceTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testCreatePayment ./tests/PaymentServiceTest.php
      */
     public function testCreatePayment()
     {
@@ -47,7 +48,8 @@ class PaymentServiceTest extends TestCase
                 'card' => SimpleData::getCardData()
             ],
             'billingAddress' => SimpleData::getBillingAddress(),
-            'deviceDetails'  => SimpleData::getDeviceDetails()
+            'deviceDetails'  => SimpleData::getDeviceDetails(),
+            'currencyConversion'  => SimpleData::getCurrencyConversion(),
         ]);
         $this->assertEquals('SUCCESS', $response['status']);
     }
@@ -139,6 +141,7 @@ class PaymentServiceTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testOpenOrder ./tests/PaymentServiceTest.php
      */
     public function testOpenOrder()
     {
@@ -157,11 +160,11 @@ class PaymentServiceTest extends TestCase
             'dynamicDescriptor' => SimpleData::getDynamicDescriptor(),
             'merchantDetails'   => SimpleData::getMerchantDetails(),
             'addendums'         => SimpleData::getAddEndUms(),
+            'currencyConversion'=> SimpleData::getCurrencyConversion(),
         ];
 
         $response = $this->service->openOrder($params);
-        $this->assertContains('orderId', $response);
-        return $response['orderId'];
+        $this->assertEquals('SUCCESS', $response['status']);
     }
 
     /**
@@ -274,6 +277,63 @@ class PaymentServiceTest extends TestCase
         ];
 
         $response = $this->service->getPaymentStatus($params);
+        $this->assertEquals('SUCCESS', $response['status']);
+    }
+
+    /**
+     * @return mixed
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testGetCardDetails ./tests/PaymentServiceTest.php
+     */
+    public function testGetCardDetails()
+    {
+        $params = [
+            'cardNumber' => SimpleData::getCardNumber()
+        ];
+
+        $response = $this->service->getCardDetails($params);
+        $this->assertEquals('SUCCESS', $response['status']);
+    }
+
+    /**
+     * @return mixed
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testGetMcpRates ./tests/PaymentServiceTest.php
+     */
+    public function testGetMcpRates()
+    {
+        $params = [
+            'fromCurrency' => SimpleData::getCurrency()
+        ];
+
+        $response = $this->service->getMcpRates($params);
+        $this->assertEquals('SUCCESS', $response['status']);
+    }
+
+    /**
+     * @return mixed
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testGetDccDetails ./tests/PaymentServiceTest.php
+     */
+    public function testGetDccDetails()
+    {
+        $params = [
+            'clientRequestId'       => '100',
+            'clientUniqueId'        => '12345',
+            "apm" => "apmgw_expresscheckout",
+            'amount'                => '10',
+            'originalAmount'        => '15',
+            'originalCurrency'      => 'GBP',
+            'currency'              => 'EUR',
+        ];
+
+        $response = $this->service->getDccDetails($params);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 }

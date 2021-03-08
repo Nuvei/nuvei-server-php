@@ -53,6 +53,7 @@ class PayoutTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testPayout ./tests/PayoutTest.php
      */
     public function testPayout()
     {

@@ -7,6 +7,7 @@ use SafeCharge\Api\Service\AuthenticationManagement;
 use SafeCharge\Api\Service\BaseService;
 use SafeCharge\Api\Service\PaymentService;
 use SafeCharge\Api\Service\UserService;
+use SafeCharge\Api\Service\Payments\Payout;
 use SafeCharge\Api\Service\UserPaymentOptions;
 
 class SafeCharge
@@ -20,6 +21,11 @@ class SafeCharge
      * @var PaymentService
      */
     private $paymentService;
+
+    /**
+     * @var PayoutService
+     */
+    private $payoutService;
 
     /**
      * @var UserPaymentOptions
@@ -89,6 +95,18 @@ class SafeCharge
             $this->paymentService = new PaymentService($this->client);
         }
         return $this->paymentService;
+    }
+
+    /**
+     * @return PayoutService
+     * @throws Exception\ConfigurationException
+     */
+    public function getPayoutService()
+    {
+        if (is_null($this->payoutService)) {
+            $this->payoutService = new Payout($this->client);
+        }
+        return $this->payoutService;
     }
 
     /**

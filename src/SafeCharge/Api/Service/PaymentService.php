@@ -167,7 +167,7 @@ class PaymentService extends BaseService
      */
     public function settleTransaction(array $params)
     {
-        $mandatoryFields = ['merchantId', 'merchantSiteId', 'currency', 'amount', 'relatedTransactionId', 'authCode', 'timeStamp', 'checksum'];
+        $mandatoryFields = ['merchantId', 'merchantSiteId', 'currency', 'amount', 'relatedTransactionId', 'timeStamp', 'checksum'];
 
         $checksumParametersOrder = [
             'merchantId',
@@ -210,7 +210,7 @@ class PaymentService extends BaseService
      */
     public function refundTransaction(array $params)
     {
-        $mandatoryFields = ['merchantId', 'merchantSiteId', 'currency', 'amount', 'relatedTransactionId', 'authCode', 'timeStamp', 'checksum'];
+        $mandatoryFields = ['merchantId', 'merchantSiteId', 'currency', 'amount', 'relatedTransactionId', 'timeStamp', 'checksum'];
 
         $checksumParametersOrder = [
             'merchantId',
@@ -249,7 +249,7 @@ class PaymentService extends BaseService
      */
     public function voidTransaction(array $params)
     {
-        $mandatoryFields = ['merchantId', 'merchantSiteId', 'currency', 'amount', 'relatedTransactionId', 'authCode', 'timeStamp', 'checksum'];
+        $mandatoryFields = ['merchantId', 'merchantSiteId', 'currency', 'amount', 'relatedTransactionId', 'timeStamp', 'checksum'];
 
         $checksumParametersOrder = [
             'merchantId',

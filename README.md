@@ -1,6 +1,6 @@
-# SafeCharge REST API SDK for PHP
+# Nuvei REST API SDK for PHP
 
-SafeCharge’s REST API SDK for PHP provides developer tools for accessing Safecharge's REST API. SafeCharge’s REST API is a simple, easy to use, secure and stateless API, which enables online merchants and service providers to process consumer payments through SafeCharge’s payment gateway. The API supports merchants of all levels of PCI certification, from their online and mobile merchant applications, and is compatible with a large variety of payment options, i.e. payment cards, alternative payment methods, etc. For SafeCharge REST API documentation, please see: https://www.safecharge.com/docs/API/main/
+Nuvei’s REST API SDK for PHP provides developer tools for accessing Nuvei's REST API. Nuvei’s REST API is a simple, easy-to-use, secure and stateless API, which enables online merchants and service providers to process consumer payments through Nuvei’s digital payment Gateway. The API supports merchants of all levels of PCI certification, online and mobile merchant applications, and is compatible with a large variety of payment options, such as payment cards and alternative payment methods. For Nuvei REST API documentation, please see: https://www.safecharge.com/docs/API/main/
 
 ## Requirements
 
@@ -12,14 +12,14 @@ PHP 5.4 or later.
 composer require safecharge-international/safecharge-php
 ```
 ### Manual
-If you do not wish to use Composer, you can download the [latest release](https://github.com/SafeChargeInternational/safecharge-php/releases). Then include the `init.php` file.
+If you do not wish to use Composer, you can download the [latest release](https://github.com/SafeChargeInternational/safecharge-php/releases), and then include the `init.php` file.
 
 ```php
 require_once('/path/to/safecharge-sdk/init.php');
 ```
 ## Dependencies
 
-The PHP SDK require the following extension in order to work properly:
+The PHP SDK requires the following extensions to work properly:
 
 - [`curl`](https://secure.php.net/manual/en/book.curl.php)
 - [`json`](https://secure.php.net/manual/en/book.json.php)
@@ -34,7 +34,6 @@ $client = new \SafeCharge\Api\RestClient([
     'merchantSecretKey' => '<your merchantSecretKey>',
 ]);
 ```
-If your hash algorithm is md5 you should add parameter 'hashAlgorithm' with value 'md5' in the above array.
 
 Or
 
@@ -45,13 +44,6 @@ $config->setEnvironment(\SafeCharge\Api\Environment::TEST);
 $config->setMerchantId('<your merchantId>');
 $config->setMerchantSiteId('<your merchantSiteId>');
 $config->setMerchantSecretKey('<your merchantSecretKey>');
-```
-
-If your hash algorithm is md5 add the following code right after the one above:
-
-
-```php
-$config->setHashAlgorithm('md5');
 ```
 
 ### Logger
@@ -66,7 +58,7 @@ $client->setLogger($logger);
 ```
 
 ## Example
-Safecharge's PHP SDK appends merchantId, merchantSiteId, timestamp and checksum in the request.
+Nuvei's PHP SDK appends merchantId, merchantSiteId, timestamp, and checksum in the request.
 ```php
 <?php
 
@@ -85,7 +77,7 @@ $config = [
     'merchantId'        => '<your merchantId>',
     'merchantSiteId'    => '<your merchantSiteId>',
     'merchantSecretKey' => '<your merchantSecretKey>',
-    'hashAlgorithm'     => '<sha256 or md5>'
+    'hashAlgorithm'     => '<sha256>'
 ];
 
 $safecharge = new \SafeCharge\Api\SafeCharge();

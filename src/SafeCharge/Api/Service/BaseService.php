@@ -94,6 +94,22 @@ class BaseService implements ServiceInterface
     }
 
     /**
+     * Check if ipAddress parameter is given.
+     * If it is not, we get it and append it
+     *
+     * @param $params
+     *
+     * @return mixed
+     */
+    public function appendIpAddress($params = [])
+    {
+        if (!isset($params['deviceDetails']['ipAddress']) && isset($_SERVER['REMOTE_ADDR'])) {
+            $params['deviceDetails']['ipAddress'] = $_SERVER['REMOTE_ADDR'];
+        }
+        return $params;
+    }
+
+    /**
      * Check the mandatory fields
      *
      * @param $params

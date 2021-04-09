@@ -50,6 +50,7 @@ class PaymentService extends BaseService
         ];
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+        $params = $this->appendIpAddress($params);
 
         $params['checksum']     = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
         $params['sessionToken'] = $this->getSessionToken();
@@ -75,6 +76,7 @@ class PaymentService extends BaseService
         $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'amount', 'currency', 'timeStamp', 'merchantSecretKey'];
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+        $params = $this->appendIpAddress($params);
 
         $params['checksum']     = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
         $params['sessionToken'] = $this->getSessionToken();
@@ -100,6 +102,7 @@ class PaymentService extends BaseService
         $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'amount', 'currency', 'timeStamp', 'merchantSecretKey'];
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+        $params = $this->appendIpAddress($params);
 
         $params['checksum']     = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
         $params['sessionToken'] = $this->getSessionToken();
@@ -146,6 +149,7 @@ class PaymentService extends BaseService
         $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'amount', 'currency', 'timeStamp', 'merchantSecretKey'];
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+        $params = $this->appendIpAddress($params);
 
         $params['checksum']     = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
         $params['sessionToken'] = $this->getSessionToken();

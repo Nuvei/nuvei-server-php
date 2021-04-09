@@ -49,6 +49,7 @@ class Payout extends BaseService
         ];
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+        $params = $this->appendIpAddress($params);
 
         if (empty($params['checksum'])) {
             $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());

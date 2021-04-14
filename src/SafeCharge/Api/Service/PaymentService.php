@@ -55,6 +55,10 @@ class PaymentService extends BaseService
         $params['checksum']     = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
         $params['sessionToken'] = $this->getSessionToken();
 
+        if (isset($params['relatedTransactionId'])) {
+            unset($params['externalSchemeDetails']['transactionId']);
+        }
+
         $this->validate($params, $mandatoryFields);
 
         return $this->requestJson($params, 'payment.do');

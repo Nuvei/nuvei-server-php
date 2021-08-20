@@ -26,6 +26,7 @@ class AlternativePaymentMethodTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testGetMerchantPaymentMethods ./tests/AlternativePaymentMethodTest.php
      */
     public function testGetMerchantPaymentMethods()
     {

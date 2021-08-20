@@ -53,7 +53,9 @@ class PaymentService extends BaseService
         $params = $this->appendIpAddress($params);
 
         $params['checksum']     = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
-        $params['sessionToken'] = $this->getSessionToken();
+        if(!isset($params['sessionToken'])) {
+            $params['sessionToken'] = $this->getSessionToken();
+        }
 
         if (isset($params['relatedTransactionId'])) {
             unset($params['externalSchemeDetails']['transactionId']);
@@ -83,8 +85,9 @@ class PaymentService extends BaseService
         $params = $this->appendIpAddress($params);
 
         $params['checksum']     = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
-        $params['sessionToken'] = $this->getSessionToken();
-
+        if(!isset($params['sessionToken'])) {
+            $params['sessionToken'] = $this->getSessionToken();
+        }
 
         $this->validate($params, $mandatoryFields);
 
@@ -109,8 +112,9 @@ class PaymentService extends BaseService
         $params = $this->appendIpAddress($params);
 
         $params['checksum']     = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
-        $params['sessionToken'] = $this->getSessionToken();
-
+        if(!isset($params['sessionToken'])) {
+            $params['sessionToken'] = $this->getSessionToken();
+        }
 
         $this->validate($params, $mandatoryFields);
 
@@ -131,8 +135,9 @@ class PaymentService extends BaseService
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
-        $params['sessionToken'] = $this->getSessionToken();
-
+        if(!isset($params['sessionToken'])) {
+            $params['sessionToken'] = $this->getSessionToken();
+        }
         $this->validate($params, $mandatoryFields);
 
         return $this->requestJson($params, 'verify3d.do');
@@ -156,8 +161,9 @@ class PaymentService extends BaseService
         $params = $this->appendIpAddress($params);
 
         $params['checksum']     = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
-        $params['sessionToken'] = $this->getSessionToken();
-
+        if(!isset($params['sessionToken'])) {
+            $params['sessionToken'] = $this->getSessionToken();
+        }
 
         $this->validate($params, $mandatoryFields);
 
@@ -193,8 +199,6 @@ class PaymentService extends BaseService
             'timeStamp',
             'merchantSecretKey'
         ];
-
-        $params['webMasterId'] = RestClient::getClientName();
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
@@ -235,7 +239,6 @@ class PaymentService extends BaseService
             'merchantSecretKey'
         ];
 
-        $params['webMasterId'] = RestClient::getClientName();
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
@@ -274,8 +277,6 @@ class PaymentService extends BaseService
             'merchantSecretKey'
         ];
 
-        $params['webMasterId'] = RestClient::getClientName();
-
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 
         $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
@@ -312,14 +313,37 @@ class PaymentService extends BaseService
      * @throws \SafeCharge\Api\Exception\ConnectionException
      * @throws \SafeCharge\Api\Exception\ResponseException
      * @throws \SafeCharge\Api\Exception\ValidationException
+     * @link https://www.safecharge.com/docs/API/main/indexMain_v1_0.html?json#accountCapture
+     */
+    public function accountCapture(array $params)
+    {
+        $mandatoryFields = ['sessionToken', 'merchantId', 'merchantSiteId', 'userTokenId', 'paymentMethod', 'currencyCode', 'countryCode'];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+        if(!isset($params['sessionToken'])) {
+            $params['sessionToken'] = $this->getSessionToken();
+        }
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'accountCapture.do');
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return mixed
+     * @throws \SafeCharge\Api\Exception\ConnectionException
+     * @throws \SafeCharge\Api\Exception\ResponseException
+     * @throws \SafeCharge\Api\Exception\ValidationException
      */
     public function getCardDetails(array $params)
     {
         $mandatoryFields = ['sessionToken', 'merchantId', 'merchantSiteId', 'cardNumber'];
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
-        $params['sessionToken'] = $this->getSessionToken();
-
+        if(!isset($params['sessionToken'])) {
+            $params['sessionToken'] = $this->getSessionToken();
+        }
         $this->validate($params, $mandatoryFields);
 
         return $this->requestJson($params, 'getCardDetails.do');
@@ -338,8 +362,9 @@ class PaymentService extends BaseService
         $mandatoryFields = ['sessionToken', 'merchantId', 'merchantSiteId', 'fromCurrency'];
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
-        $params['sessionToken'] = $this->getSessionToken();
-
+        if(!isset($params['sessionToken'])) {
+            $params['sessionToken'] = $this->getSessionToken();
+        }
         $this->validate($params, $mandatoryFields);
 
         return $this->requestJson($params, 'getMcpRates.do');
@@ -358,8 +383,9 @@ class PaymentService extends BaseService
         $mandatoryFields = ['sessionToken', 'merchantId', 'merchantSiteId', 'clientRequestId', 'clientUniqueId', 'originalAmount', 'originalCurrency'];
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
-        $params['sessionToken'] = $this->getSessionToken();
-
+        if(!isset($params['sessionToken'])) {
+            $params['sessionToken'] = $this->getSessionToken();
+        }
         $this->validate($params, $mandatoryFields);
 
         return $this->requestJson($params, 'getDccDetails.do');

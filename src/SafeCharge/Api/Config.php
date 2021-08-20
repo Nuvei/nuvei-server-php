@@ -17,7 +17,7 @@ class Config implements ConfigInterface
 
     protected $configData = [];
 
-    protected $allowedHashAlgorithms = ['sha256', 'md5'];
+    protected $allowedHashAlgorithms = ['sha256'];
 
     // allowed output
     protected $allowedOutput = ['array', 'json'];
@@ -245,5 +245,16 @@ class Config implements ConfigInterface
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isDebugMode()
+    {
+        if (isset($this->configData['debugMode']) && $this->configData['debugMode'] == true ) {
+            return true;
+        }
+        return false;
     }
 }

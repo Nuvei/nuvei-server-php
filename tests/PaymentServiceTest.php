@@ -58,6 +58,7 @@ class PaymentServiceTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testInitPayment ./tests/PaymentServiceTest.php
      */
     public function testInitPayment()
     {
@@ -277,6 +278,40 @@ class PaymentServiceTest extends TestCase
         ];
 
         $response = $this->service->getPaymentStatus($params);
+        $this->assertEquals('SUCCESS', $response['status']);
+    }
+
+    /**
+     * @throws Exception
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testAccountCapture ./tests/PaymentServiceTest.php
+     */
+    public function testAccountCapture()
+    {
+        $createPayment = $this->service->createPayment([
+            'currency'       => SimpleData::getCurrency(),
+            'amount'         => SimpleData::getAmount(),
+            'userTokenId'    => TestCaseHelper::getUserTokenId(),
+            'paymentOption'  => [
+                'card' => SimpleData::getCardData()
+            ],
+            'billingAddress' => SimpleData::getBillingAddress(),
+            'deviceDetails'  => SimpleData::getDeviceDetails()
+        ]);
+
+        $params = [
+            //'sessionToken'  => $createPayment['sessionToken'],
+            'userTokenId'       => TestCaseHelper::getUserTokenId(),
+            'paymentMethod'     => 'apmgw_Fast_Bank_Transfer',
+            'currencyCode'      => 'USD',
+            'countryCode'       => 'US',
+            'languageCode'      => 'en',
+            //'notificationUrl'   =>  ''
+        ];
+
+        $response = $this->service->accountCapture($params);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 

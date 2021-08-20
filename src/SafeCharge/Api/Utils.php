@@ -12,7 +12,7 @@ class Utils
      * @param $params array - parameters
      * @param $checksumParamsOrder array - array with parameter order for checksum calculation
      * @param $merchantSecretId - Merchant Site ID
-     * @param string $algo - algorithm (sha256, md5)
+     * @param string $algo - algorithm (sha256)
      *
      * @return string - checksum
      */
@@ -56,5 +56,21 @@ class Utils
         if ($index !== false) {
             unset($array[$index]);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public static function getSourceApplication()
+    {
+        return 'PHP_SDK';
+    }
+
+    /**
+     * @return string
+     */
+    public static function getWebMasterID()
+    {
+        return PHP_VERSION;
     }
 }

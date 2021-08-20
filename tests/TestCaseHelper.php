@@ -46,7 +46,8 @@ class TestCaseHelper
                 'merchantId'        => $config['merchantId'],
                 'merchantSiteId'    => $config['merchantSiteId'],
                 'merchantSecretKey' => $config['merchantSecretKey'],
-                'hashAlgorithm'     => $config['hashAlgorithm']
+                'hashAlgorithm'     => $config['hashAlgorithm'],
+                'debugMode'         => $config['debugMode'],
             ]);
 
             $logger = new Logger('safecharge-php-sdk');

@@ -53,6 +53,10 @@ class BaseService implements ServiceInterface
      */
     public function getSessionToken()
     {
+        if(!empty($this->sessionToken)) {
+            return $this->sessionToken;
+        }
+
         $mandatoryFields = ['merchantId', 'timeStamp', 'checksum'];
 
         $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'timeStamp', 'merchantSecretKey'];
@@ -144,9 +148,28 @@ class BaseService implements ServiceInterface
      */
     public function requestJson($params, $endpoint)
     {
+        $service = $this;
+        $client = $service->getClient();
+        $config = $client->getConfig();
         $curlClient = $this->client->getHttpClient();
+        $debug = $config->isDebugMode();
 
-        return $curlClient->requestJson($this, $this->apiUrl . $endpoint, $params);
+        $params['sourceApplication'] = Utils::getSourceApplication();
+        $params['webMasterId'] = Utils::getWebMasterID();
+
+        if($debug) {
+            echo "\nMethod: " . $endpoint . "\nRequest: ";
+            print_r($params);
+        }
+
+        $response = $curlClient->requestJson($this, $this->apiUrl . $endpoint, $params);
+
+        if($debug) {
+            echo "Response: ";
+            print_r($response);
+        }
+
+        return $response;
     }
 
     /**

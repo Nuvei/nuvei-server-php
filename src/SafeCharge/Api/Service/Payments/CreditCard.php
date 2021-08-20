@@ -58,7 +58,6 @@ class CreditCard extends BaseService
 
         $checksumParametersOrder = ['merchantId', 'merchantSiteId', 'clientRequestId', 'amount', 'currency', 'timeStamp', 'merchantSecretKey'];
 
-        $params['webMasterId'] = RestClient::getClientName();
 
         $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
 

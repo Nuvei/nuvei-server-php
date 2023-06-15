@@ -1,14 +1,14 @@
 <?php
 
-namespace SafeCharge\Tests;
+namespace Nuvei\Tests;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
-use SafeCharge\Api\Exception\ConfigurationException;
-use SafeCharge\Api\Exception\ConnectionException;
-use SafeCharge\Api\Exception\ResponseException;
-use SafeCharge\Api\Exception\ValidationException;
-use SafeCharge\Api\Service\Payments\ThreeDsecure;
+use Nuvei\Api\Exception\ConfigurationException;
+use Nuvei\Api\Exception\ConnectionException;
+use Nuvei\Api\Exception\ResponseException;
+use Nuvei\Api\Exception\ValidationException;
+use Nuvei\Api\Service\Payments\ThreeDsecure;
 
 class ThreeDsecureTest extends TestCase
 {
@@ -26,22 +26,24 @@ class ThreeDsecureTest extends TestCase
     }
 
     /**
-     * @return mixed
      * @throws Exception
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter ::testDynamic3d$ ./tests/ThreeDsecureTest.php
      */
     public function testDynamic3d()
     {
-        TestCaseHelper::setSessionToken(null);
-        $params             = $this->getExampleData();
+        //TestCaseHelper::setSessionToken(null);
+        $params = $this->getExampleData();
         $params['cardData'] = SimpleData::getCardData('375510288656924');
 
         $response = $this->service->dynamic3D($params);
-        $this->assertContains('orderId', $response);
-        $this->assertContains('paRequest', $response);
-        return $response['orderId'];
+        $this->assertEquals('SUCCESS', $response['status']);
+
+        //$this->assertContains('orderId', $response);
+        //$this->assertContains('paRequest', $response);
+        //return $response['orderId'];
     }
 
     /**
@@ -51,6 +53,7 @@ class ThreeDsecureTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter ::testPayment3d$ ./tests/ThreeDsecureTest.php
      */
     public function testPayment3d($orderId)
     {

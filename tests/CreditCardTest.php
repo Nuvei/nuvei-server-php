@@ -1,13 +1,13 @@
 <?php
 
-namespace SafeCharge\Tests;
+namespace Nuvei\Tests;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
-use SafeCharge\Api\Exception\ConnectionException;
-use SafeCharge\Api\Exception\ResponseException;
-use SafeCharge\Api\Exception\ValidationException;
-use SafeCharge\Api\Service\Payments\CreditCard;
+use Nuvei\Api\Exception\ConnectionException;
+use Nuvei\Api\Exception\ResponseException;
+use Nuvei\Api\Exception\ValidationException;
+use Nuvei\Api\Service\Payments\CreditCard;
 
 
 class CreditCardTest extends TestCase
@@ -27,6 +27,7 @@ class CreditCardTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testCardTokenization ./tests/CreditCardTest.php
      */
     public function testCardTokenization()
     {

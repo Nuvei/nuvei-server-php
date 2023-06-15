@@ -1,8 +1,9 @@
 <?php
 
-use SafeCharge\Api\RestClient;
-use SafeCharge\Tests\SimpleData;
-use SafeCharge\Tests\TestCaseHelper;
+use PHPUnit\Framework\TestCase;
+use Nuvei\Api\RestClient;
+use Nuvei\Tests\SimpleData;
+use Nuvei\Tests\TestCaseHelper;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -22,23 +23,23 @@ $config = [
 /**
  * Option 1
  */
-//$safecharge = new \SafeCharge\Api\SafeCharge($config); //Option 1
+//$nuvei = new \Nuvei\Api\Nuvei($config); //Option 1
 /**
  * Option 2
  */
-$safecharge = new \SafeCharge\Api\SafeCharge();
-$safecharge->initialize($config);
-$paymentResponse = $safecharge->getPaymentService()->initPayment([
+$nuvei = new \Nuvei\Api\Nuvei();
+$nuvei->initialize($config);
+$paymentResponse = $nuvei->getPaymentService()->initPayment([
     'currency'       => 'EUR',
     'amount'         => '10',
-    'userTokenId'    => 'emilg@safecharge.com',
+    'userTokenId'    => TestCaseHelper::getUserTokenId(),
     'paymentOption'  => [
         'card' => [
-            'cardNumber'      => '4012001037141112',
-            'cardHolderName'  => 'some name',
-            'expirationMonth' => '01',
-            'expirationYear'  => '2020',
-            'CVV'             => '122',
+            'cardNumber'      => '4000027891380961',
+            'cardHolderName'  => 'John Smith',
+            'expirationMonth' => '12',
+            'expirationYear'  => '2030',
+            'CVV'             => '217',
         ]
     ],
     'billingAddress' => [
@@ -56,8 +57,8 @@ $paymentResponse = $safecharge->getPaymentService()->initPayment([
 ]);
 print_r($paymentResponse);
 
-//$openOrderRequest = $safecharge->getPaymentService()->openOrder([
-//    'userTokenId'       => 'emilg@safecharge.com',
+//$openOrderRequest = $nuvei->getPaymentService()->openOrder([
+//    'userTokenId'       => TestCaseHelper::getUserTokenId(),
 //    'clientUniqueId'    => '',
 //    'clientRequestId'   => '',
 //    'currency'          => SimpleData::getCurrency(),

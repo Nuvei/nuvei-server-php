@@ -1,11 +1,11 @@
 {
-  "name": "safecharge-international/safecharge-php",
+  "name": "nuvei/nuvei-server-php",
   "type": "library",
-  "description": "A PHP client library for accessing SafeCharge API",
+  "description": "A PHP client library for accessing Nuvei API",
   "keywords": [
-    "safecharge"
+    "nuvei"
   ],
-  "homepage": "https://github.com/SafeChargeInternational/safecharge-php",
+  "homepage": "https://github.com/Nuvei/nuvei-server-php",
   "license": "MIT",
   "require": {
     "php": ">=5.4",
@@ -18,7 +18,7 @@
   },
   "autoload": {
     "psr-4": {
-      "SafeCharge\\Api\\": "src/SafeCharge/Api"
+      "Nuvei\\Api\\": "src/Nuvei/Api"
     },
     "classmap": [
     ]

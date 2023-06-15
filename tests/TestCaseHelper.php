@@ -1,23 +1,22 @@
 <?php
 
-namespace SafeCharge\Tests;
-
+namespace Nuvei\Tests;
 
 use Exception;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use SafeCharge\Api\Exception\ConfigurationException;
-use SafeCharge\Api\Exception\ConnectionException;
-use SafeCharge\Api\Exception\ResponseException;
-use SafeCharge\Api\Exception\ValidationException;
-use SafeCharge\Api\RestClient;
-use SafeCharge\Api\Service\AuthenticationManagement;
-use SafeCharge\Api\Service\BaseService;
-use SafeCharge\Api\Service\OrdersManagement;
-use SafeCharge\Api\Service\Payments\CreditCard;
-use SafeCharge\Api\Service\PaymentService;
-use SafeCharge\Api\Service\UserPaymentOptions;
-use SafeCharge\Api\Service\UserService;
+use Nuvei\Api\Exception\ConfigurationException;
+use Nuvei\Api\Exception\ConnectionException;
+use Nuvei\Api\Exception\ResponseException;
+use Nuvei\Api\Exception\ValidationException;
+use Nuvei\Api\RestClient;
+use Nuvei\Api\Service\AuthenticationManagement;
+use Nuvei\Api\Service\BaseService;
+use Nuvei\Api\Service\OrdersManagement;
+use Nuvei\Api\Service\Payments\CreditCard;
+use Nuvei\Api\Service\PaymentService;
+use Nuvei\Api\Service\UserPaymentOptions;
+use Nuvei\Api\Service\UserService;
 
 class TestCaseHelper
 {
@@ -50,8 +49,9 @@ class TestCaseHelper
                 'debugMode'         => $config['debugMode'],
             ]);
 
-            $logger = new Logger('safecharge-php-sdk');
-            $logger->pushHandler(new StreamHandler(__DIR__ . DIRECTORY_SEPARATOR . 'safecharge-log.log', Logger::DEBUG));
+            $logger = new Logger('nuvei-php-sdk');
+            $logger->pushHandler(new StreamHandler(__DIR__ . DIRECTORY_SEPARATOR. 'nuvei-log.log', Logger::DEBUG));
+
             self::$client->setLogger($logger);
         }
         return self::$client;

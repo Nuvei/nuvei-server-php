@@ -1,13 +1,13 @@
 <?php
 
-namespace SafeCharge\Tests;
+namespace Nuvei\Tests;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
-use SafeCharge\Api\Exception\ConnectionException;
-use SafeCharge\Api\Exception\ResponseException;
-use SafeCharge\Api\Exception\ValidationException;
-use SafeCharge\Api\Service\Payments\AlternativePaymentMethod;
+use Nuvei\Api\Exception\ConnectionException;
+use Nuvei\Api\Exception\ResponseException;
+use Nuvei\Api\Exception\ValidationException;
+use Nuvei\Api\Service\Payments\AlternativePaymentMethod;
 
 class AlternativePaymentMethodTest extends TestCase
 {

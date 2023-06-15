@@ -1,4 +1,5 @@
 composer.lock
-tests/safecharge-log.log
+tests/nuvei-log.log
 vendor/
+.idea/
 

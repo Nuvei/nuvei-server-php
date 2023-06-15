@@ -1,12 +1,12 @@
 <?php
 
-namespace SafeCharge\Tests;
+namespace Nuvei\Tests;
 
 use PHPUnit\Framework\TestCase;
-use SafeCharge\Api\Exception\ConnectionException;
-use SafeCharge\Api\Exception\ResponseException;
-use SafeCharge\Api\Exception\ValidationException;
-use SafeCharge\Api\Service\BaseService;
+use Nuvei\Api\Exception\ConnectionException;
+use Nuvei\Api\Exception\ResponseException;
+use Nuvei\Api\Exception\ValidationException;
+use Nuvei\Api\Service\BaseService;
 
 class BaseServiceTest extends TestCase
 {
@@ -23,6 +23,7 @@ class BaseServiceTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --verbose --filter testGetSessionToken ./tests/BaseServiceTest.php
      */
     public function testGetSessionToken()
     {

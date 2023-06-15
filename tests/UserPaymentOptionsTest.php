@@ -1,15 +1,15 @@
 <?php
 
-namespace SafeCharge\Tests;
+namespace Nuvei\Tests;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
-use SafeCharge\Api\Exception\ConfigurationException;
-use SafeCharge\Api\Exception\ConnectionException;
-use SafeCharge\Api\Exception\ResponseException;
-use SafeCharge\Api\Exception\ValidationException;
-use SafeCharge\Api\Service\Payments\CreditCard;
-use SafeCharge\Api\Service\UserPaymentOptions;
+use Nuvei\Api\Exception\ConfigurationException;
+use Nuvei\Api\Exception\ConnectionException;
+use Nuvei\Api\Exception\ResponseException;
+use Nuvei\Api\Exception\ValidationException;
+use Nuvei\Api\Service\Payments\CreditCard;
+use Nuvei\Api\Service\UserPaymentOptions;
 
 class UserPaymentOptionsTest extends TestCase
 {
@@ -28,11 +28,13 @@ class UserPaymentOptionsTest extends TestCase
 
 
     /**
+     * @group upocct
      * @return mixed
      * @throws Exception
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter ::testAddUPOCreditCard$ ./tests/UserPaymentOptionsTest.php
      */
     public function testAddUPOCreditCard()
     {
@@ -48,18 +50,20 @@ class UserPaymentOptionsTest extends TestCase
         ];
         $response = $this->service->addUPOCreditCard($params);
         $this->assertEquals('SUCCESS', $response['status']);
-        $this->assertContains('ccToken', $response);
-        return $response;
+        $this->assertArrayHasKey('ccToken', $response);
 
+        return $response;
     }
 
     /**
+     * @group upocct
      * @depends testAddUPOCreditCard
      * @param $addUPOCreditCardResponse
      * @throws Exception
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --verbose --group upocct
      */
     public function testAddUPOCreditCardByToken($addUPOCreditCardResponse)
     {
@@ -87,6 +91,7 @@ class UserPaymentOptionsTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter ::testAddUPOCreditCardByTempToken$ ./tests/UserPaymentOptionsTest.php
      */
     public function testAddUPOCreditCardByTempToken()
     {
@@ -110,7 +115,7 @@ class UserPaymentOptionsTest extends TestCase
             'billingAddress'  => SimpleData::getBillingAddress(),
         ];
         $response = $this->service->addUPOCreditCardByTempToken($params);
-        $this->assertContains('userPaymentOptionId', $response);
+        $this->assertArrayHasKey('userPaymentOptionId', $response);
     }
 
     /**
@@ -119,6 +124,7 @@ class UserPaymentOptionsTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --verbose --filter ::testAddUPOAPM$ ./tests/UserPaymentOptionsTest.php
      */
     public function testAddUPOAPM()
     {
@@ -132,7 +138,7 @@ class UserPaymentOptionsTest extends TestCase
             'billingAddress'    => SimpleData::getBillingAddress(true),
         ];
         $response = $this->service->addUPOAPM($params);
-        $this->assertContains('userPaymentOptionId', $response);
+        $this->assertArrayHasKey('userPaymentOptionId', $response);
         return $response['userPaymentOptionId'];
     }
 
@@ -143,6 +149,7 @@ class UserPaymentOptionsTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --verbose --filter ::testEditUPOAPM$ ./tests/UserPaymentOptionsTest.php
      */
     public function testEditUPOAPM($userPaymentOptionId)
     {
@@ -166,6 +173,7 @@ class UserPaymentOptionsTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --verbose --filter ::testEditUPOCC$ ./tests/UserPaymentOptionsTest.php
      */
     public function testEditUPOCC($addUPOCreditCardResponse)
     {
@@ -192,6 +200,7 @@ class UserPaymentOptionsTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --verbose --filter ::testGetUserUPOs$ ./tests/UserPaymentOptionsTest.php
      */
     public function testGetUserUPOs()
     {
@@ -214,6 +223,7 @@ class UserPaymentOptionsTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --verbose --filter ::testSuspendUPO$ ./tests/UserPaymentOptionsTest.php
      */
     public function testSuspendUPO($paymentMethods)
     {
@@ -236,6 +246,7 @@ class UserPaymentOptionsTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --verbose --filter ::testEnableUPO$ ./tests/UserPaymentOptionsTest.php
      */
     public function testEnableUPO($userPaymentOptionId)
     {
@@ -257,6 +268,7 @@ class UserPaymentOptionsTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --verbose --filter ::testDeleteUPO$ ./tests/UserPaymentOptionsTest.php
      */
     public function testDeleteUPO($userPaymentOptionId)
     {

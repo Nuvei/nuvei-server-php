@@ -1,7 +1,7 @@
 <?php
 
 
-namespace SafeCharge\Tests;
+namespace Nuvei\Tests;
 
 
 class SimpleData
@@ -12,8 +12,11 @@ class SimpleData
         return 'EUR';
     }
 
-    public static function getAmount()
+    public static function getAmount($amount = null)
     {
+        if(!is_null($amount)) {
+            return $amount;
+        }
         return "10";
     }
 
@@ -139,21 +142,21 @@ class SimpleData
 
     public static function getCardNumber()
     {
-        return '4012001037141112';
+        return '4000027891380961';
     }
 
     public static function getCardData($cardNumber = false, $ccTempToken = false)
     {
         if ($cardNumber === false) {
-            $cardNumber = '4012001037141112';
+            $cardNumber = '4000027891380961';
         }
         if ($ccTempToken == false) {
             return [
                 'cardNumber'      => $cardNumber,
-                'cardHolderName'  => 'some name',
-                'expirationMonth' => '01',
-                'expirationYear'  => '2022',
-                'CVV'             => '122',
+                'cardHolderName'  => 'John Smith',
+                'expirationMonth' => '12',
+                'expirationYear'  => '2030',
+                'CVV'             => '217',
             ];
         }
 
@@ -163,7 +166,7 @@ class SimpleData
         ];
     }
 
-    public static function getCardDataVerify3d($cardNumber = false, $ccTempToken = false)
+    public static function getCardDataVerify3d($cardNumber = false, $ccTempToken = false, $challenge = true)
     {
         if ($cardNumber === false) {
             $cardNumber = '4000027891380961';
@@ -171,7 +174,7 @@ class SimpleData
         if ($ccTempToken == false) {
             return [
                 'cardNumber'      => $cardNumber,
-                'cardHolderName'  => 'CL-BRW1',
+                'cardHolderName'  => $challenge ? 'CL-BRW2' : 'FL-BRW1', // Challenge or Frictionless
                 'expirationMonth' => '01',
                 'expirationYear'  => '2022',
                 'CVV'             => '122',
@@ -258,14 +261,14 @@ class SimpleData
     {
         if ($onlyNotificationUrl) {
             return [
-                'notificationUrl' => 'https://www.safecharge.com',
+                'notificationUrl' => 'https://www.nuvei.com',
             ];
         }
         return [
-            'successUrl'      => 'https://www.safecharge.com',
-            'failureUrl'      => 'https://www.safecharge.com',
-            'pendingUrl'      => 'https://www.safecharge.com',
-            'notificationUrl' => 'https://www.safecharge.com',
+            'successUrl'      => 'https://www.nuvei.com',
+            'failureUrl'      => 'https://www.nuvei.com',
+            'pendingUrl'      => 'https://www.nuvei.com',
+            'notificationUrl' => 'https://www.nuvei.com',
         ];
     }
 

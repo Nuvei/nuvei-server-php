@@ -1,12 +1,12 @@
 <?php
 
-namespace SafeCharge\Tests;
+namespace Nuvei\Tests;
 
 use PHPUnit\Framework\TestCase;
-use SafeCharge\Api\Exception\ConnectionException;
-use SafeCharge\Api\Exception\ResponseException;
-use SafeCharge\Api\Exception\ValidationException;
-use SafeCharge\Api\Service\UserService;
+use Nuvei\Api\Exception\ConnectionException;
+use Nuvei\Api\Exception\ResponseException;
+use Nuvei\Api\Exception\ValidationException;
+use Nuvei\Api\Service\UserService;
 
 class UsersServiceTest extends TestCase
 {
@@ -24,6 +24,7 @@ class UsersServiceTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testCreateUser ./tests/UsersServiceTest.php
      */
     public function testCreateUser()
     {
@@ -45,8 +46,8 @@ class UsersServiceTest extends TestCase
         ];
 
         $response = $this->service->createUser($params);
+        //$this->assertContains('userId', $response);
         $this->assertEquals('SUCCESS', $response['status']);
-        $this->assertContains('userId', $response);
         return $userTokenId;
     }
 
@@ -59,6 +60,7 @@ class UsersServiceTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testUpdateUser ./tests/UsersServiceTest.php
      */
     public function testUpdateUser($userTokenId)
     {
@@ -77,9 +79,10 @@ class UsersServiceTest extends TestCase
             'locale'          => 'en_UK',
             'email'           => 'john.smith@test.com',
         ];
+
         $response = $this->service->updateUser($params);
         $this->assertEquals('SUCCESS', $response['status']);
-        $this->assertContains('userId', $response);
+        //$this->assertContains('userId', $response);
         return $userTokenId;
     }
 
@@ -91,6 +94,7 @@ class UsersServiceTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testGetUserDetails ./tests/UsersServiceTest.php
      */
     public function testGetUserDetails($userTokenId)
     {

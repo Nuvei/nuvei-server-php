@@ -61,23 +61,38 @@ class SimpleData
         ];
     }
 
-    public static function getUserDetails()
+    public static function getDocumentDetails()
     {
         return [
-            "firstName" => "some first name",
-            "lastName"  => "some last name",
-            "phone"     => "972502457558",
-            "email"     => "someemail@somedomain.com",
-            "address"   => "some street",
-            "city"      => "some city",
-            "zip"       => "123456",
-            "country"   => "US",
-            "state"     => "AK",
-            "county"    => "Anchorage"
+            "documentNumber" => "6303323",
+            "type" => "DL",
+            "issuingState" => "AK",
         ];
     }
 
-    public static function getShippingAddress()
+    public static function getUserDetails()
+    {
+        return [
+            "firstName"     => "some first name",
+            "lastName"      => "some last name",
+            "email"         => "someemail@somedomain.com",
+            "phone"         => "972502457558",
+            "address"       => "some street",
+            "country"       => "US",
+            "county"        => "Anchorage",
+            "city"          => "some city",
+            "state"         => "AK",
+            "zip"           => "30328",
+            "dateOfBirth"   => "1996-04-22",
+        ];
+    }
+
+    public static function getUserDetailsIdentification()
+    {
+        return "674244461";
+    }
+
+        public static function getShippingAddress()
     {
         return [
             "firstName" => "some first name",
@@ -291,5 +306,17 @@ class SimpleData
             ]
         ];
     }
+
+    public static function getBankData()
+    {
+        return [
+            'bankAccount' => [
+                'bankName'      => 'American Bank',
+                'accountNumber' => '9920035637',
+                'routingNumber' => '103112976',
+            ]
+        ];
+    }
+
 
 }

@@ -20,6 +20,7 @@ class UsersServiceTest extends TestCase
     }
 
     /**
+     * @group userCreateEditDetails
      * @return string
      * @throws ConnectionException
      * @throws ResponseException
@@ -46,21 +47,20 @@ class UsersServiceTest extends TestCase
         ];
 
         $response = $this->service->createUser($params);
-        //$this->assertContains('userId', $response);
+        $this->assertArrayHasKey('userId', $response);
         $this->assertEquals('SUCCESS', $response['status']);
         return $userTokenId;
     }
 
     /**
+     * @group userCreateEditDetails
      * @depends testCreateUser
-     *
      * @param $userTokenId
-     *
      * @return string
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
-     * @run ./vendor/phpunit/phpunit/phpunit --filter testUpdateUser ./tests/UsersServiceTest.php
+     * @run ./vendor/phpunit/phpunit/phpunit --filter 'testCreateUser|testUpdateUser' ./tests/UsersServiceTest.php
      */
     public function testUpdateUser($userTokenId)
     {
@@ -82,19 +82,19 @@ class UsersServiceTest extends TestCase
 
         $response = $this->service->updateUser($params);
         $this->assertEquals('SUCCESS', $response['status']);
-        //$this->assertContains('userId', $response);
+        $this->assertArrayHasKey('userId', $response);
         return $userTokenId;
     }
 
     /**
-     * @depends testUpdateUser
-     *
+     * @group userCreateEditDetails
+     * @depends testCreateUser
      * @param $userTokenId
-     *
+     * @return string
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
-     * @run ./vendor/phpunit/phpunit/phpunit --filter testGetUserDetails ./tests/UsersServiceTest.php
+     * @run ./vendor/phpunit/phpunit/phpunit --filter 'testCreateUser|testGetUserDetails' ./tests/UsersServiceTest.php
      */
     public function testGetUserDetails($userTokenId)
     {
@@ -104,9 +104,11 @@ class UsersServiceTest extends TestCase
         ];
         $response = $this->service->getUserDetails($params);
         $this->assertEquals('SUCCESS', $response['status']);
-        $this->assertContains('userId', $response);
-        $this->assertEquals('Smith-updated', $response['userDetails']['lastName']);
-        $this->assertEquals('some street-updated', $response['userDetails']['address']);
+        $this->assertArrayHasKey('userDetails', $response);
+        $this->assertEquals('John', $response['userDetails']['firstName']);
+        $this->assertEquals('Smith', $response['userDetails']['lastName']);
+        $this->assertEquals('some street', $response['userDetails']['address']);
+        return $userTokenId;
 
     }
 

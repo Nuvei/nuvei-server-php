@@ -27,6 +27,7 @@ require(dirname(__FILE__) . '/src/Nuvei/Api/Service/BaseService.php');
 require(dirname(__FILE__) . '/src/Nuvei/Api/Service/PaymentService.php');
 require(dirname(__FILE__) . '/src/Nuvei/Api/Service/UserService.php');
 require(dirname(__FILE__) . '/src/Nuvei/Api/Service/UserPaymentOptions.php');
+require(dirname(__FILE__) . '/src/Nuvei/Api/Service/AdvancedAPMIntegration.php');
 require(dirname(__FILE__) . '/src/Nuvei/Api/Service/Payments/AlternativePaymentMethod.php');
 require(dirname(__FILE__) . '/src/Nuvei/Api/Service/Payments/CreditCard.php');
 require(dirname(__FILE__) . '/src/Nuvei/Api/Service/Payments/Payout.php');

@@ -9,6 +9,7 @@ use Nuvei\Api\Service\PaymentService;
 use Nuvei\Api\Service\UserService;
 use Nuvei\Api\Service\Payments\Payout;
 use Nuvei\Api\Service\UserPaymentOptions;
+use Nuvei\Api\Service\AdvancedAPMIntegration;
 
 class Nuvei
 {
@@ -31,6 +32,11 @@ class Nuvei
      * @var UserPaymentOptions
      */
     private $userPaymentOptionsService;
+
+    /**
+     * @var AdvancedAPMIntegration
+     */
+    private $advancedAPMIntegrationService;
 
     /**
      * @var UserService
@@ -119,6 +125,18 @@ class Nuvei
             $this->userPaymentOptionsService = new UserPaymentOptions($this->client);
         }
         return $this->userPaymentOptionsService;
+    }
+
+    /**
+     * @return AdvancedAPMIntegrationService
+     * @throws Exception\ConfigurationException
+     */
+    public function getAdvancedAPMIntegrationService()
+    {
+        if (is_null($this->advancedAPMIntegrationService)) {
+            $this->advancedAPMIntegrationService = new AdvancedAPMIntegration($this->client);
+        }
+        return $this->advancedAPMIntegrationService;
     }
 
     /**

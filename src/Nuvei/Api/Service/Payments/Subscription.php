@@ -129,8 +129,8 @@ class Subscription extends BaseService
             'merchantId',
             'merchantSiteId',
             'userTokenId',
-            'planId',
-            'subscriptionId',
+            'planIds',
+            'subscriptionIds',
             'subscriptionStatus',
             'timeStamp',
             'merchantSecretKey'
@@ -153,6 +153,7 @@ class Subscription extends BaseService
      * @throws \Nuvei\Api\Exception\ConnectionException
      * @throws \Nuvei\Api\Exception\ResponseException
      * @throws \Nuvei\Api\Exception\ValidationException
+     * @link https://docs.nuvei.com/api/advanced/indexAdvanced.html?json#getSubscriptionPlans
      */
     public function getSubscriptionPlans(array $params)
     {
@@ -168,5 +169,45 @@ class Subscription extends BaseService
         $this->validate($params, $mandatoryFields);
 
         return $this->requestJson($params, 'getSubscriptionPlans.do');
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return mixed
+     * @throws \Nuvei\Api\Exception\ConnectionException
+     * @throws \Nuvei\Api\Exception\ResponseException
+     * @throws \Nuvei\Api\Exception\ValidationException
+     * @link https://docs.nuvei.com/api/advanced/indexAdvanced.html?json#editSubscription
+     */
+    public function editSubscription(array $params)
+    {
+        $mandatoryFields = [
+            'merchantId',
+            'merchantSiteId',
+            'subscriptionId',
+            'timeStamp',
+            'checksum'
+        ];
+
+        $checksumParametersOrder = [
+            'merchantId',
+            'merchantSiteId',
+            'subscriptionId',
+            'userPaymentOptionId',
+            'recurringAmount',
+            'currency',
+            'timeStamp',
+            'merchantSecretKey'
+        ];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+        if (empty($params['checksum'])) {
+            $params['checksum'] = Utils::calculateChecksum($params, $checksumParametersOrder, $this->client->getConfig()->getMerchantSecretKey(), $this->client->getConfig()->getHashAlgorithm());
+        }
+
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'editSubscription.do');
     }
 }

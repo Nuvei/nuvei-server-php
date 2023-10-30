@@ -225,4 +225,45 @@ class TestCaseHelper
         return self::$upoCreditCardId;
     }
 
+    public static function getUserPaymentOptionId()
+    {
+        $service = new UserPaymentOptions(self::getClient());
+        $response = $service->getUserUPOs([
+            'userTokenId'     => TestCaseHelper::getUserTokenId(),
+            'clientRequestId' => '235',
+        ]);
+
+        try {
+            return $response['paymentMethods'][0]['userPaymentOptionId'];
+        } catch(Exception $e) {
+            return self::getUPOCreditCardId();
+        }
+    }
+
+    public static function getDocumentType()
+    {
+        $types = [
+            'TermsAndConditions',
+            'PrivacyPolicy',
+            'FAQ',
+        ];
+
+        return $types[array_rand($types)];
+    }
+
+    //get random rebilling plan name from combination of random string and timestamp
+    public static function getPlanName()
+    {
+        //create random string
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        $length = rand(5, 10);
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        $timestamp = time();
+        return "Plan Name $randomString - $timestamp";
+    }
+
 }

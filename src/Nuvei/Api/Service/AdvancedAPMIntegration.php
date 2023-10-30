@@ -91,4 +91,97 @@ class AdvancedAPMIntegration extends BaseService
 
         return $this->requestJson($params, 'enrollAccount.do');
     }
+    
+    /**
+     * @param array $params
+     *
+     * @return mixed
+     * @throws \Nuvei\Api\Exception\ConnectionException
+     * @throws \Nuvei\Api\Exception\ResponseException
+     * @throws \Nuvei\Api\Exception\ValidationException
+     * @link https://docs.nuvei.com/api/advanced/indexAdvanced.html?json#fundAccount
+     */
+    public function fundAccount(array $params)
+    {
+        $mandatoryFields = [
+            'sessionToken',
+            'merchantId',
+            'merchantSiteId',
+            'clientUniqueId',
+            'clientRequestId',
+            'paymentOption' =>[
+                'alternativePaymentMethod' => [
+                    'paymentMethod'
+                ],
+            ],
+            'userId',
+        ];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'fundAccount.do');
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return mixed
+     * @throws \Nuvei\Api\Exception\ConnectionException
+     * @throws \Nuvei\Api\Exception\ResponseException
+     * @throws \Nuvei\Api\Exception\ValidationException
+     * @link https://docs.nuvei.com/api/advanced/indexAdvanced.html?json#getAccountDetails
+     */
+    public function getAccountDetails(array $params)
+    {
+        $mandatoryFields = [
+            'sessionToken',
+            'merchantId',
+            'merchantSiteId',
+            'clientUniqueId',
+            'clientRequestId',
+            'paymentOption' =>[
+                'alternativePaymentMethod' => [
+                    'paymentMethod'
+                ],
+            ],
+            'userId',
+        ];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'getAccountDetails.do');
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return mixed
+     * @throws \Nuvei\Api\Exception\ConnectionException
+     * @throws \Nuvei\Api\Exception\ResponseException
+     * @throws \Nuvei\Api\Exception\ValidationException
+     * @link https://docs.nuvei.com/api/advanced/indexAdvanced.html?json#getDocumentUrl
+     */
+    public function getDocumentUrl(array $params)
+    {
+        $mandatoryFields = [
+            'sessionToken',
+            'merchantId',
+            'merchantSiteId',
+            'clientUniqueId',
+            'clientRequestId',
+            'paymentOption' =>[
+                'alternativePaymentMethod' => [
+                    'paymentMethod'
+                ],
+            ],
+            'documentType',
+        ];
+
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, 'getDocumentUrl.do');
+    }
 }

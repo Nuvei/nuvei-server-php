@@ -265,7 +265,7 @@ class RebillingTest extends TestCase
         $params = [
             'planId' => $existingPlan['planId'],
             'userTokenId' => TestCaseHelper::getUserTokenId(),
-            'userPaymentOptionId' => TestCaseHelper::getUserPaymentOptionId(),
+            'userPaymentOptionId' => TestCaseHelper::getUPOCreditCardId(),
             'endAfter' => [
                 'day' => '6',
                 'month' => '7',
@@ -273,6 +273,8 @@ class RebillingTest extends TestCase
             ],
         ];
 
-        return $this->subscriptionService->createSubscription($params);
+        $return = $this->subscriptionService->createSubscription($params);
+        $return['plan'] = $existingPlan;
+        return $return;
     }
 }

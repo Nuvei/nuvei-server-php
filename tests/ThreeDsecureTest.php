@@ -30,13 +30,17 @@ class ThreeDsecureTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
-     * @run ./vendor/phpunit/phpunit/phpunit --filter ::testDynamic3d$ ./tests/ThreeDsecureTest.php
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testDynamic3d ./tests/ThreeDsecureTest.php
      */
     public function testDynamic3d()
     {
+        TestCaseHelper::setSessionToken(null);
+
         //TestCaseHelper::setSessionToken(null);
         $params = $this->getExampleData();
         $params['cardData'] = SimpleData::getCardData('375510288656924');
+        $transactionData = TestCaseHelper::createAndReturnTransaction(true);
+        $params['relatedTransactionId'] = $transactionData['transactionId'];
 
         $response = $this->service->dynamic3D($params);
         $this->assertEquals('SUCCESS', $response['status']);
@@ -53,18 +57,22 @@ class ThreeDsecureTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
-     * @run ./vendor/phpunit/phpunit/phpunit --filter ::testPayment3d$ ./tests/ThreeDsecureTest.php
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testPayment3d ./tests/ThreeDsecureTest.php
      */
-    public function testPayment3d($orderId)
+    public function testPayment3d()
     {
+        TestCaseHelper::setSessionToken(null);
+
         $params = $this->getExampleData();
         unset($params['isDynamic3D']);
-        $params['orderId']           = $orderId;
+        $params['orderId']           = TestCaseHelper::openOrderAndReturnOrderId();
         $params['isPartialApproval'] = "0";
         $params['paResponse']        = "";
         $params['transactionType']   = "Sale";
         $params['cardData']          = SimpleData::getCardData();
+        $params['paymentMethod']     = 'cc_card';
         $response                    = $this->service->payment3D($params);
+        $this->assertSame([], $response);
         $this->assertContains('orderId', $response);
         $this->assertEquals('SUCCESS', $response['status']);
     }
@@ -75,6 +83,8 @@ class ThreeDsecureTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testDynamic3dWithRebillingAndMpi ./tests/ThreeDsecureTest.php
      */
     public function testDynamic3dWithRebillingAndMpi()
     {
@@ -100,6 +110,8 @@ class ThreeDsecureTest extends TestCase
             'CVV'                 => '234'
         ];
 
+        $transactionData = TestCaseHelper::createAndReturnTransaction(true);
+        $params['relatedTransactionId'] = $transactionData['transactionId'];
 
         $response = $this->service->dynamic3D($params);
         $this->assertContains('orderId', $response);

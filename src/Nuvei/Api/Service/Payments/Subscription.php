@@ -67,7 +67,9 @@ class Subscription extends BaseService
 
         $this->validate($params, $mandatoryFields);
 
-        return $this->requestJson($params, 'createSubscription.do');
+        $return = $this->requestJson($params, 'createSubscription.do');
+        $return['params'] = $params;
+        return $return;
     }
 
     /**

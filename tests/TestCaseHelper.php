@@ -17,6 +17,9 @@ use Nuvei\Api\Service\Payments\CreditCard;
 use Nuvei\Api\Service\PaymentService;
 use Nuvei\Api\Service\UserPaymentOptions;
 use Nuvei\Api\Service\UserService;
+use Nuvei\Api\Service\Withdrawals\Orders;
+use Nuvei\Api\Service\Withdrawals\Requests;
+use Nuvei\Api\Service\Withdrawals\Processing;
 
 class TestCaseHelper
 {
@@ -265,5 +268,71 @@ class TestCaseHelper
         $timestamp = time();
         return "Plan Name $randomString - $timestamp";
     }
+    
+    public static function generateDefaultRequest() 
+    {
+        
+        $params = [
+            'userTokenId'         => TestCaseHelper::getUserTokenId(),
+            'userPMId'            => TestCaseHelper::getUserPaymentOptionId(),
+            'amount'              => SimpleData::getAmount(100),
+            'currency'            => SimpleData::getCurrency(),
+            'merchantWDRequestId' => SimpleData::generateWithdrawalRequestId(),
+            'merchantUniqueId'    => SimpleData::generateMerchantUniqueID(),
+            // 'userPaymentOption'   => [
+            //     'alternativePaymentMethod' => [
+            //         'paymentMethod' => 'apmgw_VIP_Preferred',
+            //     ],
+            // ],
+        ];
 
+        $service = new Requests(self::getClient());
+        return $service->submitRequest($params);
+    }
+
+    public static function generateDefaultOrder() : array
+    {
+        $withdrawalRequest = self::generateDefaultRequest();
+        $params = [
+            'wdRequestId'           => $withdrawalRequest['wdRequestId'],
+            'merchantWDRequestId'   => SimpleData::generateMerchantUniqueID(),
+            'userPMId'              => self::getUPOCreditCardId(),
+            'userPMId'              => self::getUserPaymentOptionId(),
+            'amount'                => SimpleData::getAmount(100),
+            'currency'              => SimpleData::getCurrency(),
+            'settlementType'        => SimpleData::generateSettlementType(),
+        ];
+
+        $service = new Processing(self::getClient());
+        return $service->placeWithdrawalOrder($params);
+    }
+
+    public static function generateApprovedOrder() : array
+    {
+        $withdrawalRequest = self::generateDefaultRequest();
+        $params = [
+            'wdRequestId' => $withdrawalRequest['wdRequestId'],
+            'merchantWDRequestId' => SimpleData::generateMerchantUniqueID(),
+        ];
+
+        $service = new Processing(self::getClient());
+        return $service->approveRequest($params);
+    }
+
+    public static function generateMinimalWithdrawalOrder($amount = 0.01) : array
+    {
+        $withdrawalRequest = self::generateDefaultRequest();
+        $params = [
+            'wdRequestId'           => $withdrawalRequest['wdRequestId'],
+            'merchantWDRequestId'   => SimpleData::generateMerchantUniqueID(),
+            'userPMId'              => self::getUPOCreditCardId(),
+            'userPMId'              => self::getUserPaymentOptionId(),
+            'amount'                => SimpleData::getAmount($amount),
+            'currency'              => SimpleData::getCurrency(),
+            'settlementType'        => SimpleData::generateSettlementType(),
+        ];
+
+        $service = new Processing(self::getClient());
+        return $service->placeWithdrawalOrder($params);
+    }
 }

@@ -100,7 +100,9 @@ class Rebilling extends BaseService
         );
         $this->validate($params, $mandatoryFields);
 
-        return $this->requestJson($params, 'createPlan.do');
+        $return = $this->requestJson($params, 'createPlan.do');
+        $return['params'] = $params;
+        return $return;
     }
 
     /**

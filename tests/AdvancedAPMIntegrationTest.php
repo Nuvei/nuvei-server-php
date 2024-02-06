@@ -30,7 +30,6 @@ class advancedAPMIntegrationTest extends TestCase
     {
 
         $response = $this->enrollAccount();
-        //$this->assertArrayHasKey('userId', $response);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 
@@ -55,7 +54,7 @@ class advancedAPMIntegrationTest extends TestCase
             'clientRequestId' => '100',
             'userId'          => '6303323',
             'bankAccount'     => $bankData['bankAccount'],
-            // 'userTokenId'     => $userTokenId,
+            'userTokenId'     => $userTokenId,
             'paymentOption'   => [
                 'alternativePaymentMethod' => [
                     'paymentMethod' => 'apmgw_VIP_Preferred',
@@ -67,8 +66,6 @@ class advancedAPMIntegrationTest extends TestCase
         $params['userDetails']['identification'] = SimpleData::getUserDetailsIdentification();
 
         $response = $this->service->addBankAccount($params);
-        //$this->assertArrayHasKey('userId', $response);
-        // $this->assertSame([], $response);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 
@@ -127,7 +124,6 @@ class advancedAPMIntegrationTest extends TestCase
         $params['userDetails']['identification'] = SimpleData::getUserDetailsIdentification();
 
         $response = $this->service->getAccountDetails($params);
-        // $this->assertSame([], $response);
         $this->assertEquals('SUCCESS', $response['status']);
     }
 

@@ -167,7 +167,7 @@ class BaseService implements ServiceInterface
      * @throws \Nuvei\Api\Exception\ConnectionException
      * @throws \Nuvei\Api\Exception\ResponseException
      */
-    public function requestJson($params, $endpoint, $debugg = false)
+    public function requestJson($params, $endpoint)
     {
         $service = $this;
         $client = $service->getClient();
@@ -178,20 +178,16 @@ class BaseService implements ServiceInterface
         $params['sourceApplication'] = Utils::getSourceApplication();
         $params['webMasterId'] = Utils::getWebMasterID();
 
-        if($debug) {
-            // echo "\nMethod: " . $endpoint . "\nRequest: ";
-            // print_r($params);
+        if ($debug) {
+            echo "\nMethod: " . $endpoint . "\nRequest: ";
+            print_r($params);
         }
 
-        if($debugg) {
-        // return $params;
-        //  return time();   // return $params;
-        }
         $response = $curlClient->requestJson($this, $this->apiUrl . $endpoint, $params);
 
-        if($debug) {
-            // echo "Response: ";
-            // print_r($response);
+        if ($debug) {
+            echo "Response: ";
+            print_r($response);die;
         }
 
         return $response;
@@ -213,7 +209,7 @@ class BaseService implements ServiceInterface
         return $curlClient->requestPost($this, $this->apiUrl . $endpoint, $params);
     }
 
-    protected function call($params, $mandatoryFields, $endpoint, $checksumParametersOrder = null, $processAdditionalParams = false, $debugChecksumParams = false)
+    protected function call($params, $mandatoryFields, $endpoint, $checksumParametersOrder = null, $processAdditionalParams = false)
     {
         if (!$checksumParametersOrder && $processAdditionalParams) {
             $paramKeys = array_keys($params);
@@ -236,19 +232,8 @@ class BaseService implements ServiceInterface
             $this->client->getConfig()->getMerchantSecretKey(),
             $this->client->getConfig()->getHashAlgorithm()
         );
-        if($debugChecksumParams) {
-            $checksumParams = [];
-            foreach ($checksumParametersOrder as $value) {
-                if (isset($params[$value])) {
-                    $checksumParams[$value] = $params[$value];
-                }
-            }
-        $checksumParams = Utils::arrayToString($checksumParams, ' - ');
-            // $params['concatenatkdString'] = $checksumParams;
-            //  return json_encode($params);die;
-        }
         $this->validate($params, $mandatoryFields);
 
-        return $this->requestJson($params, $endpoint, $debugChecksumParams);
+        return $this->requestJson($params, $endpoint);
     }
 }

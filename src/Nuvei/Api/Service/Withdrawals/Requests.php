@@ -43,7 +43,7 @@ class Requests extends BaseService
             'checksum'
         ];
 
-        return $this->call($params, $mandatory, '../withdrawal/submitRequest.do', null, true, false, true);
+        return $this->call($params, $mandatory, '../withdrawal/submitRequest.do', null, true);
     }
 
     /**

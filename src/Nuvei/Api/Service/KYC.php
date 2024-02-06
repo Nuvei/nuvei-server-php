@@ -50,7 +50,7 @@ class KYC extends BaseService
             'merchantSecretKey'
         ];
 
-        return $this->call($params, $mandatory, 'eKYC.do', $checksumParametersOrder, true, true, false);
+        return $this->call($params, $mandatory, 'eKYC.do', $checksumParametersOrder, true);
     }
 
     /**
@@ -85,6 +85,6 @@ class KYC extends BaseService
             'merchantSecretKey'
         ];
 
-        return $this->call($params, $mandatory, 'getDocumentUploadUrl.do', $checksumParametersOrder, true, true, false);
+        return $this->call($params, $mandatory, 'getDocumentUploadUrl.do', $checksumParametersOrder, true);
     }
 }

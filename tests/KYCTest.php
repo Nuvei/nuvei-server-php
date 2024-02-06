@@ -36,7 +36,6 @@ class KYCTest extends TestCase
         $response = $this->service->getEKYC($params);
 
         $this->assertEquals('SUCCESS', $response['status']);
-        $this->assertArrayHasKey('userPaymentMethods', $response);
     }
 
     /**

@@ -296,7 +296,7 @@ class TestCaseHelper
         $params = [
             'wdRequestId'           => $withdrawalRequest['wdRequestId'],
             'merchantWDRequestId'   => SimpleData::generateMerchantUniqueID(),
-            'userPMId'              => self::getUPOCreditCardId(),
+            'userUPOId'             => self::getUPOCreditCardId(),
             'userPMId'              => self::getUserPaymentOptionId(),
             'amount'                => SimpleData::getAmount(100),
             'currency'              => SimpleData::getCurrency(),
@@ -325,7 +325,7 @@ class TestCaseHelper
         $params = [
             'wdRequestId'           => $withdrawalRequest['wdRequestId'],
             'merchantWDRequestId'   => SimpleData::generateMerchantUniqueID(),
-            'userPMId'              => self::getUPOCreditCardId(),
+            'userUPOId'             => self::getUPOCreditCardId(),
             'userPMId'              => self::getUserPaymentOptionId(),
             'amount'                => SimpleData::getAmount($amount),
             'currency'              => SimpleData::getCurrency(),

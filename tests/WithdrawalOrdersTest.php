@@ -134,7 +134,6 @@ class WithdrawalOrdersTest extends TestCase
 
         $params = [
             "wdOrderIds"    => [ (string)$approvedOrder["wdOrderId"] ],
-            "operatorName" => "Test Name",
             "details"      => [
                 "executionTime" => (new DateTime())->format('YmdHi'),
             ],
@@ -142,7 +141,6 @@ class WithdrawalOrdersTest extends TestCase
 
         $response = $this->service->updateOrdersDetails($params);
 
-        $this->assertSame('', json_encode($response));
         $this->assertEquals('SUCCESS', $response['status']);
     }
 }

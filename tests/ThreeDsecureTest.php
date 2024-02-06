@@ -44,10 +44,6 @@ class ThreeDsecureTest extends TestCase
 
         $response = $this->service->dynamic3D($params);
         $this->assertEquals('SUCCESS', $response['status']);
-
-        //$this->assertContains('orderId', $response);
-        //$this->assertContains('paRequest', $response);
-        //return $response['orderId'];
     }
 
     /**
@@ -72,7 +68,6 @@ class ThreeDsecureTest extends TestCase
         $params['cardData']          = SimpleData::getCardData();
         $params['paymentMethod']     = 'cc_card';
         $response                    = $this->service->payment3D($params);
-        $this->assertSame([], $response);
         $this->assertContains('orderId', $response);
         $this->assertEquals('SUCCESS', $response['status']);
     }

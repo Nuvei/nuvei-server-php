@@ -40,7 +40,7 @@ class NetDeposits extends BaseService
             'checksum'
         ];
 
-        return $this->call($params, $mandatory, '../withdrawal/getNetDeposits.do', null, false, true);
+        return $this->call($params, $mandatory, '../withdrawal/getNetDeposits.do');
     }
 
     /**
@@ -66,7 +66,7 @@ class NetDeposits extends BaseService
             'checksum'
         ];
 
-        return $this->call($params, $mandatory, '../withdrawal/updateNetDepositValue.do', null, false, true);
+        return $this->call($params, $mandatory, '../withdrawal/updateNetDepositValue.do');
     }
 
     /**
@@ -85,12 +85,11 @@ class NetDeposits extends BaseService
             'merchantSiteId',
             'userTokenId',
             'currency',
-            'country',
             'userPMId',
             'timeStamp',
             'checksum',
         ];
 
-        return $this->call($params, $mandatory, '../withdrawal/getUserPaymentMethodNetDeposits.do', null, true, true);
+        return $this->call($params, $mandatory, '../withdrawal/getUserPaymentMethodNetDeposits.do');
     }
 }

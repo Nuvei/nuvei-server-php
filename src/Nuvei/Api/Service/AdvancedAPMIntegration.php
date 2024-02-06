@@ -54,10 +54,7 @@ class AdvancedAPMIntegration extends BaseService
             'userTokenId',
         ];
 
-        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
-        $this->validate($params, $mandatoryFields);
-
-        return $this->requestJson($params, 'addBankAccount.do');
+        return $this->call($params, $mandatoryFields, 'addBankAccount.do', null, true);
     }
 
     /**

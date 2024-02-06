@@ -75,8 +75,7 @@ class WithdrawalNetDepositsTest extends TestCase
 
         $response = $this->service->getUserPaymentMethodNetDeposits($params);
 
-        $this->assertSame([], $response);
         $this->assertEquals('SUCCESS', $response['status']);
-        $this->assertArrayHasKey('userPaymentMethods', $response);
+        $this->assertArrayHasKey('netDeposits', $response);
     }
 }

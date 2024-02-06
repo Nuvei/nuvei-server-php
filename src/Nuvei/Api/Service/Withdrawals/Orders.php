@@ -146,9 +146,9 @@ class Orders extends BaseService
             'wdOrderIds',
             'details',
             'timeStamp',
-            'checksum'
+            'checksum',
         ];
 
-        return $this->call($params, $mandatory, '../withdrawal/updateOrdersDetails.do', null, true, true);
+        return $this->call($params, $mandatory, '../withdrawal/updateOrdersDetails.do', null, false);
     }
 }

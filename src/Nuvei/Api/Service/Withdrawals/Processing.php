@@ -109,7 +109,7 @@ class Processing extends BaseService
             'checksum'
         ];
 
-        return $this->call($params, $mandatory, '../withdrawal/sealRequest.do', null, true, true, true);
+        return $this->call($params, $mandatory, '../withdrawal/sealRequest.do', null, true);
     }
 
 

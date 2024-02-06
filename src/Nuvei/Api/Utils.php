@@ -33,14 +33,14 @@ class Utils
      *
      * @return string
      */
-    public static function arrayToString($array, $test = '')
+    public static function arrayToString($array)
     {
         $string = '';
         foreach ($array as $element) {
             if (!is_array($element)) {
-                $string .= $test.$element;
+                $string .= $element;
             } else {
-                $string .= $test.self::arrayToString($element);
+                $string .= self::arrayToString($element);
             }
         }
         return $string;

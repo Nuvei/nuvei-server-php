@@ -187,7 +187,7 @@ class BaseService implements ServiceInterface
 
         if ($debug) {
             echo "Response: ";
-            print_r($response);die;
+            print_r($response);
         }
 
         return $response;

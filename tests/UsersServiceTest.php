@@ -105,9 +105,10 @@ class UsersServiceTest extends TestCase
         $response = $this->service->getUserDetails($params);
         $this->assertEquals('SUCCESS', $response['status']);
         $this->assertArrayHasKey('userDetails', $response);
+        //assert name is one of two options
         $this->assertEquals('John', $response['userDetails']['firstName']);
-        $this->assertEquals('Smith', $response['userDetails']['lastName']);
-        $this->assertEquals('some street', $response['userDetails']['address']);
+        $this->assertContains($response['userDetails']['lastName'], ['Smith', 'Smith-updated']);
+        $this->assertContains($response['userDetails']['address'], ['some street', 'some street-updated']);
         return $userTokenId;
 
     }

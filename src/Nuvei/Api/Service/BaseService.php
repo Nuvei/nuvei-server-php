@@ -96,11 +96,11 @@ class BaseService implements ServiceInterface
      */
     public function appendMerchantIdMerchantSiteIdTimeStamp($params = [])
     {
-        if (empty($params['merchantId'])) {
-            $params['merchantId'] = $this->client->getConfig()->getMerchantId();
-        }
         if (empty($params['merchantSiteId'])) {
-            $params['merchantSiteId'] = $this->client->getConfig()->getMerchantSiteId();
+            $params = ['merchantSiteId' => $this->client->getConfig()->getMerchantSiteId()] + $params;
+        }
+        if (empty($params['merchantId'])) {
+            $params = ['merchantId' => $this->client->getConfig()->getMerchantId()] + $params;
         }
         if (empty($params['timeStamp'])) {
             $params['timeStamp'] = date('YmdHms');
@@ -178,14 +178,14 @@ class BaseService implements ServiceInterface
         $params['sourceApplication'] = Utils::getSourceApplication();
         $params['webMasterId'] = Utils::getWebMasterID();
 
-        if($debug) {
+        if ($debug) {
             echo "\nMethod: " . $endpoint . "\nRequest: ";
             print_r($params);
         }
 
         $response = $curlClient->requestJson($this, $this->apiUrl . $endpoint, $params);
 
-        if($debug) {
+        if ($debug) {
             echo "Response: ";
             print_r($response);
         }
@@ -207,5 +207,33 @@ class BaseService implements ServiceInterface
         $curlClient = $this->client->getHttpClient();
 
         return $curlClient->requestPost($this, $this->apiUrl . $endpoint, $params);
+    }
+
+    protected function call($params, $mandatoryFields, $endpoint, $checksumParametersOrder = null, $processAdditionalParams = false)
+    {
+        if (!$checksumParametersOrder && $processAdditionalParams) {
+            $paramKeys = array_keys($params);
+            $checksumParametersOrder = [
+                'merchantId',
+                'merchantSiteId',
+                ...$paramKeys,
+                'timeStamp',
+                'checksum'
+            ];
+        }
+        if (!$checksumParametersOrder) {
+            $checksumParametersOrder = $mandatoryFields;
+        }
+        $params = $this->appendMerchantIdMerchantSiteIdTimeStamp($params);
+
+        $params['checksum'] = Utils::calculateChecksum(
+            $params,
+            $checksumParametersOrder,
+            $this->client->getConfig()->getMerchantSecretKey(),
+            $this->client->getConfig()->getHashAlgorithm()
+        );
+        $this->validate($params, $mandatoryFields);
+
+        return $this->requestJson($params, $endpoint);
     }
 }

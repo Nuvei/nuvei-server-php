@@ -12,15 +12,10 @@ class SimpleData
         return 'EUR';
     }
 
-    public static function getCountry($country = 'DE')
-    {
-        return $country;
-    }
-
-    public static function getAmount($amount = null) : string
+    public static function getAmount($amount = null)
     {
         if(!is_null($amount)) {
-            return (string) $amount;
+            return $amount;
         }
         return "10";
     }
@@ -92,29 +87,12 @@ class SimpleData
         ];
     }
 
-    public static function getEKYCUserDetails()
-    {
-        $userDetails = self::getUserDetails();
-        return [
-            'userName' => 'someUserName',
-            'languageCode' => 'EN',
-            'dateOfBirth' => $userDetails['dateOfBirth'],
-            'title' => 'Mr.',
-            'gender' => 'male',
-            'building' => '12',
-            // 'mobileCountryCode' => '01',
-            'mobileNumber' => $userDetails['phone'],
-            'identification' => '123456789',
-            'identificationType' => 'PassportNumber'
-        ];
-    }
-
     public static function getUserDetailsIdentification()
     {
         return "674244461";
     }
 
-    public static function getShippingAddress()
+        public static function getShippingAddress()
     {
         return [
             "firstName" => "some first name",
@@ -340,27 +318,5 @@ class SimpleData
         ];
     }
 
-    public static function generateWithdrawalRequestId()
-    {
-        return md5(time());
-    }
 
-    public static function generateMerchantUniqueID()
-    {
-        return 'merchant-unique-id-' . time();
-    }
-
-    /**
-     * @return int Returns 0 if the transaction is a withdrawal, 1 if it is a refund.
-     */
-    public static function generateSettlementType($type = 'withdrawal') : int
-    {
-        $availableTypes = [
-            0 => 'withdrawal',
-            1 => 'refund'
-        ];
-        $type = array_search($type, $availableTypes);
-
-        return $type ? $type : 0;
-    }
 }

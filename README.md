@@ -1,6 +1,6 @@
 # Nuvei REST API SDK for PHP
 
-Nuvei’s REST API SDK for PHP provides developer tools for accessing Nuvei's REST API. Nuvei’s REST API is a simple, easy-to-use, secure and stateless API, which enables online merchants and service providers to process consumer payments through Nuvei’s digital payment Gateway. The API supports merchants of all levels of PCI certification, online and mobile merchant applications, and is compatible with a large variety of payment options, such as payment cards and alternative payment methods. For Nuvei REST API documentation, please see: https://docs.nuvei.com/api/main/
+Nuvei’s REST API SDK for PHP provides developer tools for accessing Nuvei's REST API. Nuvei’s REST API is a simple, easy-to-use, secure and stateless API, which enables online merchants and service providers to process consumer payments through Nuvei’s digital payment Gateway. The API supports merchants of all levels of PCI certification, online and mobile merchant applications, and is compatible with a large variety of payment options, such as payment cards and alternative payment methods. For Nuvei REST API documentation, please see: https://docs.nuvei.com/api/main/ 
 
 ## Requirements
 

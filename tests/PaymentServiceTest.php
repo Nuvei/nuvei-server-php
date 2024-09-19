@@ -58,6 +58,29 @@ class PaymentServiceTest extends TestCase
      * @throws ConnectionException
      * @throws ResponseException
      * @throws ValidationException
+     * @run ./vendor/phpunit/phpunit/phpunit --filter testCreatePaymentCvvNotUsed ./tests/PaymentServiceTest.php
+     */
+    public function testCreatePaymentCvvNotUsed()
+    {
+        $response = $this->service->createPayment([
+            'currency'       => SimpleData::getCurrency(),
+            'amount'         => SimpleData::getAmount(),
+            'userTokenId'    => TestCaseHelper::getUserTokenId(),
+            'paymentOption'  => [
+                'card' => SimpleData::getCardData()
+            ],
+            'billingAddress' => SimpleData::getBillingAddress(),
+            'deviceDetails'  => SimpleData::getDeviceDetails(),
+            //'currencyConversion'  => SimpleData::getCurrencyConversion(),
+            'cvvNotUsed'     => 1,
+        ]);
+        $this->assertEquals('SUCCESS', $response['status']);
+    }
+
+    /**
+     * @throws ConnectionException
+     * @throws ResponseException
+     * @throws ValidationException
      * @run ./vendor/phpunit/phpunit/phpunit --filter testInitPayment ./tests/PaymentServiceTest.php
      */
     public function testInitPayment()

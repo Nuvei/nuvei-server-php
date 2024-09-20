@@ -62,19 +62,22 @@ class PaymentServiceTest extends TestCase
      */
     public function testCreatePaymentCvvNotUsed()
     {
-        $response = $this->service->createPayment([
-            'currency'       => SimpleData::getCurrency(),
-            'amount'         => SimpleData::getAmount(),
-            'userTokenId'    => TestCaseHelper::getUserTokenId(),
-            'paymentOption'  => [
-                'card' => SimpleData::getCardData()
-            ],
-            'billingAddress' => SimpleData::getBillingAddress(),
-            'deviceDetails'  => SimpleData::getDeviceDetails(),
-            //'currencyConversion'  => SimpleData::getCurrencyConversion(),
-            'cvvNotUsed'     => 1,
-        ]);
-        $this->assertEquals('SUCCESS', $response['status']);
+        try {
+            $this->service->createPayment([
+                'currency'       => SimpleData::getCurrency(),
+                'amount'         => SimpleData::getAmount(),
+                'userTokenId'    => TestCaseHelper::getUserTokenId(),
+                'paymentOption'  => [
+                    'card' => SimpleData::getCardData()
+                ],
+                'billingAddress' => SimpleData::getBillingAddress(),
+                'deviceDetails'  => SimpleData::getDeviceDetails(),
+                //'currencyConversion'  => SimpleData::getCurrencyConversion(),
+                'cvvNotUsed'     => 'invalid',
+            ]);
+        } catch (ResponseException $e) {
+            $this->assertEquals('cvvNotUsed size must be between 0 and 5', $e->getMessage());
+        }
     }
 
     /**

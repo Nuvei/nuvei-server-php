@@ -73,12 +73,6 @@ class PaymentService extends BaseService
             unset($params['externalSchemeDetails']['transactionId']);
         }
 
-        if (isset($params['cvvNotUsed']) && in_array($params['cvvNotUsed'], [true, 1, 'true']))
-        {
-            $params['sg_NostUseCVV'] = 1;
-            unset($params['cvvNotUsed']);
-        }
-
         $this->validate($params, $mandatoryFields);
 
         return $this->requestJson($params, 'payment.do');

@@ -136,6 +136,8 @@ class BaseService implements ServiceInterface
      */
     public function validate($params, $mandatoryFields)
     {
+        $this->validateEmojis($params);
+
         $missingFields = [];
         $arrayKeys     = array_keys($params);
         foreach ($mandatoryFields as $fieldKey => $fieldValue) {
@@ -157,6 +159,32 @@ class BaseService implements ServiceInterface
         }
 
         return true;
+    }
+
+    private function validateEmojis($params)
+    {
+        $regex = [
+            'emojis' => '/[\x{1F600}-\x{1F64F}]/u',
+            'symbols' => '/[\x{1F300}-\x{1F5FF}]/u',
+            'transport' => '/[\x{1F680}-\x{1F6FF}]/u',
+            'misc' => '/[\x{2600}-\x{26FF}]/u',
+            'dingbats' => '/[\x{2700}-\x{27BF}]/u',
+            'flags' => '/[\x{1F1E6}-\x{1F1FF}]/u',
+            'others' => '/[\x{1F910}-\x{1F95E}]/u',
+        ];
+        if (is_array($params)) {
+            foreach ($params as $key => $value) {
+                if (is_array($value)) {
+                    $this->validateEmojis($value);
+                } else {
+                    foreach ($regex as $name => $reg) {
+                        if (preg_match($reg, $value)) {
+                            throw new ValidationException('Invalid input parameter: ' . $key);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**

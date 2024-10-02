@@ -161,6 +161,12 @@ class BaseService implements ServiceInterface
         return true;
     }
 
+    /**
+     * Validates the presence of emojis in the given parameters.
+     *
+     * @param array $params The parameters to be validated.
+     * @return void
+     */
     private function validateEmojis($params)
     {
         $regex = [

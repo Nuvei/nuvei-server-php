@@ -208,8 +208,9 @@ class HttpClient implements HttpClientInterface
             $logger->error("[Nuvei PHP SDK] " . $decodedResult['errCode'] . ': ' . $decodedResult['reason']);
             throw new ResponseException($decodedResult['reason'], $decodedResult['errCode'], null, null, $decodedResult);
         } elseif (isset($decodedResult['gwErrorCode']) && !empty($decodedResult['gwErrorCode'])) {
-            $logger->error("[Nuvei PHP SDK] " . $decodedResult['gwErrorCode'] . ': ' . $decodedResult['gwErrorReason']);
-            throw new ResponseException($decodedResult['gwErrorReason'], $decodedResult['gwErrorCode'], null, null, $decodedResult);
+            $reason = isset($decodedResult['gwErrorReason']) ? $decodedResult['gwErrorReason'] : $decodedResult['reason'];
+            $logger->error("[Nuvei PHP SDK] " . $decodedResult['gwErrorCode'] . ': ' . $reason);
+            throw new ResponseException($reason, $decodedResult['gwErrorCode'], null, null, $decodedResult);
         }
     }
 }

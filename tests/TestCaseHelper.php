@@ -49,6 +49,8 @@ class TestCaseHelper
                 'merchantSiteId'    => $config['merchantSiteId'],
                 'merchantSecretKey' => $config['merchantSecretKey'],
                 'hashAlgorithm'     => $config['hashAlgorithm'],
+                'timeout'           => $config['timeout'],
+                'connectionTimeout' => $config['connectionTimeout'],
                 'debugMode'         => $config['debugMode'],
             ]);
 

@@ -248,6 +248,50 @@ class Config implements ConfigInterface
     }
 
     /**
+     * @param int $timeout
+     *
+     * @return $this
+     */
+    public function setTimeout($timeout)
+    {
+        $this->configData['timeout'] = (int)$timeout;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimeout()
+    {
+        if (!isset($this->configData['timeout'])) {
+            return 0;
+        }
+        return (int)$this->configData['timeout'];
+    }
+
+    /**
+     * @param int $timeout
+     *
+     * @return $this
+     */
+    public function setConnectionTimeout($timeout)
+    {
+        $this->configData['connectionTimeout'] = (int)$timeout;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getConnectionTimeout()
+    {
+        if (!isset($this->configData['connectionTimeout'])) {
+            return 0;
+        }
+        return (int)$this->configData['connectionTimeout'];
+    }
+
+    /**
      * @return boolean
      */
     public function isDebugMode()

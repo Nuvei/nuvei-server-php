@@ -48,6 +48,9 @@ class HttpClient implements HttpClientInterface
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         }
 
+        // set timeouts
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $config->getConnectionTimeout());
+        curl_setopt($ch, CURLOPT_TIMEOUT, $config->getTimeout());
         //Tell cURL that we want to send a POST request.
         curl_setopt($ch, CURLOPT_POST, 1);
         // set authorisation

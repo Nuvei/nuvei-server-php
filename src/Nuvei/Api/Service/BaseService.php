@@ -247,13 +247,11 @@ class BaseService implements ServiceInterface
     {
         if (!$checksumParametersOrder && $processAdditionalParams) {
             $paramKeys = array_keys($params);
-            $checksumParametersOrder = [
-                'merchantId',
-                'merchantSiteId',
-                ...$paramKeys,
-                'timeStamp',
-                'checksum'
-            ];
+            $checksumParametersOrder = array_merge(
+                ['merchantId', 'merchantSiteId'],
+                $paramKeys,
+                ['timeStamp', 'checksum']
+            );
         }
         if (!$checksumParametersOrder) {
             $checksumParametersOrder = $mandatoryFields;

@@ -8,7 +8,7 @@
   "homepage": "https://github.com/Nuvei/nuvei-server-php",
   "license": "MIT",
   "require": {
-    "php": ">=5.4",
+    "php": "^8.1|^8.4",
     "ext-curl": "*",
     "ext-json": "*"
   },

@@ -22,7 +22,7 @@ class ResponseException extends Exception
      * @param null $status
      * @param null $data
      */
-    public function __construct($message = "", $code = 0, Exception $previous = null, $status = null, $data = null)
+    public function __construct($message = "", $code = 0, ?Exception $previous = null, $status = null, $data = null)
     {
         $this->_status = $status;
         $this->_data   = $data;

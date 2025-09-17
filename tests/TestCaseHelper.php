@@ -290,7 +290,7 @@ class TestCaseHelper
         return $service->submitRequest($params);
     }
 
-    public static function generateDefaultOrder() : array
+    public static function generateDefaultOrder()
     {
         $withdrawalRequest = self::generateDefaultRequest();
         $params = [
@@ -307,7 +307,7 @@ class TestCaseHelper
         return $service->placeWithdrawalOrder($params);
     }
 
-    public static function generateApprovedOrder() : array
+    public static function generateApprovedOrder()
     {
         $withdrawalRequest = self::generateDefaultRequest();
         $params = [
@@ -319,7 +319,7 @@ class TestCaseHelper
         return $service->approveRequest($params);
     }
 
-    public static function generateMinimalWithdrawalOrder($amount = 0.01) : array
+    public static function generateMinimalWithdrawalOrder($amount = 0.01)
     {
         $withdrawalRequest = self::generateDefaultRequest();
         $params = [

@@ -17,7 +17,7 @@ class SimpleData
         return $country;
     }
 
-    public static function getAmount($amount = null) : string
+    public static function getAmount($amount = null)
     {
         if(!is_null($amount)) {
             return (string) $amount;
@@ -353,7 +353,7 @@ class SimpleData
     /**
      * @return int Returns 0 if the transaction is a withdrawal, 1 if it is a refund.
      */
-    public static function generateSettlementType($type = 'withdrawal') : int
+    public static function generateSettlementType($type = 'withdrawal')
     {
         $availableTypes = [
             0 => 'withdrawal',

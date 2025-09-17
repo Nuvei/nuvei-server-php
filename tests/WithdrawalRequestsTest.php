@@ -68,7 +68,7 @@ class WithdrawalRequestsTest extends TestCase
         $this->assertThat($response, $this->logicalOr(
             $this->arrayHasKey('merchantId'),
             $this->arrayHasKey('merchantSiteId'),
-            $this->arrayHasKey('transactionsDetailList'),
+            $this->arrayHasKey('transactionsDetailList')
         ));
         $this->assertEquals('SUCCESS', $response['status']);
     }
